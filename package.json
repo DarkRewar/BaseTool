@@ -1,0 +1,20 @@
+{
+  "name": "com.lignus.basetool",
+  "version": "0.0.1",
+  "displayName": "Base Tool",
+  "description": "Le package pour d\u00e9marrer tes projets",
+  "unity": "2020.2",
+  "unityRelease": "1f1",
+  "keywords": [
+    "tool",
+    "starter",
+    "game"
+  ],
+  "author": {
+    "name": "Curtis Pelissier",
+    "email": "curtis.pelissier@gmail.com",
+    "url": "https://www.lignus.fr"
+  },
+  "type": "module",
+  "hideInEditor": false
+}
