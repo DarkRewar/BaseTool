@@ -54,29 +54,7 @@ namespace BaseTool.Generic.Utils
                     }
                 }
 
-                _languagesAvailable = new List<string>();
-                foreach (var t in _translationObjects)
-                {
-                    _languagesAvailable.Add(t.CountryKey);
-
-                    foreach(var trans in t.Translations)
-                    {
-                        if (_translations.ContainsKey(trans.Key))
-                        {
-                            _translations[trans.Key].Translations.Add(t.CountryKey, trans.Value);
-                        }
-                        else
-                        {
-                            var dic = new Dictionary<string, string>();
-                            dic.Add(t.CountryKey, trans.Value);
-                            _translations.Add(trans.Key, new EditorTranslation
-                            {
-                                TranslateIndex = trans.Key,
-                                Translations = dic
-                            });
-                        }
-                    }
-                }
+                LoadTranslations();
             }
         }
 
@@ -96,8 +74,8 @@ namespace BaseTool.Generic.Utils
                 {
                     if(string.IsNullOrEmpty(_search) || pair.Key.Contains(_search))
                     {
-                        EditorGUILayout.BeginVertical();
-                        GUILayout.Box(pair.Key);
+                        Rect content = EditorGUILayout.BeginVertical();
+                        _translations[pair.Key].TranslateIndex = GUILayout.TextArea(pair.Value.TranslateIndex);
                         foreach (string key in _languagesAvailable)
                         {
                             EditorGUILayout.BeginVertical();
@@ -106,6 +84,8 @@ namespace BaseTool.Generic.Utils
                             EditorGUILayout.EndVertical();
                         }
                         EditorGUILayout.EndVertical();
+                        GUI.Box(content, GUIContent.none);
+                        GUILayout.Space(10);
                     }
                 }
             }
@@ -205,9 +185,39 @@ namespace BaseTool.Generic.Utils
                 {
                     tl.Save();
                 }
+
+                LoadTranslations();
             }
 
             EditorGUILayout.EndVertical();
+        }
+
+        void LoadTranslations()
+        {
+            _translations.Clear();
+            _languagesAvailable = new List<string>();
+            foreach (var t in _translationObjects)
+            {
+                _languagesAvailable.Add(t.CountryKey);
+
+                foreach (var trans in t.Translations)
+                {
+                    if (_translations.ContainsKey(trans.Key))
+                    {
+                        _translations[trans.Key].Translations.Add(t.CountryKey, trans.Value);
+                    }
+                    else
+                    {
+                        var dic = new Dictionary<string, string>();
+                        dic.Add(t.CountryKey, trans.Value);
+                        _translations.Add(trans.Key, new EditorTranslation
+                        {
+                            TranslateIndex = trans.Key,
+                            Translations = dic
+                        });
+                    }
+                }
+            }
         }
     }
 }

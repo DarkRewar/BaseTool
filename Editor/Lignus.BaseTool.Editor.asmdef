@@ -1,7 +1,9 @@
 {
 	"name": "Lignus.BaseTool.Editor",
     "references": ["Lignus.BaseTool.Runtime"],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
