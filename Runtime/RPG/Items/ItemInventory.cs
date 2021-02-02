@@ -8,7 +8,7 @@ namespace BaseTool.RPG.Items
 {
     public class ItemInventory
     {
-        public Item Item;
+        public object Item;
         public int Count;
     }
 }

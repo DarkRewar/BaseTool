@@ -1,10 +1,10 @@
 {
   "name": "com.lignus.basetool",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "displayName": "Base Tool",
   "description": "Le package pour d\u00e9marrer tes projets",
   "unity": "2020.2",
-  "unityRelease": "1f1",
+  "unityRelease": "2f1",
   "category": "Scripts",
   "keywords": [
     "tool",
