@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BaseTool.Generic.Utils
+namespace BaseTool
 {
     /// <summary>
     /// System to easily use cooldown as float values.<br/>

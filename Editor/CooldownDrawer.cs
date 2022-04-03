@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace BaseTool.Generic.Utils
+namespace BaseTool
 {
     [CustomPropertyDrawer(typeof(Cooldown))]
     public class CooldownDrawer : PropertyDrawer
