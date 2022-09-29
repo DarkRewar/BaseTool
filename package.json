@@ -3,8 +3,8 @@
   "version": "0.0.3",
   "displayName": "Base Tool",
   "description": "Le package pour d\u00e9marrer tes projets",
-  "unity": "2020.2",
-  "unityRelease": "2f1",
+  "unity": "2021.3",
+  "unityRelease": "10f1",
   "category": "Scripts",
   "keywords": [
     "tool",
@@ -14,7 +14,7 @@
   "author": {
     "name": "Curtis Pelissier",
     "email": "curtis.pelissier@gmail.com",
-    "url": "https://www.lignus.fr"
+    "url": "https://rewar.fr"
   },
   "hideInEditor": false
 }
