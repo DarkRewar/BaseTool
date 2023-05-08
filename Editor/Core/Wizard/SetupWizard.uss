@@ -1,0 +1,65 @@
+:root {
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.modules-title {
+    font-size: 24px;
+    padding: 10px 0;
+}
+
+.modules-container {
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.module-button {
+    width: 120px;
+    height: 120px;
+    flex-direction: column;
+}
+
+.module-button-icon {
+    height: 80px;
+    margin: 10px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#CoreButton .module-button-icon {
+    background-image: url('./gear_icon.png');
+}
+
+#ShooterButton .module-button-icon {
+    background-image: url('./pistol_icon.png');
+}
+
+#RPGButton .module-button-icon {
+    background-image: url('./crossed_swords_icon.png');
+}
+
+#RogueliteButton .module-button-icon {
+    background-image: url('./dice_icon.png');
+}
+
+#UIButton .module-button-icon {
+    background-image: url('./pager_icon.png');
+}
+
+.module-button .unity-toggle__label {
+    min-width: initial;
+    flex-grow: 1;
+}
+
+.module-button .unity-toggle__input {
+    flex-grow: 0;
+}
+
+.bottom-bar {
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.apply-button {
+    width: 150px
+}
