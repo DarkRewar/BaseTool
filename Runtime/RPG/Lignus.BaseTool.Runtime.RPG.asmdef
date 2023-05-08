@@ -1,6 +1,6 @@
 {
-    "name": "Lignus.BaseTool.Runtime",
-    "rootNamespace": "BaseTool",
+    "name": "Lignus.BaseTool.Runtime.RPG",
+    "rootNamespace": "BaseTool.RPG",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
