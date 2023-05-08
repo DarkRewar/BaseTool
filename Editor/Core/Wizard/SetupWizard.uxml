@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/SetupWizard.uss?fileID=7433441132597879392&amp;guid=21bb0e46856df20468833af8f96d0203&amp;type=3#SetupWizard" />
+    <ui:Label text="Pick your modules" class="modules-title" />
+    <ui:VisualElement class="modules-container">
+        <ui:Button display-tooltip-when-elided="true" name="CoreButton" class="module-button">
+            <ui:VisualElement class="module-button-icon" />
+            <ui:Toggle label="Core" value="true" />
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="ShooterButton" class="module-button">
+            <ui:VisualElement class="module-button-icon" />
+            <ui:Toggle label="Shooter" />
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="RPGButton" class="module-button">
+            <ui:VisualElement class="module-button-icon" />
+            <ui:Toggle label="RPG" />
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="RogueliteButton" class="module-button">
+            <ui:VisualElement class="module-button-icon" />
+            <ui:Toggle label="Roguelite" />
+        </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="UIButton" class="module-button">
+            <ui:VisualElement class="module-button-icon" />
+            <ui:Toggle label="UI" />
+        </ui:Button>
+    </ui:VisualElement>
+    <ui:VisualElement class="bottom-bar">
+        <ui:Button text="Apply" display-tooltip-when-elided="true" name="ApplyButton" class="apply-button" />
+    </ui:VisualElement>
+</ui:UXML>

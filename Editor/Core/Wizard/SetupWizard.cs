@@ -1,0 +1,191 @@
+using System;
+using System.Reflection;
+using System.Text;
+using BaseTool.Tools;
+using NUnit.Framework.Constraints;
+using UnityEditor;
+using UnityEditor.Build;
+using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEditor.UIElements;
+
+public class SetupWizard : EditorWindow
+{
+    static readonly StringBuilder _stringBuilder = new();
+    
+    [SerializeField] private VisualTreeAsset _visualTreeAsset = default;
+
+    private VisualElement _view;
+
+    public const string ShooterDefine = "BASETOOL_SHOOTER";
+    public const string RPGDefine = "BASETOOL_RPG";
+    public const string RogueliteDefine = "BASETOOL_ROGUELITE";
+    public const string UIDefine = "BASETOOL_UI";
+    
+    [MenuItem("Window/BaseTool/Setup")]
+    public static void ShowExample()
+    {
+        SetupWizard wnd = GetWindow<SetupWizard>();
+        wnd.minSize = new(600, 400);
+        wnd.titleContent = new GUIContent("Setup Wizard");
+    }
+
+    public void CreateGUI()
+    {
+        // Each editor window contains a root VisualElement object
+        VisualElement root = rootVisualElement;
+
+        // Import UXML
+        //var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/com.lignus.basetool/Editor/Core/Wizard/SetupWizard.uxml");
+        _view = _visualTreeAsset.Instantiate();
+        root.Add(_view);
+
+        var coreButton = _view.Q<Button>("CoreButton");
+        coreButton.SetEnabled(false);
+        
+        var shooterButton = _view.Q<Button>("ShooterButton");
+        shooterButton.RegisterCallback<ClickEvent>(ExecuteToggle);
+        shooterButton.Q<Toggle>().SetValueWithoutNotify(HasGlobalDefine(ShooterDefine));
+        
+        var rpgButton = _view.Q<Button>("RPGButton");
+        rpgButton.RegisterCallback<ClickEvent>(ExecuteToggle);
+        rpgButton.Q<Toggle>().SetValueWithoutNotify(HasGlobalDefine(RPGDefine));
+        
+        var rogueliteButton = _view.Q<Button>("RogueliteButton");
+        rogueliteButton.RegisterCallback<ClickEvent>(ExecuteToggle);
+        rogueliteButton.Q<Toggle>().SetValueWithoutNotify(HasGlobalDefine(RogueliteDefine));
+        
+        var uiButton = _view.Q<Button>("UIButton");
+        uiButton.RegisterCallback<ClickEvent>(ExecuteToggle);
+        uiButton.Q<Toggle>().SetValueWithoutNotify(HasGlobalDefine(UIDefine));
+
+        var applyButton = _view.Q<Button>("ApplyButton");
+        applyButton.RegisterCallback<ClickEvent>(OnApplyClicked);
+    }
+
+    private void ExecuteToggle(ClickEvent evt)
+    {
+        if (evt.target is not VisualElement ve) return;
+
+        Toggle toggle = ve.Q<Toggle>();
+        toggle.SetValueWithoutNotify(!toggle.value);
+    }
+
+    private void OnApplyClicked(ClickEvent evt)
+    {
+        if(_view.Q<Button>("ShooterButton").Q<Toggle>().value)
+            AddGlobalDefine(ShooterDefine);
+        else
+            RemoveGlobalDefine(ShooterDefine);
+        
+        if(_view.Q<Button>("RPGButton").Q<Toggle>().value)
+            AddGlobalDefine(RPGDefine);
+        else
+            RemoveGlobalDefine(RPGDefine);
+        
+        if(_view.Q<Button>("RogueliteButton").Q<Toggle>().value)
+            AddGlobalDefine(RogueliteDefine);
+        else
+            RemoveGlobalDefine(RogueliteDefine);
+        
+        if(_view.Q<Button>("UIButton").Q<Toggle>().value)
+            AddGlobalDefine(UIDefine);
+        else
+            RemoveGlobalDefine(UIDefine);
+    }
+    
+    /// <summary>
+    /// Adds the given global define if it's not already present
+    /// </summary>
+    public static void AddGlobalDefine(string id)
+    {
+        bool added = false;
+        int totGroupsModified = 0;
+        BuildTargetGroup[] targetGroups = (BuildTargetGroup[])Enum.GetValues(typeof(BuildTargetGroup));
+        foreach(BuildTargetGroup btg in targetGroups)
+        {
+            //if (btg == BuildTargetGroup.Unknown) continue;
+            if (!IsValidBuildTargetGroup(btg)) continue;
+            string defs = PlayerSettings.GetScriptingDefineSymbolsForGroup(btg);
+            string[] singleDefs = defs.Split(';');
+            if (Array.IndexOf(singleDefs, id) != -1) continue; // Already present
+            added = true;
+            totGroupsModified++;
+            defs += defs.Length > 0 ? ";" + id : id;
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(btg, defs);
+        }
+        if (added) Debug.Log(string.Format("DOTween : added global define \"{0}\" to {1} BuildTargetGroups", id, totGroupsModified));
+    }
+
+    /// <summary>
+    /// Removes the given global define if it's present
+    /// </summary>
+    public static void RemoveGlobalDefine(string id)
+    {
+        bool removed = false;
+        int totGroupsModified = 0;
+        BuildTargetGroup[] targetGroups = (BuildTargetGroup[])Enum.GetValues(typeof(BuildTargetGroup));
+        foreach(BuildTargetGroup btg in targetGroups) {
+            //if (btg == BuildTargetGroup.Unknown) continue;
+            if (!IsValidBuildTargetGroup(btg)) continue;
+            string defs = PlayerSettings.GetScriptingDefineSymbolsForGroup(btg);
+            string[] singleDefs = defs.Split(';');
+            if (Array.IndexOf(singleDefs, id) == -1) continue; // Not present
+            removed = true;
+            totGroupsModified++;
+            _stringBuilder.Length = 0;
+            for (int i = 0; i < singleDefs.Length; ++i) {
+                if (singleDefs[i] == id) continue;
+                if (_stringBuilder.Length > 0) _stringBuilder.Append(';');
+                _stringBuilder.Append(singleDefs[i]);
+            }
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(btg, _stringBuilder.ToString());
+        }
+        _stringBuilder.Length = 0;
+        if (removed) 
+            Debug.Log($"BaseTool : removed global define \"{id}\" from {totGroupsModified} BuildTargetGroups");
+    } 
+    
+    /// <summary>
+    /// Returns TRUE if the given global define is present in all the <see cref="BuildTargetGroup"/>
+    /// or only in the given <see cref="BuildTargetGroup"/>, depending on passed parameters.<para/>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="buildTargetGroup"><see cref="BuildTargetGroup"/>to use. Leave NULL to check in all of them.</param>
+    public static bool HasGlobalDefine(string id, BuildTargetGroup? buildTargetGroup = null)
+    {
+        BuildTargetGroup[] targetGroups = buildTargetGroup == null
+            ? (BuildTargetGroup[])Enum.GetValues(typeof(BuildTargetGroup))
+            : new[] {(BuildTargetGroup)buildTargetGroup};
+        foreach(BuildTargetGroup btg in targetGroups) {
+            if (!IsValidBuildTargetGroup(btg)) continue;
+            string defs = PlayerSettings.GetScriptingDefineSymbolsForGroup(btg);
+            string[] singleDefs = defs.Split(';');
+            if (Array.IndexOf(singleDefs, id) != -1) return true;
+        }
+        return false;
+    }
+
+    static bool IsValidBuildTargetGroup(BuildTargetGroup group)
+    {
+        if (group == BuildTargetGroup.Unknown) return false;
+        Type moduleManager = Type.GetType("UnityEditor.Modules.ModuleManager, UnityEditor.dll");
+//            MethodInfo miIsPlatformSupportLoaded = moduleManager.GetMethod("IsPlatformSupportLoaded", BindingFlags.Static | BindingFlags.NonPublic);
+        MethodInfo miGetTargetStringFromBuildTargetGroup = moduleManager.GetMethod(
+            "GetTargetStringFromBuildTargetGroup", BindingFlags.Static | BindingFlags.NonPublic
+        );
+        MethodInfo miGetPlatformName = typeof(PlayerSettings).GetMethod(
+            "GetPlatformName", BindingFlags.Static | BindingFlags.NonPublic
+        );
+        string targetString = (string)miGetTargetStringFromBuildTargetGroup.Invoke(null, new object[] {group});
+        string platformName = (string)miGetPlatformName.Invoke(null, new object[] {group});
+
+        // Group is valid if at least one betweeen targetString and platformName is not empty.
+        // This seems to me the safest and more reliant way to check,
+        // since ModuleManager.IsPlatformSupportLoaded dosn't work well with BuildTargetGroup (only BuildTarget)
+        bool isValid = !string.IsNullOrEmpty(targetString) || !string.IsNullOrEmpty(platformName);
+
+//            Debug.Log((isValid ? "<color=#00ff00>" : "<color=#ff0000>") + group + " > " + targetString + " / " + platformName + " > "  + isValid + "/" + miIsPlatformSupportLoaded.Invoke(null, new object[] {group.ToString()}) + "</color>");
+        return isValid;
+    }
+}
