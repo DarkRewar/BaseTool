@@ -1,14 +1,18 @@
 {
-    "name": "Lignus.BaseTool.Runtime",
-    "rootNamespace": "BaseTool",
-    "references": [],
+    "name": "Lignus.BaseTool.Runtime.UI",
+    "rootNamespace": "BaseTool.UI",
+    "references": [
+        "GUID:c38311b79c9d2b047b494e941287c39d"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "BASETOOL_UI"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }
