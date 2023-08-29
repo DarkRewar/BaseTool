@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/com.lignus.basetool/Runtime/Core/Consoles/Resources/ConsoleView.uss?fileID=7433441132597879392&amp;guid=13d7b0f3bf3364934bb1305ecf9cc7c2&amp;type=3#ConsoleView" />
+    <ui:VisualElement name="ConsoleContainer" class="console-container">
+        <ui:ScrollView name="ConsoleScroll" class="console-scroll" />
+        <ui:TextField picking-mode="Ignore" value="filler text" name="ConsoleField" class="console-field" />
+    </ui:VisualElement>
+</ui:UXML>
