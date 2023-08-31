@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace BaseTool.Core.Consoles
 {
     public class ConsoleArguments
     {
+        public readonly string[] RawArgs;
+        
         private List<string> _mainParams;
         private Dictionary<string, string> _argumentsParams;
 
@@ -13,14 +17,16 @@ namespace BaseTool.Core.Consoles
 
         public ConsoleArguments()
         {
-            this._mainParams = new List<string>();
-            this._argumentsParams = new Dictionary<string, string>();
+            RawArgs = Array.Empty<string>();
+            _mainParams = new List<string>();
+            _argumentsParams = new Dictionary<string, string>();
         }
 
         public ConsoleArguments(string[] args)
             : this()
         {
-            this.Parse(args);
+            RawArgs = args;
+            Parse(args);
         }
 
         private void Parse(string[] args)
@@ -47,5 +53,27 @@ namespace BaseTool.Core.Consoles
         public bool Exists(int index) => 0 <= index && index < _mainParams.Count;
 
         public bool Exists(string index) => _argumentsParams.ContainsKey(index);
+
+        public override string ToString()
+        {
+            StringBuilder sb = new("arguments:");
+            if (RawArgs.Length == 0)
+            {
+                sb.Append(" [empty]");
+                return sb.ToString();
+            }
+
+            foreach (var mainParam in _mainParams)
+            {
+                sb.Append($"\n[{mainParam}]");
+            }
+            
+            foreach (var argParam in _argumentsParams)
+            {
+                sb.Append($"\n[{argParam.Key} = {argParam.Value}]");
+            }
+
+            return sb.ToString();
+        }
     }
 }

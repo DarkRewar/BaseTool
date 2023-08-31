@@ -5,15 +5,17 @@
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.7);
-    color: #E1E1E1;
+    color: rgb(225, 225, 225);
 }
 
 .console-scroll {
     flex-grow: 1;
     flex-shrink: 0;
+    max-height: 350px;
 }
 
 .console-field {
+    --unity-cursor-color: rgb(180, 180, 180);
     flex-shrink: 0;
     margin-left: 0;
     margin-right: 0;

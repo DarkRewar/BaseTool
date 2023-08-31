@@ -1,14 +1,11 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Object = System.Object;
 
 namespace BaseTool.Core.Consoles
 {
     [RequireComponent(typeof(UIDocument))]
     public class ConsoleManager : MonoBehaviour
     {
-        [SerializeField] private PanelSettings _panelSettings;
         private UIDocument _uiDocument;
 
         private ScrollView _scrollView;
@@ -29,8 +26,12 @@ namespace BaseTool.Core.Consoles
             _scrollView = _uiDocument.rootVisualElement.Q<ScrollView>("ConsoleScroll");
             
             _textField = _uiDocument.rootVisualElement.Q<TextField>("ConsoleField");
-            _textField.RegisterCallback<ChangeEvent<string>>(OnConsoleFieldChanged);
-            _textField.RegisterCallback<KeyDownEvent>(OnConsoleFieldKeyDown);
+            _textField.RegisterCallback<KeyDownEvent>(OnConsoleFieldKeyDown, TrickleDown.TrickleDown);
+            _textField.RegisterCallback<NavigationSubmitEvent>(e =>
+            {
+                e.StopImmediatePropagation();
+                _textField.ElementAt(0).Focus();
+            }, TrickleDown.TrickleDown);
         }
 
         private void Update()
@@ -48,6 +49,8 @@ namespace BaseTool.Core.Consoles
                 _displayed 
                     ? DisplayStyle.Flex 
                     : DisplayStyle.None;
+            
+            if(_displayed) _textField.ElementAt(0).Focus();
         }
 
         public void WriteLine(string txt)
@@ -55,22 +58,22 @@ namespace BaseTool.Core.Consoles
             _scrollView.Add(new Label(txt));
         }
 
-        private void OnConsoleFieldChanged(ChangeEvent<string> evt)
-        {
-            //throw new NotImplementedException();
-        }
-
         private void OnConsoleFieldKeyDown(KeyDownEvent evt)
         {
+            evt.StopImmediatePropagation();
             if (evt.keyCode == KeyCode.Tab)
             {
-                _textField.SetValueWithoutNotify(Console.TabComplete(_textField.text));
+                var completion = Console.TabComplete(_textField.text).TrimEnd();
+                _textField.SetValueWithoutNotify(completion);
+                _textField.cursorIndex = completion.Length;
+                _textField.selectIndex = completion.Length;
             }
             
             if (evt.keyCode != KeyCode.Return) return;
 
             Console.EnqueueCommand(_textField.text);
             _textField.SetValueWithoutNotify(null);
+            _uiDocument.rootVisualElement.schedule.Execute(_ => _textField.ElementAt(0).Focus()).ExecuteLater(50);
         }
     }
 }

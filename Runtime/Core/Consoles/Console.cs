@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace BaseTool.Core.Consoles
 {
@@ -163,7 +162,7 @@ namespace BaseTool.Core.Consoles
             if (_commands.TryGetValue(lower, out var consoleCommand))
             {
                 string[] array = stringList.GetRange(1, stringList.Count - 1).ToArray();
-                consoleCommand.method(array);
+                consoleCommand.method(ParseArguments(array));
             }
             else
                 OutputString("Unknown command: " + stringList[0]);
@@ -234,12 +233,12 @@ namespace BaseTool.Core.Consoles
 
         public static void RemoveCommand(string name) => _commands.Remove(name.ToLower());
 
-        private void HelpCommand(string[] args)
+        private void HelpCommand(ConsoleArguments args)
         {
             OutputString("Hello this is some help!");
         }
 
-        private void ListCommand(string[] args)
+        private void ListCommand(ConsoleArguments args)
         {
             StringBuilder sb = new("List of available commands:");
             foreach ((string commandKey, var command) in _commands)

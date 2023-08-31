@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   themeUss: {fileID: -4733365628477956816, guid: 92b4259311bd744afbdf04903c2b546a, type: 3}
   m_TargetTexture: {fileID: 0}
-  m_ScaleMode: 1
+  m_ScaleMode: 0
   m_ReferenceSpritePixelsPerUnit: 100
-  m_Scale: 1
+  m_Scale: 2
   m_ReferenceDpi: 96
   m_FallbackDpi: 96
   m_ReferenceResolution: {x: 1200, y: 800}

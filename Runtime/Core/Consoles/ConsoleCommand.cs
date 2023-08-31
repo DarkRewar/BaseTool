@@ -1,6 +1,6 @@
 namespace BaseTool.Core.Consoles
 {
-    public delegate void MethodDelegate(string[] args);
+    public delegate void MethodDelegate(ConsoleArguments args);
 
     internal class ConsoleCommand
     {
