@@ -63,3 +63,7 @@ args["number"]; // 123
 // You can check if an argument exists
 args.Exists("h"); // true
 ```
+
+To toggle the dev console, press F4 key.
+
+![image](https://github.com/DarkRewar/BaseTool/assets/7771426/98bfceaa-62d0-45e9-8cc4-f087e2f19a5c)

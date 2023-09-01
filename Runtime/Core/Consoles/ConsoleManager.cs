@@ -65,8 +65,6 @@ namespace BaseTool.Core.Consoles
             {
                 var completion = Console.TabComplete(_textField.text).TrimEnd();
                 _textField.SetValueWithoutNotify(completion);
-                _textField.cursorIndex = completion.Length;
-                _textField.selectIndex = completion.Length;
             }
             
             if (evt.keyCode != KeyCode.Return) return;
