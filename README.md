@@ -67,3 +67,80 @@ args.Exists("h"); // true
 To toggle the dev console, press F4 key.
 
 ![image](https://github.com/DarkRewar/BaseTool/assets/7771426/98bfceaa-62d0-45e9-8cc4-f087e2f19a5c)
+
+### Injector
+
+You can "automatically" retrieve your components by using the `Injector.Process()` method.
+
+To get your `Awake()`, `OnEnable()`, `Start()` or anything else clean, you can add attributes upon fields and properties you want to retrieve. You can use one of those five attributes following their exact method:
+- `GetComponent`
+- `GetComponents`
+- `GetComponentInChildren`
+- `GetComponentsInChildren`
+- `GetComponentInParent`
+
+```csharp
+using BaseTool.Tools;
+using BaseTool.Tools.Attributes;
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
+public class MyComponent : MonoBehaviour
+{
+    [GetComponent, SerializeField]
+    private Rigidbody _rigidbody;
+
+    [GetComponent]
+    public Rigidbody Rigidbody { get; private set; }
+
+    [GetComponentInChildren]
+    public Collider ChildCollider;
+
+    [GetComponentsInChildren]
+    public Collider[] ChildrenColliders;
+
+    [GetComponentInParent]
+    public Transform ParentTransform;
+
+    void Awake() => Injector.Process(this);
+}
+```
+
+### Cooldown
+
+`Cooldown` is a class that can be used to delay a call, action or whatever you want to do. You can directly check the `Cooldown.IsReady` boolean or subscribe to the `Cooldown.OnReady` event.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyComponent : MonoBehaviour
+{
+    [SerializeField]
+    private Cooldown _cooldown = 2;
+
+    void Start()
+    {
+        // Event method
+        _cooldown.OnReady += OnCooldownIsReady;
+    }
+
+    void Update()
+    {
+        // In both way, you need to update the cooldown
+        _cooldown.Update();
+
+        // Update boolean check method
+        if (_cooldown.IsReady)
+        {
+            _cooldown.Reset();
+            // Do something when cooldown is ready
+        }
+    }
+
+    private void OnCooldownIsReady()
+    {
+        // Do something when cooldown is ready
+    }
+}
+```
