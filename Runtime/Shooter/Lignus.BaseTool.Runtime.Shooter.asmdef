@@ -1,16 +1,16 @@
 {
     "name": "Lignus.BaseTool.Runtime.Shooter",
     "rootNamespace": "BaseTool.Shooter",
-    "references": [],
+    "references": [
+        "GUID:c38311b79c9d2b047b494e941287c39d"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [
-        "BASETOOL_SHOOTER"
-    ],
+    "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false
 }
