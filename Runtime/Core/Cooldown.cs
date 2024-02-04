@@ -25,7 +25,7 @@ namespace BaseTool
         public float TimeLeft { get; private set; } = 0;
 
         public bool IsReady => TimeLeft <= 0;
-        
+
         /// <summary>
         /// Event triggered once the cooldown is ready.
         /// </summary>
@@ -50,8 +50,8 @@ namespace BaseTool
             if (TimeLeft > 0)
             {
                 TimeLeft -= time;
-                
-                if(IsReady) OnReady?.Invoke();
+
+                if (IsReady) OnReady?.Invoke();
             }
         }
 
@@ -62,7 +62,7 @@ namespace BaseTool
         {
             TimeLeft = Duration;
         }
-        
+
         /// <summary>
         /// Cast implicitly a float into a cooldown. Really useful to
         /// construct a cooldown without writing "new" keyword.
