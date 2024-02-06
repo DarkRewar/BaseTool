@@ -14,6 +14,12 @@ namespace BaseTool.Movement
         [SerializeField]
         private float _jumpForce = 10;
 
+        [SerializeField]
+        private float _fallMultiplier = 1;
+
+        [SerializeField]
+        private int _jumpCount = 1;
+
         [Header("Ground Check Settings")]
         [SerializeField]
         private LayerMask _groundMask;
@@ -24,23 +30,41 @@ namespace BaseTool.Movement
 
         private Cooldown _coyoteEffectTiming;
         private bool _isJumping = false;
+        private int _jumpsLeft = 1;
 
         public bool IsGrounded { get; protected set; } = true;
 
-        public bool CanJump => !_isJumping && (IsGrounded || !_coyoteEffectTiming.IsReady);
+        public bool CanJump => _jumpsLeft > 0 || (!_isJumping && (IsGrounded || !_coyoteEffectTiming.IsReady));
 
         protected virtual void Awake() => Injector.Process(this);
 
-        protected virtual void Start() => _coyoteEffectTiming = _coyoteEffectDelay;
+        protected virtual void Start()
+        {
+            _coyoteEffectTiming = _coyoteEffectDelay;
+            _jumpsLeft = _jumpCount;
+        }
 
-        protected virtual void FixedUpdate() => CheckGrounded();
+        protected virtual void FixedUpdate()
+        {
+            CheckGrounded();
+
+            if (_rigidbody.velocity.y < 0)
+            {
+                var velocity = _rigidbody.velocity;
+                velocity.y *= _fallMultiplier;
+                _rigidbody.velocity = velocity;
+            }
+        }
 
         public virtual void Jump()
         {
             if (!CanJump) return;
 
+            _jumpsLeft--;
             _coyoteEffectTiming = 0;
-            _rigidbody.AddForce(_jumpForce * Vector3.up, ForceMode.Impulse);
+            var velocity = _rigidbody.velocity;
+            velocity.y = _jumpForce;
+            _rigidbody.velocity = velocity;
             _isJumping = true;
         }
 
@@ -61,6 +85,7 @@ namespace BaseTool.Movement
             else if (!IsGrounded && colliders.Length != 0)
             {
                 _isJumping = false;
+                _jumpsLeft = _jumpCount;
             }
             IsGrounded = colliders.Length != 0;
         }
