@@ -1,25 +1,26 @@
+using BaseTool.Tools;
+using BaseTool.Tools.Attributes;
 using UnityEngine;
 
 namespace BaseTool.Movement
 {
     [AddComponentMenu("BaseTool/Side View Controller")]
-    public class SideViewController : MonoBehaviour, IMovable, IJumpable
+    [RequireComponent(typeof(Rigidbody))]
+    public class SideViewController : MonoBehaviour, IMovable
     {
-        public bool CanJump => throw new System.NotImplementedException();
+        [SerializeField] private float _moveSpeed = 5;
 
-        public void Jump()
-        {
-            throw new System.NotImplementedException();
-        }
+        [GetComponent] private Rigidbody _rigidbody;
+
+        void Awake() => Injector.Process(this);
 
         public void Move(Vector2 move)
         {
-            throw new System.NotImplementedException();
+            var velocity = _rigidbody.velocity;
+            velocity.x = _moveSpeed * move.x;
+            _rigidbody.velocity = velocity;
         }
 
-        public void Rotate(Vector2 rotation)
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Rotate(Vector2 _) { }
     }
 }
