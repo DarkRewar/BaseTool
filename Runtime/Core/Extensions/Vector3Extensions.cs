@@ -35,12 +35,13 @@ namespace BaseTool.Generic.Extensions
         /// Clamp un à un les axes X, Y et Z par les axes des vectors begin et end.
         /// Cela permet à un vector3 d'être limité à un cube déterminé par les points begin et end
         /// </summary>
-        public static Vector3 Clamp(this Vector3 value, Vector3 begin, Vector3 end)
+        public static Vector3 Clamp(this Vector3 value, Vector3 min, Vector3 max)
         {
-            value.x = Mathf.Clamp(value.x, begin.x, end.x);
-            value.y = Mathf.Clamp(value.y, begin.y, end.y);
-            value.z = Mathf.Clamp(value.z, begin.z, end.z);
-            return value;
+            return new Vector3(
+                Mathf.Clamp(value.x, min.x, max.x),
+                Mathf.Clamp(value.y, min.y, max.y),
+                Mathf.Clamp(value.z, min.z, max.z)
+            );
         }
 
         /// <summary>
@@ -49,11 +50,11 @@ namespace BaseTool.Generic.Extensions
         /// </summary>
         public static Vector3 Lerp(this Vector3 ratio, Vector3 begin, Vector3 end)
         {
-            Vector3 tempResult = Vector3.zero;
-            tempResult.x = Mathf.Lerp(begin.x, end.x, ratio.x);
-            tempResult.y = Mathf.Lerp(begin.y, end.y, ratio.y);
-            tempResult.z = Mathf.Lerp(begin.z, end.z, ratio.z);
-            return tempResult;
+            return new Vector3(
+                Mathf.Lerp(begin.x, end.x, ratio.x),
+                Mathf.Lerp(begin.y, end.y, ratio.y),
+                Mathf.Lerp(begin.z, end.z, ratio.z)
+            );
         }
 
         /// <summary>
@@ -62,11 +63,11 @@ namespace BaseTool.Generic.Extensions
         /// </summary>
         public static Vector3 InverseLerp(this Vector3 value, Vector3 begin, Vector3 end)
         {
-            Vector3 tempResult = Vector3.zero;
-            tempResult.x = Mathf.InverseLerp(begin.x, end.x, value.x);
-            tempResult.y = Mathf.InverseLerp(begin.y, end.y, value.y);
-            tempResult.z = Mathf.InverseLerp(begin.z, end.z, value.z);
-            return tempResult;
+            return new Vector3(
+                Mathf.InverseLerp(begin.x, end.x, value.x),
+                Mathf.InverseLerp(begin.y, end.y, value.y),
+                Mathf.InverseLerp(begin.z, end.z, value.z)
+            );
         }
 
         /// <summary>

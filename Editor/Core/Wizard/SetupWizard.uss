@@ -26,8 +26,23 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.module-button .warning-message {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    right: 0;
+    background-color: rgba(243, 156, 18, 0.85);
+    white-space: normal;
+    padding: 5px;
+    -unity-font-style: bold;
+}
+
 #CoreButton .module-button-icon {
     background-image: url('./gear_icon.png');
+}
+
+#MovementButton .module-button-icon {
+    background-image: url('./shoe_icon.png');
 }
 
 #ShooterButton .module-button-icon {
