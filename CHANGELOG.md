@@ -6,6 +6,10 @@
 
 - Add the `SetupWizard` to enable or disable modules [[#7](https://github.com/DarkRewar/BaseTool/pull/7)]
 
+### Changes
+
+- Replace labels by float field in the `[MinMaxAttribute]` property drawer
+
 ## 0.1.0
 
 ### Improvements

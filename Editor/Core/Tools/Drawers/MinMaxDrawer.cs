@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 namespace BaseTool.Tools.Drawers
-{ 
+{
     [CustomPropertyDrawer(typeof(MinMaxAttribute))]
     public class MinMaxDrawer : PropertyDrawer
     {
@@ -28,16 +28,13 @@ namespace BaseTool.Tools.Drawers
                 //The right value
                 Rect rightRect = new Rect(totalValueRect.xMax - leftRect.width - 2, totalValueRect.y, leftRect.width, totalValueRect.height);
 
-                float minValue = property.vector2Value.x; //Current x
-                float maxValue = property.vector2Value.y; //Current y
+                float minValue = EditorGUI.FloatField(leftRect, property.vector2Value.x); //Writes the value on the left
+                float maxValue = EditorGUI.FloatField(rightRect, property.vector2Value.y); //Writes the value on the right
 
-                EditorGUI.MinMaxSlider(valueRect, ref minValue, ref maxValue, minMax.minLimit, minMax.maxLimit);
+                EditorGUI.MinMaxSlider(valueRect, ref minValue, ref maxValue, minMax.MinLimit, minMax.MaxLimit);
 
                 //Assigns the value to the property
                 property.vector2Value = new Vector2(minValue, maxValue);
-
-                EditorGUI.LabelField(leftRect, minValue.ToString("F3")); //Writes the value on the left
-                EditorGUI.LabelField(rightRect, maxValue.ToString("F3")); //Writes the value on the right
             }
             else
             {

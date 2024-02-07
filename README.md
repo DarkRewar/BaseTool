@@ -28,6 +28,8 @@ This tool is made for the Unity package manager. How to install:
 4. [RPG](#rpg) [WIP]
 5. [Roguelite](#roguelite) [WIP]
 6. [UI](#ui)
+7. [Editor](#editor)
+    - [MinMaxAttribute](#minmaxattribute)
 
 ## Core
 
@@ -275,3 +277,26 @@ foreach(Tree<GameObject> child in tree)
 ## UI
 
 [coming soon]
+
+## Editor
+
+### MinMaxAttribute
+
+This attribute allows you to put a slider range for a value in the inspector. It is used to create a range using `Vector2`.
+
+![min_max_attribute](./Documentation~/Editor/min_max_attribute.png)
+
+```csharp
+using BaseTool.Generic.Extensions;
+using BaseTool.Tools.Attributes;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    [MinMax(0, 20)]
+    public Vector2 MinMaxTest = new(5, 15);
+
+    public bool IsValueInRange(float value) => 
+        value.IsBetween(MinMaxTest.x, MinMaxTest.y);
+}
+```
