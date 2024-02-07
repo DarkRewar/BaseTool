@@ -22,7 +22,7 @@ namespace BaseTool.Generic.Extensions
                 max = tmp;
             }
 
-            return (float)random.NextDouble() * (Math.Abs(max - min)) + min;
+            return (float)random.NextDouble() * Math.Abs(max - min) + min;
         }
     }
 }
