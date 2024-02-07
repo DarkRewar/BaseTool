@@ -12,6 +12,7 @@ namespace BaseTool.Generic.Extensions
             value.r = red;
             return value;
         }
+
         /// <summary>
         /// Change la valeur verte d'une couleur
         /// </summary>

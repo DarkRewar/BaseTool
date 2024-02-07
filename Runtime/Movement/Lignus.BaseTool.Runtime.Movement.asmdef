@@ -1,7 +1,9 @@
 {
-    "name": "Lignus.BaseTool.Runtime.RPG",
-    "rootNamespace": "BaseTool.RPG",
-    "references": [],
+    "name": "Lignus.BaseTool.Runtime.Movement",
+    "rootNamespace": "BaseTool.Movement",
+    "references": [
+        "GUID:c38311b79c9d2b047b494e941287c39d"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -9,7 +11,7 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "BASETOOL_RPG"
+        "BASETOOL_MOVEMENT"
     ],
     "versionDefines": [],
     "noEngineReferences": false

@@ -1,5 +1,11 @@
 # Changelog 
 
+## 0.2.0
+
+### Improvements
+
+- Add the `SetupWizard` to enable or disable modules [[#7](https://github.com/DarkRewar/BaseTool/pull/7)]
+
 ## 0.1.0
 
 ### Improvements
@@ -29,3 +35,4 @@
     - Generation : `Repeat()`
 - Add `Vector3Extensions` : `ChangeX()`, `ChangeY()`, `ChangeZ()`, `Clamp()`, `Lerp()`, `InverseLerp()`, `GetClosestPointOnVector()`, `RatioOnVector3()`
 - Add `MinMax` attribute to put upon int and float for inspector
+- Add `Tree<T>` system for generic objects

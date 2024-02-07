@@ -6,6 +6,10 @@
             <ui:VisualElement class="module-button-icon" />
             <ui:Toggle label="Core" value="true" />
         </ui:Button>
+        <ui:Button display-tooltip-when-elided="true" name="MovementButton" class="module-button">
+            <ui:VisualElement class="module-button-icon" />
+            <ui:Toggle label="Movement" />
+        </ui:Button>
         <ui:Button display-tooltip-when-elided="true" name="ShooterButton" class="module-button">
             <ui:VisualElement class="module-button-icon" />
             <ui:Toggle label="Shooter" />
@@ -17,6 +21,7 @@
         <ui:Button display-tooltip-when-elided="true" name="RogueliteButton" class="module-button">
             <ui:VisualElement class="module-button-icon" />
             <ui:Toggle label="Roguelite" />
+            <ui:Label tabindex="-1" text="Under development" parse-escape-sequences="true" display-tooltip-when-elided="true" class="warning-message" />
         </ui:Button>
         <ui:Button display-tooltip-when-elided="true" name="UIButton" class="module-button">
             <ui:VisualElement class="module-button-icon" />
