@@ -3,7 +3,7 @@
 namespace BaseTool.Generic.Extensions
 {
     public static class Vector3Extensions
-    { 
+    {
         /// <summary>
         /// Change la valeur X d'un vecteur3
         /// </summary>
@@ -42,7 +42,7 @@ namespace BaseTool.Generic.Extensions
             value.z = Mathf.Clamp(value.z, begin.z, end.z);
             return value;
         }
-        
+
         /// <summary>
         /// Fait un Lerp sur les trois axes du vector, indépendamment les uns des autres
         /// Cela permet notamment de faire des minimaps en répliquant des positions réels sur un écran
@@ -80,8 +80,7 @@ namespace BaseTool.Generic.Extensions
         {
             float tempDistance = pos.RatioOnVector3(begin, end);
 
-            Vector3 tempClosestPoint = new Vector3();
-
+            Vector3 tempClosestPoint;
             Vector3 tempBeginToEnd = end - begin;
 
             if (tempDistance <= 0)
