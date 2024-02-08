@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c1a179f6e454c099a7dbee4b2f3102, type: 3}
+  m_Name: Riffle
+  m_EditorClassIdentifier: 
+  Title: Riffle
+  Description: Automatic riffle
+  Icon: {fileID: 0}
+  Category: {fileID: 11400000, guid: 8be47d875fd2e134db8eb8180da74386, type: 2}
+  Automatic: 1
+  Damages: 5
+  Ammo: 30
+  AmmoPerShot: 1
+  ReloadingTime:
+    Duration: 1
+  FireRate: 5
+  UseProjectile: 0
+  Range: 200
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 55
+  MaxTraversalCasts: 1
+  Prefab: {fileID: 5136543088149976936, guid: fba889d8a4a8cb64cbc92e33a26e4676, type: 3}
+  ProjectilePrefab: {fileID: 0}
+  CurrentAmmo: 0

@@ -6,12 +6,16 @@
 
 - Package documentation enhanced
 - Add the `SetupWizard` to enable or disable modules [[#7](https://github.com/DarkRewar/BaseTool/pull/7)]
-- Add scriptable object `GameEvent` system  [[#11](https://github.com/DarkRewar/BaseTool/pull/11)]
+- Add the weapon system [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
+- Add scriptable object `GameEvent` system [[#11](https://github.com/DarkRewar/BaseTool/pull/11)]
+- Add `If` and `IfNot` attributes [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
 
 ### Changes
 
 - Replace labels by float field in the `[MinMaxAttribute]` property drawer
 - Replace `BaseTool.Generic.*` namespaces to `BaseTool` [[#10](https://github.com/DarkRewar/BaseTool/pull/10)]
+- Injector does not retrieve if property is not null [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
+- Change component icons to follow their module icon [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
 
 ## 0.1.0
 

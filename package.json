@@ -16,5 +16,12 @@
     "email": "curtis.pelissier@gmail.com",
     "url": "https://rewar.fr"
   },
-  "hideInEditor": false
+  "hideInEditor": false,
+  "samples": [
+    {
+      "displayName": "Shooter Sample",
+      "description": "Contains sample project with the basic shooter features",
+      "path": "Samples~/Shooter"
+    }
+  ]
 }

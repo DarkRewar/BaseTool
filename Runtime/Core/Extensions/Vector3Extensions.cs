@@ -119,5 +119,17 @@ namespace BaseTool
 
             return tempDistance;
         }
+
+        /// <summary>
+        /// Normalize the vector to the passed <paramref name="length"/>.
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static Vector3 LimitLength(this Vector3 pos, float length = 1f)
+        {
+            if (pos.magnitude < length) return pos;
+            return pos.normalized * length;
+        }
     }
 }

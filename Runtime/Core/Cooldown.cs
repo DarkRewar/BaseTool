@@ -22,6 +22,11 @@ namespace BaseTool
         /// </summary>
         public float TimeLeft { get; private set; } = 0;
 
+        /// <summary>
+        /// The time left before the cooldown is ready, in percent, between 0 and 1.
+        /// </summary>
+        public float TimeLeftPercent => TimeLeft / Duration;
+
         public bool IsReady => TimeLeft <= 0;
 
         /// <summary>

@@ -253,3 +253,25 @@ Debug.Log(newPos); // (0.00, 0.50, 1.00)
 ### `GetClosestPointOnVector(Vector3 begin, Vector3 end)`
 
 [WIP]
+
+### `RatioOnVector3(Vector3 begin, Vector3 end)`
+
+[WIP]
+
+### `LimitLength(float length = 1f)`
+
+Returns the vector with a maximum length by limiting its length to `length`.
+You can use it if you want to normalize a vector but only if its magnitude go further a limit value.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+Vector3 pos1 = new(2f, 0, 2f);
+Vector3 pos2 = new(0.5f, 0, 0);
+Vector3 pos3 = new(4f, 0, 3f);
+
+Debug.Log(pos1.LimitLength()); // (0.71, 0.00, 0.71)
+Debug.Log(pos2.LimitLength()); // (0.50, 0.00, 0.00)
+Debug.Log(pos3.LimitLength(4f)); // (3.20, 0.00, 2.40)
+```
