@@ -14,6 +14,7 @@ How to install:
 - Click the plus button-dropdown on the top-left of the window ;
 - Select `Add package from git URL` ;
 - Paste this URL : `https://github.com/DarkRewar/BaseTool.git`
+- Or if you want to test the preview : `https://github.com/DarkRewar/BaseTool.git#develop`
 
 # Documentation
 
@@ -27,13 +28,20 @@ How to install:
     - [Class Extensions](#class-extensions)
     - [Math Utils](#math-utils)
     - [Tree](#tree)
+    - [Interfaces](#core-interfaces)
 2. [Movement](#movement)
 3. [Shooter](#shooter)
+    - [Sample](#shooter-sample)
+    - [Components](#shooter-components)
+    - [Interfaces](#shooter-interfaces)
+    - [Weapon](#weapon)
 4. [RPG](#rpg) [WIP]
 5. [Roguelite](#roguelite) [WIP]
 6. [UI](#ui)
 7. [Editor](#editor)
     - [MinMaxAttribute](#minmaxattribute)
+    - [IfAttribute](#ifattribute)
+    - [IfNotAttribute](#ifnotattribute)
 
 ## Core
 
@@ -313,13 +321,112 @@ foreach(Tree<GameObject> child in tree)
 }
 ```
 
+### <span id="core-interfaces">Interfaces</span>
+
+#### `IDamageable`
+
+Interface used to expose a component that can take damages (from a hit, an attack or a fall).
+
+```csharp
+public interface IDamageable
+{
+    public void TakeDamages(double damages);
+}
+```
+
 ## Movement
 
 [coming soon]
 
 ## Shooter
 
-[coming soon]
+The `Shooter` module contains most of components used for weapons related games.
+You can enable it, if you want to creating one of the following game archetype:
+
+- FPS
+- TPS
+- Arcade shooter
+- Looter shooter
+- RTS
+
+By default, the `Shooter` module is enabled but can be disabled in the [Setup Wizard](#setup-wizard).
+This module is located under the `BaseTool.Shooter` namespace.
+
+### <span id="shooter-sample">Sample</span>
+
+The package include a shooter sample project using most of the primary components to begin creating a FPS game.
+
+### <span id="shooter-components">Components</span>
+
+#### `OldShootInput`
+
+Simple component that handles input (from the old input system) and calls `IShootable` shoot and reload
+methods. It could be used with the [`ShootController`](#shootcontroller) component as well.
+
+#### `ShootController`
+
+This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Shoot Controller`. It implements `IShootable` and `IShootController` interfaces. 
+
+It authorizes a GameObject to use a shoot logic and send shoot and reload informations to other components.
+
+#### `WeaponController`
+
+This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Weapon Controller`.
+
+It is used to update, instantiate and swap weapons.
+
+#### `WeaponSwitcher`
+
+This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Weapon Switcher`.
+
+#### `WeaponProjectile`
+
+This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Weapon Projectile`.
+
+It is used to add the projectile behaviour on a GameObject. This is for weapon purpose ; if a weapon must shoot projectiles instead of a raycast, the GameObject must have this component.
+
+### <span id="shooter-interfaces">Interfaces</span>
+
+#### `IShootable`
+
+This interface must be used on a component that can shoot. E.g. the player or enemies. 
+It forces the implementation of shooting and reloading method.
+
+```csharp
+public interface IShootable
+{
+    public bool CanShoot { get; }
+    public void ShootPressed();
+    public void ShootReleased();
+    public void Reload();
+}
+```
+
+#### `IShootController`
+
+This interface must be used by a component that declares and exposes its shooting callbacks.
+It is not mandatory but allows other components to understand that some logics could be executed
+in the shoot process. For example, when you want a component that triggers animations when it shoots.
+
+```csharp
+public interface IShootController
+{
+    public event Action OnStartShoot;
+    public event Action OnStopShoot;
+    public event Action OnReload;
+}
+```
+
+### Weapon
+
+#### `Weapon`
+
+This is the main object used for every weapons. You can create any type of weapon using this base.
+To create a new one, right click in your project window, then `Create > BaseTool > Shooter > Weapon`.
+
+#### `WeaponCategory`
+
+This object refers to a category that could be assigned to a weapon. It is used to sort weapons or identify ammos. To create a new one, right click in your project window, then `Create > BaseTool > Shooter > Weapon Category`.
 
 ## RPG
 
@@ -335,7 +442,7 @@ foreach(Tree<GameObject> child in tree)
 
 ## Editor
 
-### MinMaxAttribute
+### `MinMaxAttribute`
 
 This attribute allows you to put a slider range for a value in the inspector. It is used to create a range using `Vector2`.
 
@@ -352,5 +459,39 @@ public class MyClass : MonoBehaviour
 
     public bool IsValueInRange(float value) => 
         value.IsBetween(MinMaxTest.x, MinMaxTest.y);
+}
+```
+
+### `IfAttribute`
+
+This attribute can display its property from inspector only if condition is checked.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    public bool UseProjectile = true;
+
+    [If(nameof(UseProjectile))]
+    public GameObject ProjectilePrefab;
+}
+```
+
+### `IfNotAttribute`
+
+This attribute can hide its property from inspector only if condition is checked.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    public bool UseRaycast = true;
+
+    [IfNot(nameof(UseRaycast))]
+    public GameObject ProjectilePrefab;
 }
 ```

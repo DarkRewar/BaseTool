@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c1a179f6e454c099a7dbee4b2f3102, type: 3}
+  m_Name: Rocket Launcher
+  m_EditorClassIdentifier: 
+  Title: Rocket Launcher
+  Description: Heavy weapon that shot a missile.
+  Icon: {fileID: 0}
+  Category: {fileID: 11400000, guid: 91b3a8dcb6a21e145aeedad4a55cfd28, type: 2}
+  Automatic: 0
+  Damages: 100
+  Ammo: 1
+  AmmoPerShot: 1
+  ReloadingTime:
+    Duration: 3
+  FireRate: 5
+  UseProjectile: 1
+  Range: 200
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 55
+  MaxTraversalCasts: 1
+  Prefab: {fileID: 193876917155777767, guid: a37cda7b8f11c7c4fa03797bd7dd2c8d, type: 3}
+  ProjectilePrefab: {fileID: 7501332204251406172, guid: f0c53563cccf3ac498c7acb2eea0d1b5,
+    type: 3}
+  CurrentAmmo: 1

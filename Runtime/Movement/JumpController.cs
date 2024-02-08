@@ -46,12 +46,21 @@ namespace BaseTool.Movement
         {
             CheckGrounded();
 
+#if UNITY_2023_3_OR_NEWER
+            if (_rigidbody.linearVelocity.y < 0)
+            {
+                var velocity = _rigidbody.linearVelocity;
+                velocity.y *= _fallMultiplier;
+                _rigidbody.linearVelocity = velocity;
+            }
+#else
             if (_rigidbody.velocity.y < 0)
             {
                 var velocity = _rigidbody.velocity;
                 velocity.y *= _fallMultiplier;
                 _rigidbody.velocity = velocity;
             }
+#endif
         }
 
         public virtual void Jump()
@@ -60,9 +69,15 @@ namespace BaseTool.Movement
 
             _jumpsLeft--;
             _coyoteEffectTiming = 0;
+#if UNITY_2023_3_OR_NEWER
+            var velocity = _rigidbody.linearVelocity;
+            velocity.y = _jumpForce;
+            _rigidbody.linearVelocity = velocity;
+#else
             var velocity = _rigidbody.velocity;
             velocity.y = _jumpForce;
             _rigidbody.velocity = velocity;
+#endif
             _isJumping = true;
         }
 

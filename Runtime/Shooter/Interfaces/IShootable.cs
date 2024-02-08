@@ -8,6 +8,6 @@ namespace BaseTool.Shooter
 
         public void ShootReleased();
 
-        public void Shoot();
+        public void Reload();
     }
 }

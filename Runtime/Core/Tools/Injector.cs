@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -10,28 +12,28 @@ namespace BaseTool
         {
             Type type = go.GetType();
 
-            System.Reflection.FieldInfo[] fields = type.GetFields(
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic |
-                System.Reflection.BindingFlags.Public
-            );
+            IEnumerable<FieldInfo> fields = type.GetFields(
+                BindingFlags.Instance |
+                BindingFlags.NonPublic |
+                BindingFlags.Public
+            ).Where(f => IsValidMember(go, f));
 
-            foreach (System.Reflection.FieldInfo field in fields)
+            foreach (FieldInfo field in fields)
             {
                 var comp = ExtractFromType(go, field);
                 if (comp != null)
                     field.SetValue(go, comp);
             }
 
-            System.Reflection.PropertyInfo[] properties = go.GetType().GetProperties(
-                System.Reflection.BindingFlags.Instance |
-                System.Reflection.BindingFlags.NonPublic |
-                System.Reflection.BindingFlags.Public |
-                System.Reflection.BindingFlags.SetField |
-                System.Reflection.BindingFlags.GetField
-            );
+            IEnumerable<PropertyInfo> properties = go.GetType().GetProperties(
+                BindingFlags.Instance |
+                BindingFlags.NonPublic |
+                BindingFlags.Public |
+                BindingFlags.SetField |
+                BindingFlags.GetField
+            ).Where(p => IsValidMember(go, p));
 
-            foreach (System.Reflection.PropertyInfo property in properties)
+            foreach (PropertyInfo property in properties)
             {
                 var comp = ExtractFromType(go, property);
                 if (comp != null)
@@ -99,5 +101,12 @@ namespace BaseTool
             return null;
         }
 
+        private static bool IsValidMember(MonoBehaviour go, FieldInfo fieldInfo) =>
+            fieldInfo.IsDefined(typeof(ComponentRetrieverAttribute), true)
+            && (fieldInfo.GetValue(go) == null || fieldInfo.GetValue(go).Equals(null));
+
+        private static bool IsValidMember(MonoBehaviour go, PropertyInfo propertyInfo) =>
+            propertyInfo.IsDefined(typeof(ComponentRetrieverAttribute), true)
+            && (propertyInfo.GetValue(go) == null || propertyInfo.GetValue(go).Equals(null));
     }
 }
