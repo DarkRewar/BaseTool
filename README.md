@@ -200,6 +200,22 @@ public class GameManager : MonoBehaviour
 
 ### Game Events
 
+This feature allows you to create custom events using ScriptableObjects.
+
+It is based upon three elements:
+- `GameEvent` which is the ScriptableObject that handle the event channel ;
+- `GameEventTrigger` which triggers the event on the channel ;
+- `GameEventReceiver` which processes actions when the event is triggered in the channel.
+
+What is the purpose of this architecture? Well, it allows you to trigger multiple actions from only one trigger.
+For example: the player enters a zone of battle, it will close the door, spawn enemies and play the battle music.
+
+Also, this is really useful for multi-scene game events. It is impossible to reference a gameobject from a scene to another.
+That's why subscribing to a SO GameEvent speed up development and let you interoperate events between runtime loaded scenes.
+For example: you have two loaded scenes in your level, the player passes a point that enables platforms in another scene.
+
+You can totally inherit from those classes if you want to make custom game event, more specific or with alternate triggers.
+
 #### `GameEvent`
 
 In the Project window, right click in the folder you want to place the game event
@@ -207,9 +223,30 @@ and then follow `Create > BaseTool > Events > Game Event`.
 
 #### `GameEventTrigger`
 
+This is the component you should use to trigger game events.
+It is recommended to use a `Collider` with this component because 
+it depends on `OnTriggerEnter()` and/or `OnCollisionEnter()` Unity calls to work properly.
+
+|Property|Type|Description|
+|---|---|---|
+|Trigger Once|`bool`|If checked, this component will trigger the event only once.|
+|Trigger Type|`GameEventTriggerType`|How the game event will be processed: Trigger, Collision or both.|
+|Trigger Tags|`List<string>`|List of authorized tags that will trigger the event.|
+|Game Event|`GameEvent`|The game event SO to trigger (optional).|
+|Generic Events|`UnityEvent`|Additional callbacks that you can use (optional).|
+
 ![game_event_trigger.png](./Documentation~/Core/Events/game_event_trigger.png)
 
 #### `GameEventReceiver`
+
+This is the component you should use to process callbacks from a game event.
+You can add it on any elements you want, as long as the objects is active 
+(to allow event subscription in the `OnEnable()` method).
+
+|Property|Type|Description|
+|---|---|---|
+|Game Event|`GameEvent`|The game event SO to listen to.|
+|OnTriggered|`UnityEvent`|Additional callbacks that you can use (optional).|
 
 ![game_event_receiver.png](./Documentation~/Core/Events/game_event_receiver.png)
 
