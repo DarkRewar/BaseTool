@@ -5,6 +5,7 @@
 ### Improvements
 
 - Add the `SetupWizard` to enable or disable modules [[#7](https://github.com/DarkRewar/BaseTool/pull/7)]
+- Add scriptable object `GameEvent` system  [[#11](https://github.com/DarkRewar/BaseTool/pull/11)]
 
 ### Changes
 
