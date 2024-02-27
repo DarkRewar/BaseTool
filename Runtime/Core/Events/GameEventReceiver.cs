@@ -4,6 +4,7 @@ using UnityEngine.Events;
 namespace BaseTool
 {
     [AddComponentMenu("BaseTool/Events/Game Event Receiver")]
+    [HelpURL("https://github.com/DarkRewar/BaseTool#game-events")]
     public class GameEventReceiver : MonoBehaviour
     {
         [SerializeField]

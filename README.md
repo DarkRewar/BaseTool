@@ -1,11 +1,14 @@
 # Base Tool
+
 The perfect starter tool to put in your Unity projects!
 
 # Description
 
 # Installation
 
-This tool is made for the Unity package manager. How to install:
+This tool is made for the Unity package manager and is available for Unity 2021 LTS and further.
+
+How to install:
 
 - Go to `Window > Package Manager` ;
 - Click the plus button-dropdown on the top-left of the window ;
@@ -20,6 +23,7 @@ This tool is made for the Unity package manager. How to install:
     - [Injector](#injector)
     - [Cooldown](#cooldown)
     - [MonoSingleton](#monosingleton)
+    - [GameEvent](#game-events)
     - [Class Extensions](#class-extensions)
     - [Math Utils](#math-utils)
     - [Tree](#tree)
@@ -193,6 +197,21 @@ public class GameManager : MonoBehaviour
     }
 }
 ```
+
+### Game Events
+
+#### `GameEvent`
+
+In the Project window, right click in the folder you want to place the game event
+and then follow `Create > BaseTool > Events > Game Event`.
+
+#### `GameEventTrigger`
+
+![game_event_trigger.png](./Documentation~/Core/Events/game_event_trigger.png)
+
+#### `GameEventReceiver`
+
+![game_event_receiver.png](./Documentation~/Core/Events/game_event_receiver.png)
 
 ### Class Extensions
 

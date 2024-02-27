@@ -13,6 +13,7 @@ namespace BaseTool
     }
 
     [AddComponentMenu("BaseTool/Events/Game Event Trigger")]
+    [HelpURL("https://github.com/DarkRewar/BaseTool#game-events")]
     public class GameEventTrigger : MonoBehaviour
     {
         [Header("GameEventTrigger settings")]
