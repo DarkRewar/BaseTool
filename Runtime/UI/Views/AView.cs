@@ -1,7 +1,4 @@
-﻿using BaseTool.Generic.Utils;
-using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BaseTool.UI.Views
 {
@@ -49,7 +46,7 @@ namespace BaseTool.UI.Views
         protected void SetupTree()
         {
             Tree.Current = this;
-            if(transform.parent)
+            if (transform.parent)
             {
                 AView parent = transform.parent.GetComponentInParent<AView>();
                 if (parent != null)
@@ -64,13 +61,13 @@ namespace BaseTool.UI.Views
         {
             foreach (Tree<AView> aView in Tree)
             {
-                if(aView.Current is T2 child)
+                if (aView.Current is T2 child)
                 {
                     childView = child;
                     return true;
                 }
-                
-                if(aView.Current.FindInChildren(out childView))
+
+                if (aView.Current.FindInChildren(out childView))
                 {
                     return true;
                 }

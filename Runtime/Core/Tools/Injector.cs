@@ -1,9 +1,8 @@
 using System;
 using System.Reflection;
-using BaseTool.Tools.Attributes;
 using UnityEngine;
 
-namespace BaseTool.Tools
+namespace BaseTool
 {
     public static class Injector
     {

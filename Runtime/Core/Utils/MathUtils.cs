@@ -1,4 +1,4 @@
-﻿namespace BaseTool.Generic.Utils
+﻿namespace BaseTool
 {
     public static class MathUtils
     {

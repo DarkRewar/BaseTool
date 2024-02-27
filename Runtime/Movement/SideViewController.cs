@@ -1,10 +1,8 @@
-using BaseTool.Tools;
-using BaseTool.Tools.Attributes;
 using UnityEngine;
 
 namespace BaseTool.Movement
 {
-    [AddComponentMenu("BaseTool/Side View Controller")]
+    [AddComponentMenu("BaseTool/Movement/Side View Controller")]
     [RequireComponent(typeof(Rigidbody))]
     public class SideViewController : MonoBehaviour, IMovable
     {

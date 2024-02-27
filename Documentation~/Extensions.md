@@ -22,7 +22,7 @@ Methods that extends from `Camera` :
 Changes the `Color.r`, `Color.g`, `Color.b`, `Color.a` value from a `Color` and return the new object. Why do these extensions exist? Because you can't modify a struct (like color). You always need to replace the reference.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using UnityEngine;
 
 public class Test
@@ -49,7 +49,7 @@ test.Color = tempColor;
 Returns a hex code from a color object:
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 
 Color red = Color.red;
 red.ToHex(); // #FF0000
@@ -61,7 +61,7 @@ Color.blue.ToHex(); // #0000FF
 Returns a hex code including alpha from a color object:
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using UnityEngine;
 
 Color red = Color.red;
@@ -79,7 +79,7 @@ green.ToHexAlpha(); // #00FF007F
 Returns a random element from a `List<T>` using the `UnityEngine.Random` class.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -97,7 +97,7 @@ Same as `GetRandom()` but using the `System.Random` object passed by parameter i
 Returns a random element from a `List<T>` using the `UnityEngine.Random` class and removes it from the list.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -119,7 +119,7 @@ Same as `ExtractRandom()` but using the `System.Random` object passed by paramet
 Determines if an `int` or a `float` is one of the numbers passed by parameter.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 
 int element = 4;
 element.IsIn(1, 2, 3, 4, 5); // true
@@ -135,7 +135,7 @@ floatElement.IsIn(5, 6, 7, 8); // true
 Determines if an `int` or a `float` is between a range of two numbers.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 
 int element = 4;
 element.IsBetween(3, 5); // true
@@ -152,7 +152,7 @@ floatElement.IsBetween(1.3f, 4.5f); // true
 Same as `IsBetween()` but excluding both min and max.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 
 int element = 4;
 element.IsBetween(3, 5); // true
@@ -171,7 +171,7 @@ floatElement.IsBetween(1.3f, 4.5f); // false
 Works the same as the [`UnityEngine.Random.Range()`](https://docs.unity3d.com/ScriptReference/Random.Range.html) but for `System.Random`.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using System;
 
 Random rand = new();
@@ -189,7 +189,7 @@ rand.Next(1.2f, 55.5f);
 hanges the `Vector3.x`, `Vector3.y` or `Vector3.z` value from a `Vector3` and return the new object. Why do these extensions exist? Because you can't modify a struct. You always need to replace the reference.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 
 Transform player; // let's admit it's initialized
 
@@ -210,7 +210,7 @@ player.position = tempPos;
 Works like the [`Mathf.Clamp()`](https://docs.unity3d.com/ScriptReference/Mathf.Clamp.html) for `float`, but using two vectors as min and max.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using UnityEngine;
 
 Vector3 pos = new(1, 2, 3);
@@ -223,7 +223,7 @@ Debug.Log(pos); // (2.00, 1.00, 0.00)
 Works like the [`Vector3.Lerp()`](https://docs.unity3d.com/ScriptReference/Vector3.Lerp.html) but using a vector as the ratio.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using UnityEngine;
 
 Vector3 ratio = new(0, 0.5f, 1);
@@ -239,7 +239,7 @@ Debug.Log(newPos); // (-5.00, 3.00, 29.00)
 Works like the [`Vector3.InverseLerp()`](https://docs.unity3d.com/ScriptReference/Vector3.InverseLerp.html) but using a vector as the position to ratio.
 
 ```csharp
-using BaseTool.Generic.Extensions;
+using BaseTool;
 using UnityEngine;
 
 Vector3 pos = new(-5f, 3f, 29f);

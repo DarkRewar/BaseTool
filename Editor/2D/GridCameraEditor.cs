@@ -1,8 +1,6 @@
-﻿using UnityEngine;
+﻿using BaseTool._2D;
 using UnityEditor;
-using BaseTool._2D;
-using BaseTool.Generic.Extensions;
-using System;
+using UnityEngine;
 
 namespace BaseTool.Editor._2D
 {
@@ -18,7 +16,7 @@ namespace BaseTool.Editor._2D
         private void OnEnable()
         {
             _reference = (GridCamera)target;
-            if(_reference.TryGetComponent(out Camera camera))
+            if (_reference.TryGetComponent(out Camera camera))
             {
                 _camera = camera;
 
@@ -32,7 +30,7 @@ namespace BaseTool.Editor._2D
                 _camera.orthographic = true;
             }
 
-            if(_reference.Bounds.Count == 0)
+            if (_reference.Bounds.Count == 0)
             {
                 _reference.Bounds.Add(GetGameViewBounds());
             }
@@ -99,7 +97,7 @@ namespace BaseTool.Editor._2D
 
             DrawSelectedBounds();
 
-            if(_selectedBounds != -1)
+            if (_selectedBounds != -1)
             {
                 Handles.BeginGUI();
 
@@ -120,7 +118,7 @@ namespace BaseTool.Editor._2D
             int i = 0;
             foreach (Bounds b in _reference.Bounds)
             {
-                if(_selectedBounds != i)
+                if (_selectedBounds != i)
                 {
                     if (mousePos.x.IsBetween(b.min.x, b.max.x) && mousePos.y.IsBetween(b.min.y, b.max.y))
                     {
@@ -152,7 +150,7 @@ namespace BaseTool.Editor._2D
         {
             foreach (Bounds b in _reference.Bounds)
             {
-                if (point.x.IsBetween(b.min.x, b.max.x) && point.y.IsBetween(b.min.y, b.max.y))                   
+                if (point.x.IsBetween(b.min.x, b.max.x) && point.y.IsBetween(b.min.y, b.max.y))
                     return true;
             }
             return false;
@@ -200,7 +198,7 @@ namespace BaseTool.Editor._2D
             );
             bounds.SetMinMax(newRect.min, newRect.max);
             Debug.Log($"{bounds.center}");
-            _reference.Bounds[_selectedBounds] = bounds;            
+            _reference.Bounds[_selectedBounds] = bounds;
         }
 
         public static Rect ResizeRect(Rect rect, Handles.CapFunction capFunc, Color capCol, Color fillCol, float capSize, float snap)

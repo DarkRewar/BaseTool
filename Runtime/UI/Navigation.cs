@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using BaseTool.Generic.Utils;
 using BaseTool.UI.Views;
+using System.Collections.Generic;
 
 namespace BaseTool.UI
 {
@@ -17,7 +16,7 @@ namespace BaseTool.UI
         public static void RegisterView(AView page)
         {
             _registeredViews.Add(page);
-            if(!page.Parent)
+            if (!page.Parent)
             {
                 _treeViews.AddChild(page.Tree);
             }
@@ -26,9 +25,9 @@ namespace BaseTool.UI
         private static bool TryGetRegisteredView<T>(out T view) where T : AView
         {
             view = null;
-            foreach(AView aView in _registeredViews)
-            { 
-                if(aView is T castedPage)
+            foreach (AView aView in _registeredViews)
+            {
+                if (aView is T castedPage)
                 {
                     view = castedPage;
                     return true;
@@ -40,9 +39,9 @@ namespace BaseTool.UI
         private static bool TryGetRegisteredViews<T>(out T[] views) where T : AView
         {
             List<T> foundViews = new List<T>();
-            foreach(AView aView in _registeredViews)
-            { 
-                if(aView is T castedPage)
+            foreach (AView aView in _registeredViews)
+            {
+                if (aView is T castedPage)
                 {
                     foundViews.Add(castedPage);
                 }
@@ -53,7 +52,7 @@ namespace BaseTool.UI
 
         public static void Open<T>(NavigationArgs args = null) where T : AView
         {
-            if(TryGetRegisteredView(out T view))
+            if (TryGetRegisteredView(out T view))
             {
                 Open(view, args);
             }
@@ -71,11 +70,11 @@ namespace BaseTool.UI
 
         public static void Open<T1, T2>(NavigationArgs args = null) where T1 : AView where T2 : AView
         {
-            if(TryGetRegisteredViews(out T1[] views))
+            if (TryGetRegisteredViews(out T1[] views))
             {
-                foreach(T1 aView in views)
+                foreach (T1 aView in views)
                 {
-                    if(aView.FindInChildren(out T2 childView))
+                    if (aView.FindInChildren(out T2 childView))
                     {
                         Open(childView, args);
                     }
@@ -93,11 +92,11 @@ namespace BaseTool.UI
 
         public static void Back()
         {
-            if(_history.Count != 0)
+            if (_history.Count != 0)
             {
                 NavigationEntry navigationEntry = _history.Pop();
                 navigationEntry?.View.Display(false);
-                if(CurrentView != null)
+                if (CurrentView != null)
                     navigationEntry?.View.OnNavigateTo(CurrentView.View, CurrentView.Args);
 
                 CurrentView?.View.Display(true);

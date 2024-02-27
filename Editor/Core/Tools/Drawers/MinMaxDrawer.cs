@@ -1,8 +1,7 @@
-﻿using BaseTool.Tools.Attributes;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
-namespace BaseTool.Tools.Drawers
+namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(MinMaxAttribute))]
     public class MinMaxDrawer : PropertyDrawer

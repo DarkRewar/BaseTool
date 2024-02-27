@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace BaseTool.Generic.Extensions
+namespace BaseTool
 {
     /// <summary>
     /// StringUtils permet d'ajouter des extensions de méthodes

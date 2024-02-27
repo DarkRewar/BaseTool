@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-namespace BaseTool.Generic.Extentions
+namespace BaseTool
 {
-    public static class ListExtensions 
+    public static class ListExtensions
     {
         public static T GetRandom<T>(this List<T> list)
         {

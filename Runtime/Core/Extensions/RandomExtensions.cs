@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseTool.Generic.Extensions
+namespace BaseTool
 {
     public static class RandomExtensions
     {
