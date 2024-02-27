@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaseTool.Core.Consoles
+namespace BaseTool
 {
     public class ConsoleArguments
     {
         public readonly string[] RawArgs;
-        
+
         private List<string> _mainParams;
         private Dictionary<string, string> _argumentsParams;
 
@@ -38,7 +38,7 @@ namespace BaseTool.Core.Consoles
                 if (flag)
                 {
                     key = str.Substring(1);
-                    _argumentsParams.Add(key, (string) null);
+                    _argumentsParams.Add(key, (string)null);
                 }
                 else if (!flag && key != "")
                 {
@@ -67,7 +67,7 @@ namespace BaseTool.Core.Consoles
             {
                 sb.Append($"\n[{mainParam}]");
             }
-            
+
             foreach (var argParam in _argumentsParams)
             {
                 sb.Append($"\n[{argParam.Key} = {argParam.Value}]");

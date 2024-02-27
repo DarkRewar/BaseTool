@@ -9,6 +9,7 @@
 ### Changes
 
 - Replace labels by float field in the `[MinMaxAttribute]` property drawer
+- Replace `BaseTool.Generic.*` namespaces to `BaseTool` [[#10](https://github.com/DarkRewar/BaseTool/pull/10)]
 
 ## 0.1.0
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace BaseTool.Tools.Attributes
+namespace BaseTool
 {
     [System.AttributeUsage(System.AttributeTargets.Field | AttributeTargets.Property)]
     public class GetComponentAttribute : Attribute { }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BaseTool.Generic.Extensions
+namespace BaseTool
 {
     public static class NumberExtensions
     {

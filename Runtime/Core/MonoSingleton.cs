@@ -16,7 +16,7 @@ namespace BaseTool
         /// The current instance of the singleton.
         /// </summary>
         public static T Instance { get; protected set; }
-        
+
         [Header("Singleton Settings"), SerializeField]
         protected bool _dontDestroyOnLoad = false;
 
@@ -27,12 +27,12 @@ namespace BaseTool
                 DestroyImmediate(gameObject);
                 return;
             }
-            else if(Instance == null)
+            else if (Instance == null)
             {
                 Instance = this as T;
             }
 
-            if(_dontDestroyOnLoad)
+            if (_dontDestroyOnLoad)
                 DontDestroyOnLoad(this);
         }
 
@@ -44,19 +44,19 @@ namespace BaseTool
         /// <returns></returns>
         public static T GetOrCreateInstance(bool dontDestroy = false)
         {
-            if(!Instance)
+            if (!Instance)
             {
-                Instance = FindObjectOfType<T>();
+                Instance = FindAnyObjectByType<T>();
             }
 
-            if(!Instance)
+            if (!Instance)
             {
                 GameObject instanceObj = new GameObject($"{typeof(T).Name} (singleton)");
                 Instance = instanceObj.AddComponent<T>();
                 if (dontDestroy)
                     DontDestroyOnLoad(instanceObj);
             }
-        
+
             return Instance;
         }
     }

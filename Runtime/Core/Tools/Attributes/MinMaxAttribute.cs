@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BaseTool.Tools.Attributes
+namespace BaseTool
 {
     public class MinMaxAttribute : PropertyAttribute
     {

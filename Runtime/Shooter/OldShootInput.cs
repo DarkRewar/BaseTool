@@ -1,5 +1,3 @@
-using BaseTool.Tools;
-using BaseTool.Tools.Attributes;
 using UnityEngine;
 
 namespace BaseTool.Shooter

@@ -1,10 +1,8 @@
-using BaseTool.Tools;
-using BaseTool.Tools.Attributes;
 using UnityEngine;
 
 namespace BaseTool.Movement
 {
-    [AddComponentMenu("BaseTool/Jump Controller")]
+    [AddComponentMenu("BaseTool/Movement/Jump Controller")]
     [RequireComponent(typeof(Rigidbody))]
     public class JumpController : MonoBehaviour, IJumpable
     {

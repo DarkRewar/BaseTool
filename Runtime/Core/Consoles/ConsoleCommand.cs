@@ -1,4 +1,4 @@
-namespace BaseTool.Core.Consoles
+namespace BaseTool
 {
     public delegate void MethodDelegate(ConsoleArguments args);
 

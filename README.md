@@ -48,15 +48,15 @@ To open the setup wizard, go to the topbar and open `Window > BaseTool > Setup`.
 You can add/remove you own command to the `Console` by using :
 
 ```csharp
-BaseTool.Core.Consoles.Console.AddCommand("<command>", "<description>", MethodCallback);
+BaseTool.Console.AddCommand("<command>", "<description>", MethodCallback);
 
-BaseTool.Core.Consoles.Console.RemoveCommand("<command>");
+BaseTool.Console.RemoveCommand("<command>");
 ```
 
 Here is an implementation inside a `MonoBehaviour`:
 
 ```csharp
-using BaseTool.Core.Consoles;
+using BaseTool;
 
 public class AddCustomCommand : MonoBehaviour
 {
@@ -109,8 +109,7 @@ To get your `Awake()`, `OnEnable()`, `Start()` or anything else clean, you can a
 - `GetComponentInParent`
 
 ```csharp
-using BaseTool.Tools;
-using BaseTool.Tools.Attributes;
+using BaseTool;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -218,7 +217,7 @@ Methods available from the `MathUtils` static class:
 Because `%` is broken on C# when you want to get a negative modulo (e.g. you want the index -1 of an array), this method is a replacement of the symbol. 
 
 ```csharp
-using BaseTool.Generic.Utils; 
+using BaseTool; 
 
 MathUtils.Modulo(1, 5); // = 1
 MathUtils.Modulo(6, 5); // = 1
@@ -231,7 +230,7 @@ MathUtils.Modulo(-3, 5); // = 2
 A generic tree system following a parent/child link. Here is a following example based on a GameObject hierarchy (but would work for a file, UI or node hierarchy too).
 
 ```csharp
-using BaseTool.Generic.Utils;
+using BaseTool;
 using UnityEngine;
 
 // Create a tree from a GameObject
@@ -287,8 +286,7 @@ This attribute allows you to put a slider range for a value in the inspector. It
 ![min_max_attribute](./Documentation~/Editor/min_max_attribute.png)
 
 ```csharp
-using BaseTool.Generic.Extensions;
-using BaseTool.Tools.Attributes;
+using BaseTool;
 using UnityEngine;
 
 public class MyClass : MonoBehaviour

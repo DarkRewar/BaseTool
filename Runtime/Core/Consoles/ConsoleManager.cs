@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace BaseTool.Core.Consoles
+namespace BaseTool
 {
     [RequireComponent(typeof(UIDocument))]
     public class ConsoleManager : MonoBehaviour
@@ -24,7 +24,7 @@ namespace BaseTool.Core.Consoles
         private void OnEnable()
         {
             _scrollView = _uiDocument.rootVisualElement.Q<ScrollView>("ConsoleScroll");
-            
+
             _textField = _uiDocument.rootVisualElement.Q<TextField>("ConsoleField");
             _textField.RegisterCallback<KeyDownEvent>(OnConsoleFieldKeyDown, TrickleDown.TrickleDown);
             _textField.RegisterCallback<NavigationSubmitEvent>(e =>
@@ -34,10 +34,16 @@ namespace BaseTool.Core.Consoles
             }, TrickleDown.TrickleDown);
         }
 
+        private void OnDestroy()
+        {
+            Console.RemoveCommand("help");
+            Console.RemoveCommand("list");
+        }
+
         private void Update()
         {
             Console.ConsoleUpdate();
-            
+
             if (!Input.GetKeyDown(KeyCode.F4)) return;
             Toggle();
         }
@@ -45,12 +51,12 @@ namespace BaseTool.Core.Consoles
         private void Toggle()
         {
             _displayed = !_displayed;
-            _uiDocument.rootVisualElement.style.display = 
-                _displayed 
-                    ? DisplayStyle.Flex 
+            _uiDocument.rootVisualElement.style.display =
+                _displayed
+                    ? DisplayStyle.Flex
                     : DisplayStyle.None;
-            
-            if(_displayed) _textField.ElementAt(0).Focus();
+
+            if (_displayed) _textField.ElementAt(0).Focus();
         }
 
         public void WriteLine(string txt)
@@ -66,7 +72,7 @@ namespace BaseTool.Core.Consoles
                 var completion = Console.TabComplete(_textField.text).TrimEnd();
                 _textField.SetValueWithoutNotify(completion);
             }
-            
+
             if (evt.keyCode != KeyCode.Return) return;
 
             Console.EnqueueCommand(_textField.text);

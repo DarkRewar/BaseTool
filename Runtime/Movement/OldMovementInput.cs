@@ -1,9 +1,8 @@
-using BaseTool.Tools;
-using BaseTool.Tools.Attributes;
 using UnityEngine;
 
 namespace BaseTool.Movement
 {
+    [AddComponentMenu("BaseTool/Movement/Old Movement Input")]
     public class OldMovementInput : MonoBehaviour
     {
         [SerializeField]

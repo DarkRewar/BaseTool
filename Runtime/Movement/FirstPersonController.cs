@@ -1,11 +1,8 @@
-using System;
-using BaseTool.Tools;
-using BaseTool.Tools.Attributes;
 using UnityEngine;
 
 namespace BaseTool.Movement
 {
-    [AddComponentMenu("BaseTool/First Person Controller")]
+    [AddComponentMenu("BaseTool/Movement/First Person Controller")]
     [RequireComponent(typeof(Rigidbody))]
     public class FirstPersonController : MonoBehaviour, IMovable
     {

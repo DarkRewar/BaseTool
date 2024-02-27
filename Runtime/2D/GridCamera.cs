@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using BaseTool.Generic.Extensions;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace BaseTool._2D
 {
-    //voir ça : https://forum.unity.com/threads/button-in-scene-view.259913/
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso href="https://forum.unity.com/threads/button-in-scene-view.259913/"/>
     [RequireComponent(typeof(Camera)), AddComponentMenu("BaseTool/2D/GridCamera")]
     public class GridCamera : MonoBehaviour
     {
@@ -30,12 +24,12 @@ namespace BaseTool._2D
 
         public void Start()
         {
-            if(TryGetComponent(out Camera cam))
+            if (TryGetComponent(out Camera cam))
             {
                 _camera = cam;
             }
 
-            if(_currentBoundIndex == -1)
+            if (_currentBoundIndex == -1)
             {
                 BindBounds();
             }

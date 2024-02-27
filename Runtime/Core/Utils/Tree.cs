@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace BaseTool.Generic.Utils
+namespace BaseTool
 {
     public class Tree<T> : IEnumerable<Tree<T>>
     {
