@@ -9,6 +9,7 @@
 - Add the weapon system [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
 - Add scriptable object `GameEvent` system [[#11](https://github.com/DarkRewar/BaseTool/pull/11)]
 - Add `If` and `IfNot` attributes [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
+- Add documentation for the `Movement` module [[#14](https://github.com/DarkRewar/BaseTool/pull/14)]
 
 ### Changes
 

@@ -4,11 +4,14 @@ namespace BaseTool.Movement
 {
     [AddComponentMenu("BaseTool/Movement/Side View Controller")]
     [RequireComponent(typeof(Rigidbody))]
+    [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#sideviewcontroller")]
     public class SideViewController : MonoBehaviour, IMovable
     {
-        [SerializeField] private float _moveSpeed = 5;
+        [SerializeField]
+        protected float _moveSpeed = 5;
 
-        [GetComponent] private Rigidbody _rigidbody;
+        [GetComponent, SerializeField]
+        protected Rigidbody _rigidbody;
 
         void Awake() => Injector.Process(this);
 
