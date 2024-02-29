@@ -4,6 +4,7 @@ namespace BaseTool.Movement
 {
     [AddComponentMenu("BaseTool/Movement/First Person Controller")]
     [RequireComponent(typeof(Rigidbody))]
+    [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#firstpersoncontroller")]
     public class FirstPersonController : MonoBehaviour, IMovable
     {
         [GetComponent, SerializeField]

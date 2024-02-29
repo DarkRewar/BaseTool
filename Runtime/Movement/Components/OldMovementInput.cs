@@ -3,32 +3,39 @@ using UnityEngine;
 namespace BaseTool.Movement
 {
     [AddComponentMenu("BaseTool/Movement/Old Movement Input")]
+    [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#oldmovementinput")]
     public class OldMovementInput : MonoBehaviour
     {
         [SerializeField]
-        private bool _invertXAxis = false;
+        protected bool _invertXAxis = false;
 
         [SerializeField]
-        private bool _invertYAxis = false;
+        protected bool _invertYAxis = false;
 
         [SerializeField]
-        private string _jumpButton = "Jump";
+        protected string _jumpButton = "Jump";
 
         [GetComponent]
-        private IMovable _movableComponent;
+        protected IMovable _movableComponent;
 
         [GetComponent]
-        private IJumpable _jumpableComponent;
+        protected IJumpable _jumpableComponent;
 
-        void Awake() => Injector.Process(this);
+        protected virtual void Awake() => Injector.Process(this);
 
-        void OnEnable()
+        protected virtual void OnEnable()
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        void Update()
+        protected virtual void OnApplicationFocus(bool focus)
+        {
+            Cursor.visible = !focus;
+            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+
+        protected virtual void Update()
         {
             UpdateMovement();
             UpdateJump();

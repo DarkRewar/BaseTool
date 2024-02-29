@@ -4,35 +4,38 @@ namespace BaseTool.Movement
 {
     [AddComponentMenu("BaseTool/Movement/Jump Controller")]
     [RequireComponent(typeof(Rigidbody))]
+    [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#jumpcontroller")]
     public class JumpController : MonoBehaviour, IJumpable
     {
-        [GetComponent] private Rigidbody _rigidbody;
+        [GetComponent, SerializeField] protected Rigidbody _rigidbody;
 
         [Header("Jump Settings")]
         [SerializeField]
-        private float _jumpForce = 10;
+        protected float _jumpForce = 10;
 
         [SerializeField]
-        private float _fallMultiplier = 1;
+        protected float _fallMultiplier = 1;
 
         [SerializeField]
-        private int _jumpCount = 1;
+        protected int _jumpCount = 1;
 
         [Header("Ground Check Settings")]
         [SerializeField]
-        private LayerMask _groundMask;
+        protected LayerMask _groundMask;
 
         [SerializeField] private Vector3 _groundCheckOffset = default;
         [SerializeField] private float _groundCheckSize = 0.2f;
         [SerializeField] private float _coyoteEffectDelay = default;
 
-        private Cooldown _coyoteEffectTiming;
-        private bool _isJumping = false;
-        private int _jumpsLeft = 1;
+        protected Cooldown _coyoteEffectTiming;
+        protected bool _isJumping = false;
+        protected int _jumpsLeft = 1;
 
         public bool IsGrounded { get; protected set; } = true;
 
-        public bool CanJump => _jumpsLeft > 0 || (!_isJumping && (IsGrounded || !_coyoteEffectTiming.IsReady));
+        public bool CanJump => _jumpsLeft > 1 || CanCoyoteEffect || (!_isJumping && IsGrounded);
+
+        public bool CanCoyoteEffect => !IsGrounded && !_coyoteEffectTiming.IsReady;
 
         protected virtual void Awake() => Injector.Process(this);
 
@@ -54,6 +57,7 @@ namespace BaseTool.Movement
                 _rigidbody.linearVelocity = velocity;
             }
 #else
+
             if (_rigidbody.velocity.y < 0)
             {
                 var velocity = _rigidbody.velocity;

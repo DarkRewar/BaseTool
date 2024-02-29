@@ -30,6 +30,8 @@ How to install:
     - [Tree](#tree)
     - [Interfaces](#core-interfaces)
 2. [Movement](#movement)
+    - [Components](#movement-components)
+    - [Interfaces](#movement-interfaces)
 3. [Shooter](#shooter)
     - [Sample](#shooter-sample)
     - [Components](#shooter-components)
@@ -336,12 +338,92 @@ public interface IDamageable
 
 ## Movement
 
-[coming soon]
+The `Movement` module contains most of components used for movement, jump, camera rotation.
+You can enable it, if you want to create one of the following game archetype:
+
+- FPS
+- ~~TPS~~
+- Platformer
+- Arcade
+- ~~Top-down~~
+- ~~Twin-stick~~
+
+By default, the `Movement` module is enabled but can be disabled in the [Setup Wizard](#setup-wizard).
+This module is located under the `BaseTool.Movement` namespace.
+
+### <span id="movement-components">Components</span>
+
+#### `OldMovementInput`
+
+If you are not using the new input system, you can add this component on your player to quickly
+setup a player movement based on the old input system.
+
+This component manages a `IMovable` and/or a `IJumpable` component ; if they are found, the inputs are processed and sent to the component.
+
+#### `FirstPersonController`
+
+This component manages a first-person view based on a GameObject/Camera hierarchy.
+In this kind a architecture, the component is placed at the root of the player object hierarchy.
+Then, the `Camera` is under, as a child. The `FirstPersonController` references the camera,
+using `GetComponentInChildren` or referencing it from the inspector.
+
+![first_person_structure](./Documentation~/Movement/first_person_structure.png)
+
+**Caution** : this component requires a `Rigidbody` to work properly and is **not** using the Unity `CharacterController`.
+
+#### `SideViewController`
+
+A light side-view controller. It only manages the movement of the object. The architecture is quite simple, you need to add this component on the element that can move, on its root (recommended).
+
+#### `JumpController`
+
+This component allows any object to jump, with a quick setup.
+
+![jump_controller](./Documentation~/Movement/jump_controller.png)
+
+|Property|Description|
+|---|---|
+|Rigidbody|The `Rigidbody` of the jumpable element.|
+|Jump Force|The velocity to apply when the element needs to jump.|
+|Fall Multiplier|The velocity multiplier when the element is falling.|
+|Jump Count|The number of allowed jumps.|
+|Ground Mask|The `LayerMask` to check when the element touches the ground.|
+|Ground Check Offset|The `Vector3` offset if your collision check is not on the ground.|
+|Ground Check Size|The radius of the collision check.|
+|Coyote Effect Delay|The delay of the coyote effect ; the time allowed to the element to jump even if it is not on the ground anymore.|
+
+### <span id="movement-interfaces">Interfaces</span>
+
+#### `IMovable`
+
+This interface can be use to expose a component as a moving object. It is used to send movement inputs. See [`OldMovementInput`](#oldmovementinput) and [`FirstPersonController`](#firstpersoncontroller) for more information.
+
+```csharp
+public interface IMovable
+{
+    void Move(Vector2 move);
+
+    void Rotate(Vector2 rotation);
+}
+```
+
+#### `IJumpable`
+
+This interface can be use to expose a component as a jumping object. It is used to send jump inputs. See [`OldMovementInput`](#oldmovementinput) and [`FirstPersonController`](#firstpersoncontroller) for more information.
+
+```csharp
+public interface IJumpable
+{
+    public bool CanJump { get; }
+
+    public void Jump();
+}
+```
 
 ## Shooter
 
 The `Shooter` module contains most of components used for weapons related games.
-You can enable it, if you want to creating one of the following game archetype:
+You can enable it, if you want to create one of the following game archetype:
 
 - FPS
 - TPS
