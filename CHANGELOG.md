@@ -16,6 +16,7 @@
 - Replace `BaseTool.Generic.*` namespaces to `BaseTool` [[#10](https://github.com/DarkRewar/BaseTool/pull/10)]
 - Injector does not retrieve if property is not null [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
 - Change component icons to follow their module icon [[#8](https://github.com/DarkRewar/BaseTool/pull/8)]
+- Fix [issue 12](https://github.com/DarkRewar/BaseTool/issues/12) that blocks the console to be interactable in Unity 2023+ [[#13](https://github.com/DarkRewar/BaseTool/pull/13)]
 
 ## 0.1.0
 

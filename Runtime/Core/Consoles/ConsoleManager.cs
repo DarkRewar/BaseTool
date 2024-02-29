@@ -55,8 +55,9 @@ namespace BaseTool
                 _displayed
                     ? DisplayStyle.Flex
                     : DisplayStyle.None;
-
             if (_displayed) _textField.ElementAt(0).Focus();
+
+            Time.timeScale = _displayed ? 0 : 1;
         }
 
         public void WriteLine(string txt)
@@ -66,6 +67,21 @@ namespace BaseTool
 
         private void OnConsoleFieldKeyDown(KeyDownEvent evt)
         {
+#if UNITY_2023_1_OR_NEWER
+            if (evt.keyCode == KeyCode.Tab)
+            {
+                var completion = Console.TabComplete(_textField.text).TrimEnd();
+                _textField.SetValueWithoutNotify(completion);
+                _textField.cursorIndex = completion.Length;
+                _textField.selectIndex = completion.Length;
+            }
+
+            if (evt.keyCode != KeyCode.Return) return;
+
+            Console.EnqueueCommand(_textField.text);
+            _textField.SetValueWithoutNotify(null);
+            _uiDocument.rootVisualElement.schedule.Execute(_ => _textField.ElementAt(0).Focus()).ExecuteLater(50);
+#else
             evt.StopImmediatePropagation();
             if (evt.keyCode == KeyCode.Tab)
             {
@@ -78,6 +94,7 @@ namespace BaseTool
             Console.EnqueueCommand(_textField.text);
             _textField.SetValueWithoutNotify(null);
             _uiDocument.rootVisualElement.schedule.Execute(_ => _textField.ElementAt(0).Focus()).ExecuteLater(50);
+#endif
         }
     }
 }
