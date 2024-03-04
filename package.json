@@ -19,6 +19,11 @@
   "hideInEditor": false,
   "samples": [
     {
+      "displayName": "Movement Samples",
+      "description": "Contains sample projects to understand and/or easily setup multiple movement features.",
+      "path": "Samples~/Movement"
+    },
+    {
       "displayName": "Shooter Sample",
       "description": "Contains sample project with the basic shooter features",
       "path": "Samples~/Shooter"
