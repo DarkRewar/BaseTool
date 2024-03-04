@@ -577,3 +577,18 @@ public class MyClass : MonoBehaviour
     public GameObject ProjectilePrefab;
 }
 ```
+
+### `ReadOnlyAttribute`
+
+This attribute can mark the field or property as disabled in inspector (unchangeable).
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    [ReadOnly]
+    public int Lifepoints = 10;
+}
+```
