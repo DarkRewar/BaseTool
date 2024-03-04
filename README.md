@@ -574,6 +574,17 @@ using `GetComponentInChildren` or referencing it from the inspector.
 
 A light side-view controller. It only manages the movement of the object. The architecture is quite simple, you need to add this component on the element that can move, on its root (recommended).
 
+#### `TopDownController`
+
+This component is used to get a 2.5D-like movement (action-rpgs like Diablo, Torchlight, Minecraft Dungeons...). You must add the component on the player's root from 
+`Add Component > BaseTool > Movement > Top Down Controller`.
+
+![top_down_controller](./Documentation~/Movement/top_down_controller.PNG)
+
+The camera **must** not be a child of the player ; you can use the `SimpleCameraController`
+or [Cinemachine](https://docs.unity3d.com/Manual/com.unity.cinemachine.html) 
+to follow the player.
+
 #### `JumpController`
 
 This component allows any object to jump, with a quick setup.

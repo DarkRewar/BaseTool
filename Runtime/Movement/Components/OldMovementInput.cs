@@ -21,16 +21,23 @@ namespace BaseTool.Movement
         [GetComponent]
         protected IJumpable _jumpableComponent;
 
+        [SerializeField]
+        protected bool _handleCursorVisibility = true;
+
         protected virtual void Awake() => Injector.Process(this);
 
         protected virtual void OnEnable()
         {
+            if (!_handleCursorVisibility) return;
+
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
         protected virtual void OnApplicationFocus(bool focus)
         {
+            if (!_handleCursorVisibility) return;
+
             Cursor.visible = !focus;
             Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
         }

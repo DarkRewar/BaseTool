@@ -12,6 +12,7 @@
 - Add a `TickManager` component [[#43](https://github.com/DarkRewar/BaseTool/issues/43)]
 - Add a `Clear()` transform extensions [[#40](https://github.com/DarkRewar/BaseTool/issues/40)]
 - Add a `PonderateRandom` class to alter weight of random elements [[#46](https://github.com/DarkRewar/BaseTool/issues/46)]
+- Add a top-down character controller in the Movement module [[#15](https://github.com/DarkRewar/BaseTool/issues/15)]
 
 ### Changes
 
