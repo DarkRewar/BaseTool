@@ -35,6 +35,7 @@ namespace BaseTool.Movement
             Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
         }
 
+#if ENABLE_LEGACY_INPUT_MANAGER
         protected virtual void Update()
         {
             UpdateMovement();
@@ -64,5 +65,6 @@ namespace BaseTool.Movement
             _movableComponent.Move(move);
             _movableComponent.Rotate(rotate);
         }
+#endif
     }
 }
