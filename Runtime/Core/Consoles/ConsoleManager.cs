@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -44,8 +45,13 @@ namespace BaseTool
         {
             Console.ConsoleUpdate();
 
+#if ENABLE_LEGACY_INPUT_MANAGER
             if (!Input.GetKeyDown(KeyCode.F4)) return;
             Toggle();
+#else
+            enabled = false;
+            throw new Exception("The old input system must be set to use Console Manager!");
+#endif
         }
 
         private void Toggle()

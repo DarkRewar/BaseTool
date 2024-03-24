@@ -9,6 +9,9 @@
 
 ### Changes
 
+- Fix [issue 21](https://github.com/DarkRewar/BaseTool/issues/21) that throws errors if not using old input system [[#24](https://github.com/DarkRewar/BaseTool/pull/24)]
+
+
 ## 0.2.0
 
 ### Improvements
