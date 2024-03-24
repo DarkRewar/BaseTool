@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace BaseTool
 {
@@ -29,6 +30,7 @@ namespace BaseTool
             var go = new GameObject("Console (manager)");
             Object.DontDestroyOnLoad(go);
 
+            go.AddComponent<UIDocument>();
             _consoleManager = go.AddComponent<ConsoleManager>();
 
             AddCommand("help", "How to use the command", HelpCommand);
