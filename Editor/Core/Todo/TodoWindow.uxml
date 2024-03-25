@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/com.lignus.basetool/Editor/Core/Todo/TodoWindow.uss?fileID=7433441132597879392&amp;guid=06d0208436f9a4ceaac12647643cf0b0&amp;type=3#TodoWindow" />
+    <Style src="project://database/Assets/com.lignus.basetool/Editor/Core/Todo/TodoEntry.uss?fileID=7433441132597879392&amp;guid=d8ea7aae06eac2248a2433ff4dca740f&amp;type=3#TodoEntry" />
+    <ui:VisualElement name="TopBanner" class="top-banner">
+        <ui:DropdownField label="Assembly" name="AssemblyDropdown" choices="[All],Assembly-CSharp" index="0" />
+        <ui:VisualElement name="TagContainer" class="tag-banner tag-container">
+            <ui:Label tabindex="-1" text="UI" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tag" />
+            <ui:Label tabindex="-1" text="Core" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tag" />
+            <ui:Label tabindex="-1" text="Editor" parse-escape-sequences="true" display-tooltip-when-elided="true" class="tag" />
+            <ui:DropdownField choices="[Add Tag]" index="0" name="TagDropdown" class="tag-dropdown" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:ScrollView class="todo-scroll-view">
+        <BaseTool.Editor.Todo.TodoEntry text="Todo text..." tags="ui,core,editor" file="Assets/Scripts/Test.cs:00" />
+        <BaseTool.Editor.Todo.TodoEntry text="Todo text..." tags="ui,core,editor" file="Assets/Scripts/Test.cs:00" todo-type="Fixme" />
+    </ui:ScrollView>
+</ui:UXML>
