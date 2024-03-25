@@ -1,13 +1,5 @@
 # Changelog 
 
-## 0.3.0
-
-### Improvements
-
-- Add `ReadOnly` attribute [[#19](https://github.com/DarkRewar/BaseTool/issues/19)]
-
-### Changes
-
 ## 0.2.0
 
 ### Improvements
