@@ -1,0 +1,57 @@
+.todo-entry {
+	flex-grow: 1;
+	background-color: #111D6F;
+	border-radius: 5px;
+	overflow: hidden;
+	border-color: #101535;
+	border-bottom-width: 2px;
+}
+
+.todo-entry.fixme-type {
+	background-color: #FFA378;
+	border-color: #68483A;
+	color: #111D6F;
+}
+
+.todo-entry:hover {
+	background-color: #353F85;
+	border-color: #111D6F;
+	cursor: pointer;
+}
+
+.todo-entry.fixme-type:hover {
+	background-color: #FFCE85;
+	border-color: #FFA378;
+}
+
+.todo-container {
+	flex-direction: row;
+	padding: 10px;
+}
+
+.todo-container .tag {
+	margin-right: 3px;
+	border-radius: 8px;
+}
+
+.todo-entry__bottom-container {
+	background-color: rgba(0,0,0,0.2);
+	padding: 2px 6px 2px 6px;
+	font-size: 10px;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.todo-names {
+	-unity-text-align: middle-left;
+	flex-shrink: 1;
+	text-overflow: ellipsis;
+	max-width: 150px;
+	overflow: hidden;
+}
+
+.todo-file {
+	-unity-text-align: middle-right;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
