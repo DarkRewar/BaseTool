@@ -41,9 +41,11 @@ How to install:
 5. [Roguelite](#roguelite) [WIP]
 6. [UI](#ui)
 7. [Editor](#editor)
+    - [Todo List](#todo-list)
     - [MinMaxAttribute](#minmaxattribute)
     - [IfAttribute](#ifattribute)
     - [IfNotAttribute](#ifnotattribute)
+    - [ReadOnlyAttribute](#readonlyattribute)
 
 ## Core
 
@@ -523,6 +525,35 @@ This object refers to a category that could be assigned to a weapon. It is used 
 [coming soon]
 
 ## Editor
+
+### Todo List
+
+If you go to `Window > BaseTool > Todo List`, you can get an editor window that opens.
+It will list you every TODO and FIXME entries found in your project.
+
+![todo_list.png](./Documentation~/Editor/todo_list.png)
+
+Entries are grouped by assemblies and can be filtered by tags. You can also by developpers to entries.
+How does it work? In your C# script, inside your project, you can add todo and fixme comments. The tool
+will detect them and add them to the list. To add some, you must follow those rules:
+
+- start by a comment and a todo, fix or fixme : `//Todo`, `//Fix` or `//Fixme` ;
+- (optionnal) you can add meta data between parenthesis:
+    - if it begins by `@`, it will be detected as a dev name ;
+    - if it begins by `#`, it will be detected as a tag to filter entries ;
+- (optionnal) you can add `:` to seperate the begin of comment and content ;
+- end with the message of the todo/fix you want to display.
+
+You can see some following examples:
+
+```csharp
+//TODO a normal todo
+//todo can be case insensitive
+//Todo(@MyDeveloperName) : you can add names and punctation
+//Todo(@MyName #core #engine #gameplay) : you can also add tags to filter entries
+//Fixme : will be displayed
+//Fix works like fixme
+```
 
 ### `MinMaxAttribute`
 
