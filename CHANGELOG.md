@@ -6,6 +6,7 @@
 
 - Add `ReadOnly` attribute [[#19](https://github.com/DarkRewar/BaseTool/issues/19)]
 - Add `Todo List` editor feature [[#26](https://github.com/DarkRewar/BaseTool/issues/26)]
+- Add `ValueListener` feature [[#30](https://github.com/DarkRewar/BaseTool/issues/30)]
 
 ### Changes
 
