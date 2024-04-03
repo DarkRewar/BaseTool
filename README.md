@@ -24,6 +24,7 @@ How to install:
     - [Injector](#injector)
     - [Cooldown](#cooldown)
     - [MonoSingleton](#monosingleton)
+    - [ValueListener](#valuelistener)
     - [GameEvent](#game-events)
     - [Class Extensions](#class-extensions)
     - [Math Utils](#math-utils)
@@ -208,6 +209,45 @@ public class GameManager : MonoBehaviour
         MyUniquePlayer.Instance.Life -= damages;
     }
 }
+```
+
+### ValueListener
+
+If you want to use an Observer Pattern for a value, and you don't want
+to implement the entire change event handler, the `ValueListener<T>` lets
+you do that for you.
+
+You need to declare a `ValueListener<T>` of your type as a field or a property.
+I recommend to declare it as readonly to avoid loosing the `OnChanged` event references.
+
+Value is implicitly casted to or from the value type you want. That means you can initialize
+your object using the value directly (see following example).
+
+```csharp
+using BaseTool;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MyComponent : MonoBehaviour
+{
+    public readonly ValueListener<int> Lifepoints = 100;
+    public readonly ValueListener<string> Nickname = new();
+
+    public Text NameLabel;
+    public Text LifeLabel;
+
+    public void Start()
+    {
+        Lifepoints.OnChanged += (oldLife, newLife) => 
+            LifeLabel.text = $"{oldLife} -> {newLife}/100";
+        Nickname.OnChanged += (_, newName) => 
+            NameLabel.text = newName;
+
+        Nickname.Value = "MyName";
+        string name = Nickname;
+        Debug.Log(name);
+    }
+} 
 ```
 
 ### Game Events
