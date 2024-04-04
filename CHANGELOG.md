@@ -12,6 +12,7 @@
 
 - Fix [issue 21](https://github.com/DarkRewar/BaseTool/issues/21) that throws errors if not using old input system [[#24](https://github.com/DarkRewar/BaseTool/pull/24)]
 - Fix [issue 22](https://github.com/DarkRewar/BaseTool/issues/22) that throws error on multiple Unity runtimes [[#25](https://github.com/DarkRewar/BaseTool/pull/25)]
+- Fix [issue 29](https://github.com/DarkRewar/BaseTool/issues/29) which removes many logs and nullref exceptions in the `TodoWindow.cs` [[#33](https://github.com/DarkRewar/BaseTool/pull/33)]
 
 ## 0.2.0
 
