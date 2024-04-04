@@ -10,7 +10,8 @@ namespace BaseTool.Editor.Todo
 {
     public class TodoWindow : EditorWindow
     {
-        private readonly static Regex _regex = new(@"//\s*(todo|fixme|fix)\s*(?:\s*\(([^)]+)\))?\s*:?(.*)", RegexOptions.IgnoreCase);
+        private readonly static Regex _regex = new(@"//\s*(todo|fix|fixme)\s*(?:\s*\(([^)]+)\))?\s*:?[\s]+(.*)", RegexOptions.IgnoreCase);
+        private readonly static Regex _asmRemoveNameRegex = new(@"^(.*)/([\w.]+).asmdef$", RegexOptions.IgnoreCase);
         private const string EveryAssemblies = "[All]";
         private const string DefaultAssembly = "Assembly-CSharp";
         private const string NamePrefix = "@";
@@ -40,8 +41,6 @@ namespace BaseTool.Editor.Todo
             window.titleContent = new GUIContent("Todo List");
         }
 
-        //TODO(@Rewar #core #editor #tool) : Finish the TODO List
-        //fixme(#editor #tool) : update the color, it's too bright
         public void CreateGUI()
         {
             RetrieveVisualElements();
@@ -72,21 +71,9 @@ namespace BaseTool.Editor.Todo
             });
         }
 
-        private void OnEnable()
-        {
-            AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
-        }
-
-        public void OnDisable()
-        {
-            AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
-        }
-
-        private void OnAfterAssemblyReload() => UpdateTodoList();
-
         private void UpdateTodoList()
         {
-            _scrollView.contentContainer.Clear();
+            _scrollView?.contentContainer.Clear();
             _tagsFound.Clear();
 
             var assetIds = AssetDatabase.FindAssets("t:script", new[] { "Assets" });
@@ -99,8 +86,7 @@ namespace BaseTool.Editor.Todo
                     var line = lines[i];
                     if (_regex.IsMatch(lines[i]))
                     {
-                        var monoScript = AssetDatabase.LoadMainAssetAtPath(filePath) as MonoScript;
-                        var assemblyName = monoScript.GetClass().Assembly.GetName().Name;
+                        var assemblyName = GetAssembly(filePath);
                         var display = true;
                         _assemblies.Add(assemblyName);
                         if (!AssemblyMatchesFilter(assemblyName)) display = false;
@@ -119,14 +105,18 @@ namespace BaseTool.Editor.Todo
                         {
                             "fixme" => TodoType.Fixme,
                             "fix" => TodoType.Fixme,
+                            "fixed" => TodoType.Fixme,
                             _ => TodoType.Todo,
                         };
                     }
                 }
             }
 
-            _assemblyDropdown.choices = _assemblies.ToList();
-            _assemblyDropdown.index = _assemblies.ToList().IndexOf(_filter);
+            if (_assemblyDropdown is not null)
+            {
+                _assemblyDropdown.choices = _assemblies.ToList();
+                _assemblyDropdown.index = _assemblies.ToList().IndexOf(_filter);
+            }
 
             UpdateFilters();
         }
@@ -151,7 +141,6 @@ namespace BaseTool.Editor.Todo
         {
             var tags = _tagsFound.ToList();
             tags.Sort();
-            Debug.Log(string.Join(", ", tags));
 
             _tagDropdown.choices = tags.Except(_tagFilters).Prepend(AddTag).ToList();
 
@@ -228,5 +217,23 @@ namespace BaseTool.Editor.Todo
         private bool MetaInfosMatchesFilter(TodoMetaData metaInfos) =>
             _tagFilters.Count == 0 ||
             (!metaInfos.IsNull && metaInfos.Tags.Count > 0 && _tagFilters.TrueForAll(tag => metaInfos.Tags.Contains(tag)));
+
+        private string GetAssembly(string filePath)
+        {
+            var monoScript = AssetDatabase.LoadMainAssetAtPath(filePath) as MonoScript;
+            if (monoScript == null || monoScript.GetClass() == null)
+            {
+                var asmdefs = AssetDatabase.FindAssets("t:asmdef", new[] { "Assets" });
+                foreach (var asmdef in asmdefs)
+                {
+                    var asmPath = AssetDatabase.GUIDToAssetPath(asmdef);
+                    var match = _asmRemoveNameRegex.Match(asmPath);
+                    if (filePath.Contains(match.Groups[1].Value))
+                        return match.Groups[2].Value;
+                }
+                return DefaultAssembly;
+            }
+            return monoScript.GetClass().Assembly.GetName().Name;
+        }
     }
 }
