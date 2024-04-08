@@ -1,9 +1,9 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace BaseTool
 {
+#if UNITY_2021_1_OR_NEWER
     [RequireComponent(typeof(UIDocument))]
     public class ConsoleManager : MonoBehaviour
     {
@@ -103,4 +103,136 @@ namespace BaseTool
 #endif
         }
     }
+#else
+    public class ConsoleManager : MonoBehaviour
+    {
+        public const int TextFieldHeight = 40;
+
+        private bool _displayed = false;
+        private string _inputField = string.Empty;
+        private Vector2 _scrollViewVector;
+
+        private List<string> _lines = new List<string>();
+
+        private GUISkin _skin;
+
+        private void Update()
+        {
+            Console.ConsoleUpdate();
+
+#if ENABLE_LEGACY_INPUT_MANAGER
+            if (!Input.GetKeyDown(KeyCode.F4)) return;
+            Toggle();
+#else
+            enabled = false;
+            throw new Exception("The old input system must be set to use Console Manager!");
+#endif
+        }
+
+        private void Toggle()
+        {
+            _displayed = !_displayed;
+            Time.timeScale = _displayed ? 0 : 1;
+        }
+
+        public void WriteLine(string txt)
+        {
+            if (_lines.Count > 30) _lines.RemoveAt(0);
+            _lines.Add(txt);
+            _scrollViewVector = new Vector2(0, TextFieldHeight * _lines.Count);
+        }
+
+        private void CreateSkinIfNull()
+        {
+            if (_skin) return;
+
+            _skin = Instantiate(GUI.skin);
+
+            _skin.box.normal.textColor = Color.black;
+            _skin.box.stretchWidth = true;
+            _skin.box.fixedHeight = 450;
+
+            _skin.scrollView.fontSize = 30;
+            _skin.label.fontSize = 30;
+
+            _skin.textField.fontSize = 30;
+            _skin.textField.stretchWidth = true;
+        }
+
+        private void OnGUI()
+        {
+            if (!_displayed) return;
+
+            Event e = Event.current;
+            if (e.type == EventType.KeyDown && e.keyCode == KeyCode.F4)
+            {
+                Toggle();
+                return;
+            }
+
+            CreateSkinIfNull();
+            GUI.skin = _skin;
+
+            HandleScrollView();
+            HandleTextField(e);
+        }
+
+        private void HandleScrollView()
+        {
+            var screenWidth = Screen.width;
+            var screenHeight = Screen.height;
+            var maxConsoleHeight = _skin.box.fixedHeight;
+            GUI.BeginGroup(new Rect(0, screenHeight - maxConsoleHeight, screenWidth, maxConsoleHeight), _skin.box);
+
+            _scrollViewVector = GUILayout.BeginScrollView(_scrollViewVector,
+                GUILayout.MinWidth(screenWidth),
+                GUILayout.Height(maxConsoleHeight - TextFieldHeight));
+
+            foreach (var line in _lines)
+            {
+                GUILayout.Label(line);
+            }
+            GUI.EndScrollView();
+            GUI.EndGroup();
+        }
+
+        private void HandleTextField(Event e)
+        {
+            var screenWidth = Screen.width;
+            var screenHeight = Screen.height;
+
+            ExecuteActions(e);
+
+            GUI.SetNextControlName("CommandTextField");
+            _inputField = GUI.TextField(
+                new Rect(0, screenHeight - TextFieldHeight, screenWidth, TextFieldHeight),
+                _inputField);
+            GUI.FocusControl("CommandTextField");
+
+            if (e.type == EventType.KeyDown && e.keyCode == KeyCode.Tab)
+            {
+                TextEditor state = (TextEditor)GUIUtility.GetStateObject(typeof(TextEditor), GUIUtility.keyboardControl);
+                state.cursorIndex = _inputField.Length;
+                state.selectIndex = _inputField.Length;
+            }
+        }
+
+        private void ExecuteActions(Event e)
+        {
+            if (e.type != EventType.KeyDown || string.IsNullOrEmpty(_inputField)) return;
+
+            switch (e.keyCode)
+            {
+                case KeyCode.Return:
+                    Console.EnqueueCommand(_inputField);
+                    _inputField = null;
+                    break;
+                case KeyCode.Tab:
+                    _inputField = Console.TabComplete(_inputField).TrimEnd();
+                    break;
+                default: break;
+            }
+        }
+    }
+#endif
 }

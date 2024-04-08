@@ -14,11 +14,11 @@ namespace BaseTool
         private static double TimeLastMsg;
         private static int ConsoleShowLastLine = 0;
 
-        private static List<string> PendingCommands = new();
+        private static List<string> PendingCommands = new List<string>();
         public static int PendingCommandsWaitForFrames = 0;
         public static bool PendingCommandsWaitForLoad = false;
 
-        private static Dictionary<string, ConsoleCommand> _commands = new();
+        private static Dictionary<string, ConsoleCommand> _commands = new Dictionary<string, ConsoleCommand>();
         private static string[] History = new string[HistoryCount];
         private static int HistoryNextIndex = 0;
         private static int HistoryIndex = 0;
@@ -30,7 +30,9 @@ namespace BaseTool
             var go = new GameObject("Console (manager)");
             Object.DontDestroyOnLoad(go);
 
+#if UNITY_2021_1_OR_NEWER
             go.AddComponent<UIDocument>();
+#endif
             _consoleManager = go.AddComponent<ConsoleManager>();
 
             AddCommand("help", "How to use the command", HelpCommand);
@@ -242,10 +244,10 @@ namespace BaseTool
 
         private void ListCommand(ConsoleArguments args)
         {
-            StringBuilder sb = new("List of available commands:");
-            foreach ((string commandKey, var command) in _commands)
+            StringBuilder sb = new StringBuilder("List of available commands:");
+            foreach (var commandPair in _commands)
             {
-                sb.Append($"\n- {commandKey}: {command.description}");
+                sb.Append($"\n- {commandPair.Key}: {commandPair.Value.description}");
             }
             OutputString(sb.ToString());
         }

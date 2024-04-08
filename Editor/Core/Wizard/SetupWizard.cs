@@ -14,7 +14,7 @@ namespace BaseTool.Editor.Core.Wizard
         public static void ShowWindow()
         {
             var window = GetWindow<SetupWizard>();
-            window.minSize = new(600, 400);
+            window.minSize = new Vector2(600, 400);
             window.titleContent = new GUIContent("Setup Wizard");
         }
 
@@ -53,10 +53,11 @@ namespace BaseTool.Editor.Core.Wizard
 
         private void ExecuteToggle(ClickEvent evt)
         {
-            if (evt.target is not VisualElement ve) return;
-
-            Toggle toggle = ve.Q<Toggle>();
-            toggle.SetValueWithoutNotify(!toggle.value);
+            if (evt.target is VisualElement ve)
+            {
+                Toggle toggle = ve.Q<Toggle>();
+                toggle.SetValueWithoutNotify(!toggle.value);
+            }
         }
 
         private void OnApplyClicked(ClickEvent evt)

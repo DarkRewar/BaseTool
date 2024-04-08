@@ -31,7 +31,7 @@ namespace BaseTool.Shooter
         protected bool _askToShoot = false;
         protected GameObject _currentWeaponGameObject;
 
-        protected Dictionary<Weapon, (Weapon instance, GameObject go)> _weaponInstances = new();
+        protected Dictionary<Weapon, (Weapon instance, GameObject go)> _weaponInstances = new Dictionary<Weapon, (Weapon instance, GameObject go)>();
 
         public event OnShotTouchedEventHandler OnShotTouched;
         public delegate void OnShotTouchedEventHandler(Weapon weapon, ContactData[] contacts);
@@ -81,7 +81,7 @@ namespace BaseTool.Shooter
                 ? _camera.transform
                 : ShootPoint;
 
-            Ray ray = new(shootPoint.position, shootPoint.forward);
+            Ray ray = new Ray(shootPoint.position, shootPoint.forward);
 
             RaycastHit[] hits = Physics.RaycastAll(ray, Weapon.Range, Weapon.HitMask);
             if (hits.Length == 0)

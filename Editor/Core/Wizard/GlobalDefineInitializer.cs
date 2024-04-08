@@ -9,7 +9,7 @@ namespace BaseTool.Editor.Core.Wizard
     [InitializeOnLoad]
     public static class GlobalDefineInitializer
     {
-        static readonly StringBuilder _stringBuilder = new();
+        static readonly StringBuilder _stringBuilder = new StringBuilder();
 
         public const string CoreDefine = "BASETOOL_CORE";
         public const string MovementDefine = "BASETOOL_MOVEMENT";

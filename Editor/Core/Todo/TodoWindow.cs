@@ -10,8 +10,8 @@ namespace BaseTool.Editor.Todo
 {
     public class TodoWindow : EditorWindow
     {
-        private readonly static Regex _regex = new(@"//\s*(todo|fix|fixme)\s*(?:\s*\(([^)]+)\))?\s*:?[\s]+(.*)", RegexOptions.IgnoreCase);
-        private readonly static Regex _asmRemoveNameRegex = new(@"^(.*)/([\w.]+).asmdef$", RegexOptions.IgnoreCase);
+        private readonly static Regex _regex = new Regex(@"//\s*(todo|fix|fixme)\s*(?:\s*\(([^)]+)\))?\s*:?[\s]+(.*)", RegexOptions.IgnoreCase);
+        private readonly static Regex _asmRemoveNameRegex = new Regex(@"^(.*)/([\w.]+).asmdef$", RegexOptions.IgnoreCase);
         private const string EveryAssemblies = "[All]";
         private const string DefaultAssembly = "Assembly-CSharp";
         private const string NamePrefix = "@";
@@ -23,21 +23,23 @@ namespace BaseTool.Editor.Todo
         private VisualElement _view;
 
         private static string _filter = DefaultAssembly;
-        private static List<string> _tagFilters = new();
+        private static List<string> _tagFilters = new List<string>();
 
-        private HashSet<string> _assemblies = new() { EveryAssemblies, DefaultAssembly };
-        private HashSet<string> _tagsFound = new();
+        private HashSet<string> _assemblies = new HashSet<string>() { EveryAssemblies, DefaultAssembly };
+        private HashSet<string> _tagsFound = new HashSet<string>();
 
         private ScrollView _scrollView;
         private VisualElement _tagContainer;
+#if UNITY_2021_1_OR_NEWER
         private DropdownField _tagDropdown;
         private DropdownField _assemblyDropdown;
+#endif
 
         [MenuItem("Window/BaseTool/Todo List")]
         public static void ShowWindow()
         {
             var window = GetWindow<TodoWindow>();
-            window.minSize = new(600, 400);
+            window.minSize = new Vector2(600, 400);
             window.titleContent = new GUIContent("Todo List");
         }
 
@@ -55,6 +57,8 @@ namespace BaseTool.Editor.Todo
 
             _scrollView = _view.Q<ScrollView>();
             _tagContainer = _view.Q<VisualElement>("TagContainer");
+
+#if UNITY_2021_1_OR_NEWER
             _tagDropdown = _view.Q<DropdownField>("TagDropdown");
             _tagDropdown.RegisterCallback<ChangeEvent<string>>(evt =>
             {
@@ -69,6 +73,7 @@ namespace BaseTool.Editor.Todo
                 _filter = evt.newValue;
                 UpdateTodoList();
             });
+#endif
         }
 
         private void UpdateTodoList()
@@ -112,11 +117,13 @@ namespace BaseTool.Editor.Todo
                 }
             }
 
-            if (_assemblyDropdown is not null)
+#if UNITY_2021_1_OR_NEWER
+            if (_assemblyDropdown != null)
             {
                 _assemblyDropdown.choices = _assemblies.ToList();
                 _assemblyDropdown.index = _assemblies.ToList().IndexOf(_filter);
             }
+#endif
 
             UpdateFilters();
         }
@@ -142,7 +149,9 @@ namespace BaseTool.Editor.Todo
             var tags = _tagsFound.ToList();
             tags.Sort();
 
+#if UNITY_2021_1_OR_NEWER
             _tagDropdown.choices = tags.Except(_tagFilters).Prepend(AddTag).ToList();
+#endif
 
             _tagContainer.Query(className: "tag").ForEach(e => e.RemoveFromHierarchy());
             foreach (var tag in _tagFilters)
@@ -193,10 +202,10 @@ namespace BaseTool.Editor.Todo
         {
             if (string.IsNullOrEmpty(value)) return default;
 
-            List<string> names = new();
-            List<string> tags = new();
+            List<string> names = new List<string>();
+            List<string> tags = new List<string>();
 
-            foreach (var entry in value.Split(" "))
+            foreach (var entry in value.Split(' '))
             {
                 if (entry.StartsWith(NamePrefix))
                 {

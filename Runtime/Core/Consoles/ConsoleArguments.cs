@@ -56,7 +56,7 @@ namespace BaseTool
 
         public override string ToString()
         {
-            StringBuilder sb = new("arguments:");
+            StringBuilder sb = new StringBuilder("arguments:");
             if (RawArgs.Length == 0)
             {
                 sb.Append(" [empty]");

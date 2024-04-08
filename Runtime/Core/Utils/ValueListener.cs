@@ -28,7 +28,7 @@
 
         public ValueListener(T value) => _value = value;
 
-        public static implicit operator ValueListener<T>(T value) => new(value);
+        public static implicit operator ValueListener<T>(T value) => new ValueListener<T>(value);
         public static implicit operator T(ValueListener<T> listener) => listener.Value;
     }
 }

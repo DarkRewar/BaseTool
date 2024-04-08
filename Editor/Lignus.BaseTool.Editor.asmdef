@@ -1,6 +1,10 @@
 {
-	"name": "Lignus.BaseTool.Editor",
-    "references": ["Lignus.BaseTool.Runtime"],
+    "name": "Lignus.BaseTool.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Lignus.BaseTool.Runtime",
+        ""
+    ],
     "includePlatforms": [
         "Editor"
     ],

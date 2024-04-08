@@ -24,31 +24,31 @@ namespace BaseTool.Editor.Todo
 
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
-            protected readonly UxmlEnumAttributeDescription<TodoType> _todoType = new()
+            protected readonly UxmlEnumAttributeDescription<TodoType> _todoType = new UxmlEnumAttributeDescription<TodoType>()
             {
                 defaultValue = TodoType.Todo,
                 name = "todo-type"
             };
 
-            protected readonly UxmlStringAttributeDescription _text = new()
+            protected readonly UxmlStringAttributeDescription _text = new UxmlStringAttributeDescription
             {
                 defaultValue = "Todo text...",
                 name = "text"
             };
 
-            protected readonly UxmlStringAttributeDescription _file = new()
+            protected readonly UxmlStringAttributeDescription _file = new UxmlStringAttributeDescription
             {
                 defaultValue = "Assets/Scripts/Test.cs:00",
                 name = "file"
             };
 
-            protected readonly UxmlStringAttributeDescription _tags = new()
+            protected readonly UxmlStringAttributeDescription _tags = new UxmlStringAttributeDescription
             {
                 defaultValue = "ui,core,editor",
                 name = "tags"
             };
 
-            protected readonly UxmlStringAttributeDescription _names = new()
+            protected readonly UxmlStringAttributeDescription _names = new UxmlStringAttributeDescription()
             {
                 defaultValue = "Rewar",
                 name = "names"
@@ -57,13 +57,14 @@ namespace BaseTool.Editor.Todo
             public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
             {
                 base.Init(ve, bag, cc);
-                if (ve is not TodoEntry todoEntry) return;
-
-                todoEntry.Text = _text.GetValueFromBag(bag, cc);
-                todoEntry.File = _file.GetValueFromBag(bag, cc);
-                todoEntry.Tags = _tags.GetValueFromBag(bag, cc).Split(",").ToList();
-                todoEntry.Names = _names.GetValueFromBag(bag, cc).Split(",").ToList();
-                todoEntry.TodoType = _todoType.GetValueFromBag(bag, cc);
+                if (ve is TodoEntry todoEntry)
+                {
+                    todoEntry.Text = _text.GetValueFromBag(bag, cc);
+                    todoEntry.File = _file.GetValueFromBag(bag, cc);
+                    todoEntry.Tags = _tags.GetValueFromBag(bag, cc).Split(',').ToList();
+                    todoEntry.Names = _names.GetValueFromBag(bag, cc).Split(',').ToList();
+                    todoEntry.TodoType = _todoType.GetValueFromBag(bag, cc);
+                }
             }
         }
 
@@ -148,11 +149,11 @@ namespace BaseTool.Editor.Todo
             AddToClassList(UssClassname);
             UpdateTodoType();
 
-            _todoContainer = new();
+            _todoContainer = new VisualElement();
             _todoContainer.AddToClassList(TodoContainerUssClassname);
             Add(_todoContainer);
 
-            _bottomContainer = new();
+            _bottomContainer = new VisualElement();
             _bottomContainer.AddToClassList(BottomContainerUssClassname);
             Add(_bottomContainer);
 

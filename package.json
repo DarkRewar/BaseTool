@@ -1,10 +1,10 @@
 {
   "name": "com.lignus.basetool",
-  "version": "0.2.0",
+  "version": "0.3.0-exp",
   "displayName": "Base Tool",
   "description": "The starter package to your every Unity projects",
-  "unity": "2021.3",
-  "unityRelease": "10f1",
+  "unity": "2020.3",
+  "unityRelease": "48f1",
   "category": "Scripts",
   "keywords": [
     "tool",

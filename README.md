@@ -1,4 +1,4 @@
-# Base Tool
+# Base Tool **(experimental)**
 
 The perfect starter tool to put in your Unity projects!
 
@@ -6,15 +6,18 @@ The perfect starter tool to put in your Unity projects!
 
 # Installation
 
-This tool is made for the Unity package manager and is available for Unity 2021 LTS and further.
+**CAUTION** This branch is at an experimental state for Unity 2020 usage ONLY!
+It also is based on the BaseTool 0.3.0 version ; it could not include new features.
+By the way, [Todo List](#todo-list) is not working on this branch.
+Go to [main](https://github.com/DarkRewar/BaseTool) or 
+[develop](https://github.com/DarkRewar/BaseTool/tree/develop) to use this for Unity 2021 or newer.
 
 How to install:
 
 - Go to `Window > Package Manager` ;
 - Click the plus button-dropdown on the top-left of the window ;
 - Select `Add package from git URL` ;
-- Paste this URL : `https://github.com/DarkRewar/BaseTool.git`
-- Or if you want to test the preview : `https://github.com/DarkRewar/BaseTool.git#develop`
+- Paste this URL : `https://github.com/DarkRewar/BaseTool.git#unity2020`
 
 # Documentation
 

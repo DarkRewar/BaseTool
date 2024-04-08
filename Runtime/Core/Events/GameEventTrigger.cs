@@ -24,7 +24,7 @@ namespace BaseTool
         protected GameEventTriggerType _triggerType = GameEventTriggerType.Trigger;
 
         [SerializeField]
-        protected List<string> _triggerTags = new() { "Player" };
+        protected List<string> _triggerTags = new List<string>() { "Player" };
 
         [SerializeField]
         protected GameEvent _gameEvent;
