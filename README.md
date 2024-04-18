@@ -566,6 +566,16 @@ This object refers to a category that could be assigned to a weapon. It is used 
 
 ## Editor
 
+### Misc Buttons
+
+The package contains useful buttons/links directly accesible from the `Window` menu.
+Here are their functions:
+
+- `Window > BaseTool > Documentation` will open the documentation ;
+- `Window > BaseTool > Report a bug...` will redirect you to the [issue](https://github.com/DarkRewar/BaseTool/issues) page ;
+- `Window > BaseTool > Open Data Folder` will open the `Application.dataPath` in the Explorer/Finder ;
+- `Window > BaseTool > Open Persistent Data Folder` will open the `Application.persistentDataPath` in the Explorer/Finder.
+
 ### Todo List
 
 If you go to `Window > BaseTool > Todo List`, you can get an editor window that opens.
