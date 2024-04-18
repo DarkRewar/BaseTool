@@ -9,6 +9,7 @@
 - Add `ValueListener` feature [[#30](https://github.com/DarkRewar/BaseTool/issues/30)]
 - Add support links to the documentation and issues pages [[#32](https://github.com/DarkRewar/BaseTool/issues/32)]
 - Add buttons to open data and persistent data paths [[#36](https://github.com/DarkRewar/BaseTool/issues/36)]
+- Add `SerializableDictionary` feature [[#35](https://github.com/DarkRewar/BaseTool/issues/35)]
 
 ### Changes
 

@@ -25,6 +25,7 @@ How to install:
     - [Cooldown](#cooldown)
     - [MonoSingleton](#monosingleton)
     - [ValueListener](#valuelistener)
+    - [SerializableDictionary](#serializabledictionary)
     - [GameEvent](#game-events)
     - [Class Extensions](#class-extensions)
     - [Math Utils](#math-utils)
@@ -249,6 +250,26 @@ public class MyComponent : MonoBehaviour
     }
 } 
 ```
+
+### SerializableDictionary
+
+You can get dictionaries in inspector by using the `SerializableDictionary` class. It will serialize the dictionary
+but also draw it like a extended list.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyComponent : MonoBehaviour
+{
+    public SerializableDictionary<string, GameObject> ObjectPool;
+}
+```
+
+The code above will display this dictionary in the inspector.
+It also tells you when two keys already exists in the dictionary.
+
+![serializable_dictionary_drawer](./Documentation~/Editor/serializable_dictionary_drawer.png)
 
 ### Game Events
 
