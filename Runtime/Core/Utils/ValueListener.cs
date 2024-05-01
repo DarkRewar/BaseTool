@@ -1,4 +1,7 @@
-﻿namespace BaseTool
+﻿using System;
+using UnityEngine;
+
+namespace BaseTool
 {
     /// <summary>
     /// Observer pattern to handle value change events.
@@ -6,9 +9,11 @@
     /// property/field and only modify the <see cref="Value"/>
     /// to trigger the <see cref="OnChanged"/> event.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T"></typeparam
+    [Serializable]
     public sealed class ValueListener<T>
     {
+        [SerializeField]
         private T _value;
         public T Value
         {
