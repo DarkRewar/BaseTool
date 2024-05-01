@@ -327,11 +327,13 @@ You can add it on any elements you want, as long as the objects is active
 
 This package contains many class extensions for mainly Unity primary classes. Here are the current extensions:
 
+- [Array Extensions](./Documentation~/Extensions.md#array-extensions)
 - [Camera Extensions](./Documentation~/Extensions.md#camera-extensions)
 - [Color Extensions](./Documentation~/Extensions.md#color-extensions)
 - [List Extensions](./Documentation~/Extensions.md#list-extensions)
 - [Number Extensions](./Documentation~/Extensions.md#number-extensions)
 - [Random Extensions](./Documentation~/Extensions.md#random-extensions)
+- [Range Extensions](./Documentation~/Extensions.md#range-extensions)
 - [String Extensions](./Documentation~/Extensions.md#string-extensions)
 - [Vector Extensions](./Documentation~/Extensions.md#vector-extensions)
 
