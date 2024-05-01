@@ -1,5 +1,13 @@
 # Changelog 
 
+## 0.4.0
+
+### Improvements
+
+- Add a custom drawer for `ValueListener` [[#41](https://github.com/DarkRewar/BaseTool/issues/41)]
+
+### Changes
+
 ## 0.3.0
 
 ### Improvements
