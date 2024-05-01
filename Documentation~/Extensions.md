@@ -1,13 +1,41 @@
 # Class Extensions
 
 Table of contents:
+- [Array Extensions](#array-extensions)
 - [Camera Extensions](#camera-extensions)
 - [Color Extensions](#color-extensions)
 - [List Extensions](#list-extensions)
 - [Number Extensions](#number-extensions)
 - [Random Extensions](#random-extensions)
+- [Range Extensions](#range-extensions)
 - [String Extensions](#string-extensions)
 - [Vector Extensions](#vector-extensions)
+
+## Array Extensions
+
+### `ForEach<T>(Action<T> callback)`
+
+```csharp
+using BaseTool;
+
+Button[] buttons = new Buttons[5];
+buttons.ForEach(button =>
+{
+    button.onClick.AddListener(DoSomething);
+});
+```
+
+### `ForEach<T>(Action<T, int> callback)`
+
+```csharp
+using BaseTool;
+
+Button[] buttons = new Buttons[5];
+buttons.ForEach((button, index) =>
+{
+    button.onClick.AddListener(() => DoSomething(index));
+});
+```
 
 ## Camera Extensions
 
@@ -176,6 +204,23 @@ using System;
 
 Random rand = new();
 rand.Next(1.2f, 55.5f);
+```
+
+## Range Extensions
+
+### GetEnumerator
+
+With this extension, you can use range as enumerator instead of for int loop.
+The range in min inclusive and max exclusive. The following example will 
+iterate through [0;5[
+
+```csharp
+using BaseTool;
+
+foreach (int i in 0..5)
+{
+    // do something with i variable
+}
 ```
 
 ## String Extensions

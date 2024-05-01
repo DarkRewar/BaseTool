@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BaseTool
@@ -7,7 +8,7 @@ namespace BaseTool
     {
         public static T GetRandom<T>(this List<T> list)
         {
-            int random = Random.Range(0, list.Count);
+            int random = UnityEngine.Random.Range(0, list.Count);
             return list[random];
         }
 
@@ -19,7 +20,7 @@ namespace BaseTool
 
         public static T ExtractRandom<T>(this List<T> list)
         {
-            int random = Random.Range(0, list.Count);
+            int random = UnityEngine.Random.Range(0, list.Count);
             T val = list[random];
             list.RemoveAt(random);
             return val;
@@ -31,6 +32,11 @@ namespace BaseTool
             T val = list[index];
             list.RemoveAt(index);
             return val;
+        }
+
+        public static void ForEach<T>(this List<T> list, Action<T, int> callback)
+        {
+            foreach (int i in 0..list.Count) callback?.Invoke(list[i], i);
         }
     }
 }
