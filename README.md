@@ -1,8 +1,29 @@
-# Base Tool
+![BaseTool_logo_full_baseline](https://github.com/DarkRewar/BaseTool/assets/7771426/ab5fdd5a-cddf-4418-9973-820091c797f0)
 
-The perfect starter tool to put in your Unity projects!
+<a href="https://github.com/DarkRewar/BaseTool"><img src="https://img.shields.io/github/package-json/v/darkrewar/basetool" /></a>
+<a href="https://github.com/DarkRewar/BaseTool/tree/develop"><img src="https://img.shields.io/github/package-json/v/darkrewar/basetool/develop" /></a>
+<a href="unityhub://2021.3.37f1/3b6005ad5ad6"><img src="https://img.shields.io/badge/Unity-2021%20LTS-blue" /></a>
+![commit activity](https://img.shields.io/github/commit-activity/m/darkrewar/basetool)
+![last commit](https://img.shields.io/github/last-commit/darkrewar/basetool)
+<a href="https://twitter.com/intent/follow?screen_name=darkrewar"><img src="https://img.shields.io/twitter/follow/darkrewar" /></a>
 
 # Description
+
+BaseTool contains many features that improve your daily game development. 
+Every features are grouped by modules and you can enable features you want to use.
+
+It could be used for any kind of project, at any time, by *pretty* anyone. It contains those key features:
+
+- a Todo List window to check you project state ;
+- a singleton pattern to put on your MonoBehaviour ;
+- the cooldown class to avoid wasting time reimplement it everywhere ;
+- dictionaries that can be serialized in the inspector ;
+- game event flow using ScriptableObject ;
+- GetComponent attributes to retrieve components when you want ;
+- movement and shooter features ;
+- many editor attributes ;
+- many class extensions (for Vector3, arrays, camera...) ;
+- and many small but great features...
 
 # Installation
 
