@@ -3,15 +3,17 @@
 namespace BaseTool
 {
     /// <summary>
-    /// StringUtils permet d'ajouter des extensions de méthodes
-    /// pour les objets string.
+    /// StringExtensions adds many extensions for string purpose that allow:
+    /// - number conversions (like <see cref="ToInt(string)"/>)
+    /// - parsing (like <see cref="AfterFirst(string, string)"/>)
+    /// - generation (like <see cref="Repeat(string, int)"/>)
     /// </summary>
     public static class StringExtensions
     {
         #region Unsigned Conversions
 
         /// <summary>
-        /// Conversion d'un string en byte (UInt8).
+        /// Converts a <see cref="string"/> to a <see cref="byte"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -22,7 +24,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en UInt16.
+        /// Converts a <see cref="string"/> to a <see cref="ushort"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -33,7 +35,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en UInt32.
+        /// Converts a <see cref="string"/> to a <see cref="uint"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -44,7 +46,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en UInt64.
+        /// Converts a <see cref="string"/> to a <see cref="ulong"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -59,7 +61,7 @@ namespace BaseTool
         #region Signed Conversions
 
         /// <summary>
-        /// Conversion d'un string en byte (Int8).
+        /// Converts a <see cref="string"/> to a <see cref="sbyte"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -70,7 +72,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en Int16.
+        /// Converts a <see cref="string"/> to a <see cref="short"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -81,7 +83,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en Int32.
+        /// Converts a <see cref="string"/> to a <see cref="int"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -92,7 +94,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en Int64.
+        /// Converts a <see cref="string"/> to a <see cref="long"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -103,7 +105,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en float.
+        /// Converts a <see cref="string"/> to a <see cref="float"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -114,7 +116,7 @@ namespace BaseTool
         }
 
         /// <summary>
-        /// Conversion d'un string en double.
+        /// Converts a <see cref="string"/> to a <see cref="double"/>
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
@@ -178,7 +180,7 @@ namespace BaseTool
         public static string Repeat(this string s, uint number)
         {
             var builder = new StringBuilder("");
-            for (int i = 0; i < number; ++i) builder.Append(s);
+            for (uint i = 0; i < number; ++i) builder.Append(s);
             return builder.ToString();
         }
 

@@ -6,6 +6,7 @@
 
 - Add a custom drawer for `ValueListener` [[#41](https://github.com/DarkRewar/BaseTool/issues/41)]
 - Add array and range extensions [[#39](https://github.com/DarkRewar/BaseTool/issues/39)]
+- Add string extensions documentation [[#49](https://github.com/DarkRewar/BaseTool/issues/49)]
 
 ### Changes
 
