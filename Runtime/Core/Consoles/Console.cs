@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 namespace BaseTool
@@ -27,6 +28,14 @@ namespace BaseTool
 
         public Console()
         {
+            var eventSystem = Object.FindAnyObjectByType<EventSystem>();
+            if (!eventSystem)
+            {
+                var tmp = new GameObject("EventSystem");
+                tmp.AddComponent<EventSystem>();
+                Object.DontDestroyOnLoad(tmp);
+            }
+
             var go = new GameObject("Console (manager)");
             Object.DontDestroyOnLoad(go);
 
