@@ -9,6 +9,8 @@
 
 ### Changes
 
+- Fix a bug where using `ReadOnly` attribute on hidden field still applying its height [[#51](https://github.com/DarkRewar/BaseTool/issues/51)]
+
 ## 0.3.0
 
 ### Improvements
