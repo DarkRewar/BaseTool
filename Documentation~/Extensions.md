@@ -225,7 +225,75 @@ foreach (int i in 0..5)
 
 ## String Extensions
 
-[WIP]
+### `To[number type]()` Conversions
+
+You can get a number from a string by using of these extensions:
+
+- `.ToSbyte()`
+- `.ToShort()` 
+- `.ToInt()` 
+- `.ToLong()` 
+- `.ToFloat()` 
+- `.ToDouble()` 
+- `.ToByte()` 
+- `.ToUShort()` 
+- `.ToUint()` 
+- `.ToUlong()`
+
+### `AfterFirst(string match)`
+
+Returns the text after the first occurence of the match.
+
+```csharp
+string text = "This is a big text";
+Debug.Log(text.AfterFirst("is")); // is a big text
+```
+
+### `AfterLast(string match)`
+
+Returns the text after the last occurence of the match.
+
+```csharp
+string text = "This is a big text";
+Debug.Log(text.AfterLast("is")); // a big text
+```
+
+### `BeforeFirst(string match)`
+
+Returns the text before the first occurence of the match.
+
+```csharp
+string text = "This is a big text";
+Debug.Log(text.BeforeFirst("is")); // Th
+```
+
+### `BeforeLast(string match)`
+
+Returns the text before the last occurence of the match.
+
+```csharp
+string text = "This is a big text";
+Debug.Log(text.BeforeLast("is")); // This 
+```
+
+### `PrefixMatch(string match)`
+
+Returns the index after the prefix that matches the string.
+
+```csharp
+string text = "This is a big text";
+Debug.Log(text.PrefixMatch("This is")); // 7
+```
+
+### `Repeat(int count)`
+
+Will create a `string` that repeats `count` times based on the string used.
+
+```csharp
+string text = "abc";
+string repeat = text.Repeat(3);
+Debug.Log(repeat); // abcabcabc
+```
 
 ## Vector Extensions
 
