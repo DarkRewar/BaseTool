@@ -10,6 +10,7 @@
 ### Changes
 
 - Fix a bug where using `ReadOnly` attribute on hidden field still applying its height [[#51](https://github.com/DarkRewar/BaseTool/issues/51)]
+- Fix a bug that blocks inputs on the dev console on Unity 6 [[#50](https://github.com/DarkRewar/BaseTool/issues/50)]
 
 ## 0.3.0
 
