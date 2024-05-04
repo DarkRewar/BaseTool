@@ -30,14 +30,19 @@ namespace BaseTool
         public bool IsReady => TimeLeft <= 0;
 
         /// <summary>
+        /// If true, let the <see cref="Cooldown"/> be managed and updated by
+        /// the <see cref="CooldownManager"/>.<br/>
+        /// If you want to update the cooldown on your own, set this to false.<br/>
+        /// True by default.
+        /// </summary>
+        public bool SubscribeToManager = true;
+
+        /// <summary>
         /// Event triggered once the cooldown is ready.
         /// </summary>
         public event Action OnReady;
 
-        public Cooldown(float value)
-        {
-            Duration = value;
-        }
+        public Cooldown(float value) => Duration = value;
 
         /// <summary>
         /// Update the cooldown time left. By default, with the <see cref="Time.deltaTime"/> value.
@@ -50,11 +55,14 @@ namespace BaseTool
         /// <param name="time">Elapsed time, in seconds</param>
         public void Update(float time)
         {
-            if (TimeLeft > 0)
-            {
-                TimeLeft -= time;
+            if (IsReady) return;
+            TimeLeft -= time;
 
-                if (IsReady) OnReady?.Invoke();
+            if (IsReady)
+            {
+                if (SubscribeToManager)
+                    CooldownManager.Unsubscribe(this);
+                OnReady?.Invoke();
             }
         }
 
@@ -63,7 +71,23 @@ namespace BaseTool
         /// </summary>
         public void Reset()
         {
+            if (SubscribeToManager)
+                CooldownManager.Subscribe(this);
             TimeLeft = Duration;
+        }
+
+        /// <summary>
+        /// Reset the cooldown if it's ready.
+        /// Return true if the cooldown has been reset,
+        /// else false.
+        /// </summary>
+        /// <returns></returns>
+        public bool Restart()
+        {
+            if (!IsReady) return false;
+
+            Reset();
+            return true;
         }
 
         /// <summary>

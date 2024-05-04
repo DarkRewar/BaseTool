@@ -177,6 +177,9 @@ public class MyComponent : MonoBehaviour
 
 `Cooldown` is a class that can be used to delay a call, action or whatever you want to do. You can directly check the `Cooldown.IsReady` boolean or subscribe to the `Cooldown.OnReady` event.
 
+Every `Cooldown` is updated by an internal `CooldownManager`, you don't have to call the `Cooldown.Update()` method yourself.
+If you want to manage the cooldown, you can set the `Cooldown.SubscribeToManager` to false.
+
 ```csharp
 using BaseTool;
 using UnityEngine;
@@ -194,13 +197,18 @@ public class MyComponent : MonoBehaviour
 
     void Update()
     {
-        // In both way, you need to update the cooldown
-        _cooldown.Update();
+        // Check if the cooldown is ready and reset it
+        if(_cooldown.Restart())
+        {
+            // Do something when cooldown is ready
+        }
 
-        // Update boolean check method
+        // OR
+
+        // Check if the cooldown is ready...
         if (_cooldown.IsReady)
         {
-            _cooldown.Reset();
+            _cooldown.Reset(); // ...and reset it
             // Do something when cooldown is ready
         }
     }
