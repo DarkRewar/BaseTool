@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -26,8 +28,28 @@ namespace BaseTool
 
         private static ConsoleManager _consoleManager;
 
+        private static ConsoleSettings _settings;
+        public static ConsoleSettings Settings
+        {
+            get
+            {
+                if (!_settings) _settings = ConsoleSettings.GetOrCreate();
+                return _settings;
+            }
+        }
+
         public Console()
         {
+            _settings = ConsoleSettings.GetOrCreate();
+
+#if !UNITY_EDITOR && DEVELOPMENT_BUILD
+            if(!Settings.EnableInDevelopmentBuild) return;
+#endif
+
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+            if(!Settings.EnableInReleaseBuild) return;
+#endif
+
             var eventSystem = Object.FindAnyObjectByType<EventSystem>();
             if (!eventSystem)
             {
@@ -138,6 +160,11 @@ namespace BaseTool
                 ++pos;
         }
 
+        /// <summary>
+        /// Display or hide the current and active <see cref="ConsoleManager"/>
+        /// </summary>
+        public static void Toggle() => _consoleManager.Toggle();
+
         #region UPDATES
 
         public static void ConsoleUpdate()
@@ -244,9 +271,18 @@ namespace BaseTool
 
         public static void RemoveCommand(string name) => _commands.Remove(name.ToLower());
 
+        public static void RemoveCommands() => _commands.Clear();
+
         private void HelpCommand(ConsoleArguments args)
         {
-            OutputString("Hello this is some help!");
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("The dev console is based on command line arguments.");
+            sb.AppendLine("You must enter a valid command, with optional data.");
+            sb.AppendLine("For example:\n");
+            sb.AppendLine("list");
+            sb.AppendLine("my-command text");
+            sb.AppendLine("my-text -message hello");
+            OutputString(sb.ToString());
         }
 
         private void ListCommand(ConsoleArguments args)

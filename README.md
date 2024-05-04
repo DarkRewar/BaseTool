@@ -132,7 +132,16 @@ args["number"]; // 123
 args.Exists("h"); // true
 ```
 
-To toggle the dev console, press F4 key.
+Since 0.4.0, dev console requires a `ConsoleSettings` file to
+work. This asset contains definitions to change the toggle key
+code, the time scale when opened and its inclusion in build.
+
+Currently, this file **must** be in the `Resources` folder and
+be named `ConsoleSettings`.
+
+![image](./Documentation~/Core/Console/console_settings.png)
+
+By default, to toggle the dev console, press F4 key.
 
 ![image](https://github.com/DarkRewar/BaseTool/assets/7771426/98bfceaa-62d0-45e9-8cc4-f087e2f19a5c)
 

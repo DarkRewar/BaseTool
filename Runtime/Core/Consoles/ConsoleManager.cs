@@ -11,7 +11,15 @@ namespace BaseTool
         private ScrollView _scrollView;
         private TextField _textField;
 
-        private bool _displayed = false;
+        public bool Displayed { get; private set; } = false;
+
+        private float _previousTimeScale = 1;
+
+        internal bool IsKeyPressed =>
+            !Console.Settings.UseCustomInput
+            && Input.GetKeyDown(Console.Settings.ToggleKeyCode)
+            && (!Console.Settings.ToggleKeyCodeCtrl || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+            && (!Console.Settings.ToggleKeyCodeAlt || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt));
 
         private void Awake()
         {
@@ -34,35 +42,38 @@ namespace BaseTool
             }, TrickleDown.TrickleDown);
         }
 
-        private void OnDestroy()
-        {
-            Console.RemoveCommand("help");
-            Console.RemoveCommand("list");
-        }
+        private void OnDestroy() => Console.RemoveCommands();
 
         private void Update()
         {
             Console.ConsoleUpdate();
 
+            if (Console.Settings.UseCustomInput) return;
+
 #if ENABLE_LEGACY_INPUT_MANAGER
-            if (!Input.GetKeyDown(KeyCode.F4)) return;
+            if (!IsKeyPressed) return;
             Toggle();
 #else
             enabled = false;
-            throw new Exception("The old input system must be set to use Console Manager!");
+            throw new System.Exception("The old input system must be set to use Console Manager!");
 #endif
         }
 
-        private void Toggle()
+        /// <summary>
+        /// Display or hide the console UI, based on <see cref="Displayed"/> value.
+        /// </summary>
+        public void Toggle()
         {
-            _displayed = !_displayed;
+            if (!Displayed) _previousTimeScale = Time.timeScale;
+
+            Displayed = !Displayed;
             _uiDocument.rootVisualElement.style.display =
-                _displayed
+                Displayed
                     ? DisplayStyle.Flex
                     : DisplayStyle.None;
-            if (_displayed) _textField.ElementAt(0).Focus();
+            if (Displayed) _textField.ElementAt(0).Focus();
 
-            Time.timeScale = _displayed ? 0 : 1;
+            Time.timeScale = Displayed ? Console.Settings.OpenedTimeScale : _previousTimeScale;
         }
 
         public void WriteLine(string txt)
