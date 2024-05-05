@@ -13,6 +13,28 @@ Table of contents:
 
 ## Array Extensions
 
+### `GetRandom<T>()`
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+GameObject[] objects = new GameObject[5];
+var obj = objects.GetRandom();
+```
+
+### `GetRandom<T>(System.Random random)`
+
+```csharp
+using BaseTool;
+using System;
+using UnityEngine;
+
+Random rand = new Random();
+GameObject[] objects = new GameObject[5];
+var obj = objects.GetRandom(rand);
+```
+
 ### `ForEach<T>(Action<T> callback)`
 
 ```csharp
