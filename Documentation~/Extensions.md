@@ -9,6 +9,7 @@ Table of contents:
 - [Random Extensions](#random-extensions)
 - [Range Extensions](#range-extensions)
 - [String Extensions](#string-extensions)
+- [Transform Extensions](#transform-extensions)
 - [Vector Extensions](#vector-extensions)
 
 ## Array Extensions
@@ -315,6 +316,38 @@ Will create a `string` that repeats `count` times based on the string used.
 string text = "abc";
 string repeat = text.Repeat(3);
 Debug.Log(repeat); // abcabcabc
+```
+
+## Transform Extensions
+
+### `Clear()` and `Clear(float time)`
+
+Destroy every children of a transform, using delay or not. 
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+Transform scrollView; // let's admit it's initialized
+scrollView.Clear();
+
+foreach(int i in 0..5) 
+    Instantiate(prefab, scrollView);
+```
+
+### `ClearImmediate()`
+
+Destroy every children of a transform, using the `Object.DestroyImmediate()` method. 
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+Transform scrollView; // let's admit it's initialized
+scrollView.ClearImmediate();
+
+foreach(int i in 0..5) 
+    Instantiate(prefab, scrollView);
 ```
 
 ## Vector Extensions
