@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using UnityEngine;
 
 namespace BaseTool
 {
@@ -137,6 +138,18 @@ namespace BaseTool
         }
 
         /// <summary>
+        /// Vérifie si le nombre se situe dans cet intervalle.
+        /// Calcul : minMax.x <= origin && origin <= minMax.y
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="minMax"></param>
+        /// <returns></returns>
+        public static bool IsBetween(this float origin, Vector2 minMax)
+        {
+            return minMax.x <= origin && origin <= minMax.y;
+        }
+
+        /// <summary>
         /// Vérifie si le nombre se situe dans cet intervalle exclusif.
         /// Calcul : a < origin && origin < b
         /// </summary>
@@ -160,6 +173,18 @@ namespace BaseTool
         public static bool IsBetweenExclusive(this float origin, float a, float b)
         {
             return a < origin && origin < b;
+        }
+
+        /// <summary>
+        /// Vérifie si le nombre se situe dans cet intervalle.
+        /// Calcul : minMax.x < origin && origin < minMax.y
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="minMax"></param>
+        /// <returns></returns>
+        public static bool IsBetweenExclusive(this float origin, Vector2 minMax)
+        {
+            return minMax.x < origin && origin < minMax.y;
         }
 
         #endregion

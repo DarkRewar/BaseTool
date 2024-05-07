@@ -11,6 +11,7 @@
 - Add `Array.GetRandom()` extension methods [[#64](https://github.com/DarkRewar/BaseTool/issues/64)]
 - Add a `TickManager` component [[#43](https://github.com/DarkRewar/BaseTool/issues/43)]
 - Add a `Clear()` transform extensions [[#40](https://github.com/DarkRewar/BaseTool/issues/40)]
+- Add a `PonderateRandom` class to alter weight of random elements [[#46](https://github.com/DarkRewar/BaseTool/issues/46)]
 
 ### Changes
 

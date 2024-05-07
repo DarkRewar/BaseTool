@@ -310,6 +310,34 @@ It also tells you when two keys already exists in the dictionary.
 
 ![serializable_dictionary_drawer](./Documentation~/Editor/serializable_dictionary_drawer.png)
 
+### PonderateRandom
+
+Many games uses randomizer tweaked to let some elements happens more times than others.
+It is called "ponderate randomisation". You can create your own by using `PonderateRandom`
+class and add weight on each elements ; allowing some to happen more or less than others.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+var cheatedDice = new PonderateRandom<string> {
+    { "One", 1 },
+    { "Two", 1 },
+    { "Three", 0.5f }, // the three happens twice less than others
+    { "Four", 1 },
+    { "Five", 1 },
+    { "Six", 2 }, // the six happens twice more than others
+};
+
+// use UnityEngine.Random
+Debug.Log(cheatedDice.Get());
+
+// use System.Random
+var random = new System.Random(1);
+Debug.Log(cheatedDice.Get(random)); // always be "Two"
+Debug.Log(cheatedDice.Get(random)); // always be "One"
+```
+
 ### Game Events
 
 This feature allows you to create custom events using ScriptableObjects.
