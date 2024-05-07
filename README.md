@@ -374,6 +374,7 @@ This package contains many class extensions for mainly Unity primary classes. He
 - [Random Extensions](./Documentation~/Extensions.md#random-extensions)
 - [Range Extensions](./Documentation~/Extensions.md#range-extensions)
 - [String Extensions](./Documentation~/Extensions.md#string-extensions)
+- [Transform Extensions](./Documentation~/Extensions.md#transform-extensions)
 - [Vector Extensions](./Documentation~/Extensions.md#vector-extensions)
 
 Go to the full documentation : [Class Extensions](./Documentation~/Extensions.md)
