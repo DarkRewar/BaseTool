@@ -50,6 +50,7 @@ How to install:
     - [GameEvent](#game-events)
     - [Class Extensions](#class-extensions)
     - [Math Utils](#math-utils)
+    - [TickManager](#tickmanager)
     - [Tree](#tree)
     - [Interfaces](#core-interfaces)
 2. [Movement](#movement)
@@ -392,6 +393,72 @@ MathUtils.Modulo(1, 5); // = 1
 MathUtils.Modulo(6, 5); // = 1
 MathUtils.Modulo(-1, 5); // = 4
 MathUtils.Modulo(-3, 5); // = 2
+```
+
+### TickManager
+
+The `TickManager` component allows you to create a system that sends a tick every *x* seconds.
+You can define the delay between two ticks by modifying the `Tick Duration` field.
+You can also make the `TickManager` a singleton by checking `Make Singleton` 
+(it will convert it to a singleton at Awake, don't do that at runtime!).
+
+To add the component, you can go to `Add Component > BaseTool > Core > Tick Manager`.
+You can have more than one `TickManager` on a singleton GameObject, but it is highly recommended
+to use only one `TickManager` (as singleton) or seperate them between multiple GameObjects.
+
+![tick_manager_component](./Documentation~/Core/TickManager/tick_manager_component.PNG)
+
+You can subscribe to the tick event from the inspector (using `UnityEvent`)
+or the `OnTick` event action.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class TickerTest : MonoBehaviour
+{
+    [SerializeField] private TickManager _tickManager;
+
+    void Start()
+    {
+        _tickManager.OnTick += OnTick;
+    }
+
+    private void OnTick() => Debug.Log("OnTick()");
+}
+```
+
+If you want to add more custom tick, you can create a struct that implements the `ICustomTick`
+interface, and create you own tick logic. The interface implements the `ShouldTick(ulong tick)`
+method where `tick` is the current number of ticks elapsed since the beginning of the game.
+
+The following example shows how to create a custom tick that process every two ticks only:
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public struct EveryTwoTicks : ICustomTick
+{
+    public bool ShouldTick(ulong tick) => tick % 2 == 0;
+}
+
+public class TickerTest : MonoBehaviour
+{
+    [SerializeField] private TickManager _tickManager;
+
+    private void OnEnable()
+    {
+        _tickManager.RegisterCustomTick<EveryTwoTicks>(OnEveryTwoTicks);
+    }
+
+    private void OnDisable()
+    {
+        _tickManager.UnregisterCustomTick<EveryTwoTicks>(OnEveryTwoTicks);
+    }
+
+    private void EveryTwoTicks() => Debug.Log("EveryTwoTicks()");
+}
 ```
 
 ### Tree

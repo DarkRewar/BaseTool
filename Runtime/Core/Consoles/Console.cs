@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Text;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -303,7 +301,7 @@ namespace BaseTool
 
         public static Console Instance => _instance ?? Init();
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static Console Init()
         {
             _instance = new Console();

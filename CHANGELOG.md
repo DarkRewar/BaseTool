@@ -9,6 +9,7 @@
 - Add string extensions documentation [[#49](https://github.com/DarkRewar/BaseTool/issues/49)]
 - Add `CooldownManager` to update every `Cooldown` automatically [[#63](https://github.com/DarkRewar/BaseTool/pull/63)]
 - Add `Array.GetRandom()` extension methods [[#64](https://github.com/DarkRewar/BaseTool/issues/64)]
+- Add a `TickManager` component [[#43](https://github.com/DarkRewar/BaseTool/issues/43)]
 
 ### Changes
 
