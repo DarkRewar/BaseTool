@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BaseTool.UI.Views;
-
-namespace BaseTool.UI
+﻿namespace BaseTool.UI
 {
     public class NavigationEntry
     {
-        public AView View { get; private set; }
+        public View View { get; private set; }
 
         public NavigationArgs Args { get; private set; }
 
-        public NavigationEntry(AView view, NavigationArgs args)
+        public NavigationEntry(View view, NavigationArgs args)
         {
             View = view;
             Args = args;

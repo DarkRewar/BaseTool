@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BaseTool.UI
 {
     public class BackBehaviour : MonoBehaviour
     {
-        // Update is called once per frame
+        [SerializeField] private KeyCode Key = KeyCode.Escape;
+
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(Key))
                 Navigation.Back();
         }
     }
