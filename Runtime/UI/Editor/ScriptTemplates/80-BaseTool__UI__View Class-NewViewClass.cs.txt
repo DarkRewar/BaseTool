@@ -1,0 +1,18 @@
+using BaseTool.UI;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : View
+{
+    // Called when the view is opened
+    public override void OnNavigateFrom(View fromView, NavigationArgs args)
+    {
+        base.OnNavigateFrom(fromView, args);
+    }
+
+    // Called when the view is closed
+    public override void OnNavigateTo(View toView, NavigationArgs args)
+    {
+        base.OnNavigateTo(toView, args);
+    }
+}
+#ROOTNAMESPACEEND#

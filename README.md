@@ -64,6 +64,10 @@ How to install:
 4. [RPG](#rpg) [WIP]
 5. [Roguelite](#roguelite) [WIP]
 6. [UI](#ui)
+    - [Workflow](#ui-workflow)
+    - [View](#view)
+    - [Navigation](#navigation)
+    - [Sample](#ui-sample)
 7. [Editor](#editor)
     - [Todo List](#todo-list)
     - [MinMaxAttribute](#minmaxattribute)
@@ -730,7 +734,151 @@ This object refers to a category that could be assigned to a weapon. It is used 
 
 ## UI
 
-[coming soon]
+The `UI` module contains most of components used to manage user interfaces.
+You can enable it, if you want to use a simple UI navigation workflow based on
+parenthood views architecture. 
+
+This module uses the `UnityEngine.UI` system and does not support 
+`UnityEngine.UIElements` (UI Toolkit) yet.
+
+By default, the `UI` module is enabled but can be disabled in the [Setup Wizard](#setup-wizard).
+This module is located under the `BaseTool.UI` namespace.
+
+### <span id="ui-workflow">Workflow</span>
+
+The `UI` module follows [the official Unity UI recommendations](https://unity.com/fr/how-to/unity-ui-optimization-tips) about optimization and organization.
+Meaning that you must setup a specific UI workflow to use the module:
+
+1. Any view must inherit from the [`View`](#view) class ;
+2. Each view must have a `Canvas` component ;
+3. Views must be opened and closed using the `Navigation` class only ;
+4. Sub-views must be children of a parent view in the Unity GameObject hierarchy ; and
+5. Every view must be in the scene at start with its canvas disabled.
+
+See the [sample](#ui-sample) for more examples.
+
+### `View`
+
+What is called a view is a page of an element that can be displayed or opened
+by the user (like the inventory, settings, pause menu...). Any view created
+must inherit from the `View` class that automatically registers the component
+to the `Navigation`.
+
+Caution: using UI GameObject that could be a view without inheriting from `View`
+could broke the navigation workflow. 
+
+You can create a view from the template by right click in your assets project :
+`Create > BaseTool > UI > View Class`.
+
+```csharp
+using BaseTool.UI;
+
+public class MyView : View
+{
+    // Called when the view is opened
+    public override void OnNavigateFrom(View fromView, NavigationArgs args)
+    {
+        base.OnNavigateFrom(toView, args);
+    }
+
+    // Called when the view is closed
+    public override void OnNavigateTo(View toView, NavigationArgs args)
+    {
+        base.OnNavigateTo(toView, args);
+    }
+}
+```
+
+|Methods and properties|Description|
+|---|---|
+|**Properties**|
+|Tree|Get the full tree of the view, knowing its parent and its children.|
+|Parent|Get the parent view (if it exists).|
+|IsVisible|Returns true if the view is displayed (child or not).|
+|**Methods**|
+|`Display(boolean)`|Display (or hide) the view and its parent.|
+|`OnNavigateFrom(View, NavigationArgs)`|Method called by the `Navigation` when the view is displayed (navigated from another view passed by parameter).|
+|`OnNavigateTo(View, NavigationArgs)`|Method called by the `Navigation` when the view is closed (when navigation wants to open another view passed by parameter).|
+
+### `Navigation`
+
+The `Navigation` class **must be** the only way to display or hide views. This is
+because it uses a navigation history to go backward. You can add the `BackBehaviour`
+component anywhere in your scene to add this behaviour (or handle the back yourself).
+
+|Methods|Description|
+|---|---|
+|`Open<View>()`|Open the view following the type in parameter.|
+|`Close<View>()`|Close the view following the type in parameter.|
+|`Back()`|Close the current view and open the previous one.|
+|`Clear()`|Hide every views and clear the navigation history.|
+
+The basic workflow, if you properly setup your views, is :
+
+```csharp
+using BaseTool.UI;
+
+// View on the root UI
+public class HomeView : View {}
+
+// View on the root UI
+public class SettingsView : View {}
+
+// View inside the SettingsView
+public class AudioSettingsView : View {}
+
+Navigation.Open<HomeView>(); // will open the HomeView
+Navigation.Open<SettingsView>(); // will open SettingsView
+
+Navigation.Back(); // will close the SettingsView and open the HomeView
+
+Navigation.Open<AudioSettingsView>(); // will open the AudioSettingsView
+
+//will open the AudioSettingsView that is inside the SettingsView
+Navigation.Open<SettingsView, AudioSettingsView>(); 
+```
+
+The `Open()` method can be used to open differents views. If you made a view
+"unique", that only exists once, you can use the `Navigation.Open<T>()` method.
+But, if the view you want to open exists multiple times, and could be different
+depending on the context, you can open the view by a path search using two generics:
+`Navigation.Open<T1, T2>()` ; like the example in the code upper.
+
+You can also pass arguments when you want to open the view. Arguments will be sent
+to the `OnNavigateTo()` on the closing view and `OnNavigateFrom()` on the opening view.
+
+```csharp
+using BaseTool.UI;
+
+public class UserArgs : NavigationArgs
+{
+    public string Email;
+    public string Password;
+}
+
+public class UserView : View 
+{
+    public override void OnNavigateFrom(View fromView, NavigationArgs args)
+    {
+        if(args is UserArgs userArgs)
+        {
+            ConnectToServer(userArgs.Email, userArgs.Password);
+        }
+    }
+
+    private void ConnectToServer(string user, string pass)
+    {
+        // do something with data
+    }
+}
+```
+
+### <span id="ui-sample">Sample</span>
+
+The package include a UI sample project that contains scripts to understand the
+navigation workflow.
+
+You can download it from the package manager, in the BaseTool sample tab. 
 
 ## Editor
 

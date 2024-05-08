@@ -27,6 +27,11 @@
       "displayName": "Shooter Sample",
       "description": "Contains sample project with the basic shooter features",
       "path": "Samples~/Shooter"
+    },
+    {
+      "displayName": "UI Sample",
+      "description": "Contains sample project to try the UI workflow and understand how it works",
+      "path": "Samples~/UI"
     }
   ]
 }
