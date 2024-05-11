@@ -301,7 +301,7 @@ namespace BaseTool
 
         public static Console Instance => _instance ?? Init();
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         public static Console Init()
         {
             _instance = new Console();
