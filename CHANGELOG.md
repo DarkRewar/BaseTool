@@ -1,5 +1,12 @@
 # Changelog 
 
+## 0.4.1
+
+### Changes
+
+- Fix the creation of two `EventSystem` on `Console` initialization [[#75](https://github.com/DarkRewar/BaseTool/issues/75)]
+- Fix the bug that blocks users to use `IfAttribute` with property accessor condition [[#78](https://github.com/DarkRewar/BaseTool/issues/78)]
+
 ## 0.4.0
 
 ### Improvements
