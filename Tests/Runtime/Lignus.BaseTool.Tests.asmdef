@@ -1,0 +1,25 @@
+{
+    "name": "Lignus.BaseTool.Tests",
+    "rootNamespace": "BaseTool.Tests",
+    "references": [
+        "Lignus.BaseTool.Runtime",
+        "Lignus.BaseTool.Runtime.Movement",
+        "Lignus.BaseTool.Runtime.RPG",
+        "Lignus.BaseTool.Runtime.Shooter",
+        "Lignus.BaseTool.Runtime.UI",
+        "UnityEngine.TestRunner"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
