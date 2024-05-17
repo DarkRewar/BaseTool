@@ -5,7 +5,7 @@ namespace BaseTool
     public static class RandomExtensions
     {
         /// <summary>
-        /// UnityEngine.Random.Range() equivalent.
+        /// <see cref="UnityEngine.Random.Range(float, float)"/> equivalent.
         /// </summary>
         /// <param name="random"></param>
         /// <param name="min"></param>
@@ -17,9 +17,7 @@ namespace BaseTool
 
             if (min > max)
             {
-                float tmp = min;
-                min = max;
-                max = tmp;
+                (min, max) = (max, min);
             }
 
             return (float)random.NextDouble() * Math.Abs(max - min) + min;
