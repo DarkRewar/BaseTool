@@ -428,6 +428,24 @@ MathUtils.Modulo(-1, 5); // = 4
 MathUtils.Modulo(-3, 5); // = 2
 ```
 
+#### `Approximately(float a, float b, float tolerance = 0.001f)`
+
+The [`UnityEngine.Mathf.Approximately`](https://docs.unity3d.com/ScriptReference/Mathf.Approximately.html)
+method is useful but not enough tolerant if you want to check values that are too different.
+
+For example: if you want to make a deadzone on your Vector3 magnitude when it goes lower than 0.01f, 
+the `Mathf.Approximately(vector.magnitude, 0)` could return false if your magnitude is too high.
+
+```csharp
+using BaseTool; 
+
+MathUtils.Approximately(0.1f, 0.001f); // true
+MathUtils.Approximately(1, 0.001f); // false
+
+MathUtils.Approximately(1.1f, 1.2f, 0.2f); // true
+MathUtils.Approximately(1.1f, 1.2f, 0.05f); // false
+```
+
 ### TickManager
 
 The `TickManager` component allows you to create a system that sends a tick every *x* seconds.
