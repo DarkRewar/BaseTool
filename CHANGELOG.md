@@ -2,11 +2,15 @@
 
 ## 0.4.1
 
+### Improvements
+
+- Add the `MathUtils.Approximately()` method as a tolerant equivalent of `Mathf.Approximately` [[#86](https://github.com/DarkRewar/BaseTool/issues/86)]
+
 ### Changes
 
 - Fix the creation of two `EventSystem` on `Console` initialization [[#75](https://github.com/DarkRewar/BaseTool/issues/75)]
 - Fix the bug that blocks users to use `IfAttribute` with property accessor condition [[#78](https://github.com/DarkRewar/BaseTool/issues/78)]
-- Add unit tests to avoid regression [[87](https://github.com/DarkRewar/BaseTool/issues/78)]
+- Add unit tests to avoid regression [[#87](https://github.com/DarkRewar/BaseTool/issues/87)]
 
 ## 0.4.0
 

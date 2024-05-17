@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using UnityEngine;
 
 namespace BaseTool.Tests
 {
@@ -28,6 +29,34 @@ namespace BaseTool.Tests
         public void MathUtilsMinus9Modulo6()
         {
             Assert.IsTrue(MathUtils.Modulo(-9, 6) == 3);
+        }
+
+        #endregion
+
+        #region MathUtils.Approximately
+
+        [Test(Author = "DarkRewar", Description = "Test if two numbers are near")]
+        public void MathUtilsDefaultApproximately()
+        {
+            Assert.IsTrue(MathUtils.Approximately(0.01f, 0.001f));
+        }
+
+        [Test(Author = "DarkRewar", Description = "Test if two numbers are near")]
+        public void MathUtilsApproximatelyWithVector3()
+        {
+            float value = 1E-16f;
+            var smallVector = new Vector3(value, value, value);
+            Assert.IsFalse(Mathf.Approximately(smallVector.magnitude, 0));
+            Assert.IsTrue(MathUtils.Approximately(smallVector.magnitude, 0));
+        }
+
+        [Test(Author = "DarkRewar", Description = "Test if two numbers are near")]
+        public void MathUtilsApproximatelyWithVector3AndTooSmallTolerence()
+        {
+            float value = 1E-16f;
+            var smallVector = new Vector3(value, value, value);
+            Assert.IsFalse(Mathf.Approximately(smallVector.magnitude, 0));
+            Assert.IsFalse(MathUtils.Approximately(smallVector.magnitude, 0, 1E-24f));
         }
 
         #endregion
