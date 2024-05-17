@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace BaseTool.Movement
 {
+    public enum ThirstPersonOrientation
+    {
+        OrientWithCamera,
+        OrientWithMovement,
+        Mixed
+    }
+
     [AddComponentMenu("BaseTool/Movement/Third Person Controller")]
     [RequireComponent(typeof(Rigidbody))]
     [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#thirdpersoncontroller")]
@@ -20,6 +27,13 @@ namespace BaseTool.Movement
         [SerializeField]
         protected float _cameraInitialDistance = 1.5f;
 
+        [SerializeField, MinMax(-90, 90)]
+        protected Vector2 _cameraMinMaxAngle = new Vector2(-60, 30);
+
+        [Header("Controller Settings")]
+        [SerializeField]
+        protected ThirstPersonOrientation _orientation = ThirstPersonOrientation.Mixed;
+
         [Header("Movement Settings")]
         [SerializeField]
         protected float _speed = 5;
@@ -31,6 +45,17 @@ namespace BaseTool.Movement
         protected Vector2 _rotationInput = Vector2.zero;
 
         protected Vector2 _cameraRotation = Vector2.zero;
+
+        protected Vector3 Velocity
+        {
+#if UNITY_2023_3_OR_NEWER
+            get => _rigidbody.linearVelocity;
+            set => _rigidbody.linearVelocity = value;
+#else
+            get => _rigidbody.velocity;
+            set => _rigidbody.velocity = value;
+#endif
+        }
 
         protected virtual void Awake() => Injector.Process(this);
 
@@ -46,7 +71,9 @@ namespace BaseTool.Movement
             _camera.transform.SetPositionAndRotation(
                 worldTargetPosition,
                 Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0));
-            transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
+
+            OrientWithCamera();
+            OrientWithMovement();
         }
 
         protected virtual void FixedUpdate() => FixedUpdateMove();
@@ -57,13 +84,8 @@ namespace BaseTool.Movement
             tmp = Quaternion.Euler(0, _cameraRotation.x, 0) * tmp;
             var dir = _speed * tmp.LimitLength();
 
-#if UNITY_2023_3_OR_NEWER
-            dir.y = _rigidbody.linearVelocity.y;
-            _rigidbody.linearVelocity = dir;
-#else
-            dir.y = _rigidbody.velocity.y;
-            _rigidbody.velocity = dir;
-#endif
+            dir.y = Velocity.y;
+            Velocity = dir;
         }
 
         public virtual void Move(Vector2 move)
@@ -74,8 +96,24 @@ namespace BaseTool.Movement
         public virtual void Rotate(Vector2 rotation)
         {
             _cameraRotation += rotation;
-            _cameraRotation.x = _cameraRotation.x % 360;
-            _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, -90, 90);
+            _cameraRotation.x %= 360;
+            _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, -_cameraMinMaxAngle.y, -_cameraMinMaxAngle.x);
+        }
+
+        protected virtual void OrientWithCamera()
+        {
+            if (_orientation == ThirstPersonOrientation.OrientWithMovement) return;
+            if (_orientation == ThirstPersonOrientation.Mixed && Velocity.sqrMagnitude < 0.001f) return;
+
+            transform.rotation = Quaternion.Euler(0, _cameraRotation.x, 0);
+        }
+
+        protected virtual void OrientWithMovement()
+        {
+            if (_orientation != ThirstPersonOrientation.OrientWithMovement) return;
+            if (Velocity.sqrMagnitude < 0.001f) return;
+
+            transform.rotation = Quaternion.LookRotation(Velocity.ChangeY(0), Vector3.up);
         }
     }
 }

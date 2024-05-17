@@ -29,59 +29,57 @@ namespace BaseTool.Movement
 
         protected Cooldown _coyoteEffectTiming;
         protected bool _isJumping = false;
-        protected int _jumpsLeft = 1;
+        protected int _additionalJumpsLeft = 0;
 
         public bool IsGrounded { get; protected set; } = true;
 
-        public bool CanJump => _jumpsLeft > 1 || CanCoyoteEffect || (!_isJumping && IsGrounded);
+        public bool CanJump => _additionalJumpsLeft > 0 || CanCoyoteEffect || (!_isJumping && IsGrounded);
 
         public bool CanCoyoteEffect => !IsGrounded && !_coyoteEffectTiming.IsReady;
+
+        protected Vector3 Velocity
+        {
+#if UNITY_2023_3_OR_NEWER
+            get => _rigidbody.linearVelocity;
+            set => _rigidbody.linearVelocity = value;
+#else
+            get => _rigidbody.velocity;
+            set => _rigidbody.velocity = value;
+#endif
+        }
 
         protected virtual void Awake() => Injector.Process(this);
 
         protected virtual void Start()
         {
             _coyoteEffectTiming = _coyoteEffectDelay;
-            _jumpsLeft = _jumpCount;
+            _coyoteEffectTiming.SubscribeToManager = false;
+            ResetAdditionalJumps();
         }
 
         protected virtual void FixedUpdate()
         {
             CheckGrounded();
 
-#if UNITY_2023_3_OR_NEWER
-            if (_rigidbody.linearVelocity.y < 0)
+            if (Velocity.y < 0)
             {
-                var velocity = _rigidbody.linearVelocity;
+                var velocity = Velocity;
                 velocity.y *= _fallMultiplier;
-                _rigidbody.linearVelocity = velocity;
+                Velocity = velocity;
             }
-#else
-
-            if (_rigidbody.velocity.y < 0)
-            {
-                var velocity = _rigidbody.velocity;
-                velocity.y *= _fallMultiplier;
-                _rigidbody.velocity = velocity;
-            }
-#endif
         }
 
         public virtual void Jump()
         {
             if (!CanJump) return;
 
-            _jumpsLeft--;
+            _additionalJumpsLeft--;
             _coyoteEffectTiming = 0;
-#if UNITY_2023_3_OR_NEWER
-            var velocity = _rigidbody.linearVelocity;
+
+            var velocity = Velocity;
             velocity.y = _jumpForce;
-            _rigidbody.linearVelocity = velocity;
-#else
-            var velocity = _rigidbody.velocity;
-            velocity.y = _jumpForce;
-            _rigidbody.velocity = velocity;
-#endif
+            Velocity = velocity;
+
             _isJumping = true;
         }
 
@@ -102,10 +100,12 @@ namespace BaseTool.Movement
             else if (!IsGrounded && colliders.Length != 0)
             {
                 _isJumping = false;
-                _jumpsLeft = _jumpCount;
+                ResetAdditionalJumps();
             }
             IsGrounded = colliders.Length != 0;
         }
+
+        protected void ResetAdditionalJumps() => _additionalJumpsLeft = _jumpCount - 1;
 
         public void OnDrawGizmosSelected()
         {
