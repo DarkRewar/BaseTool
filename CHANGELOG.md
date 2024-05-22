@@ -1,5 +1,11 @@
 # Changelog 
 
+## 0.5.0
+
+### Improvements
+
+- Add a `MessageAttribute` to display message in the inspector [[#91](https://github.com/DarkRewar/BaseTool/issues/91)]
+
 ## 0.4.1
 
 ### Improvements
