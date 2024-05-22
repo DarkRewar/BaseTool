@@ -74,6 +74,7 @@ How to install:
     - [IfAttribute](#ifattribute)
     - [IfNotAttribute](#ifnotattribute)
     - [ReadOnlyAttribute](#readonlyattribute)
+    - [MessageAttribute](#messageattribute)
 
 ## Core
 
@@ -1007,3 +1008,35 @@ public class MyClass : MonoBehaviour
     public int Lifepoints = 10;
 }
 ```
+
+### `MessageAttribute`
+
+You can add a `[Message]` attribute before a field to display a message in the inspector.
+You need to pass the message as the first parameter, and you can precise which type of message
+you want (None, Info, Warning or Error).
+
+```csharp
+[MessageAttribute(string message, MessageAttribute.MessageType type = MessageAttribute.MessageType.Info)]
+```
+
+There also is three shortcut to write those messages: 
+`InfoMessage`, `WarningMessage` and `ErrorMessage`.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    [Message("This is a normal message")]
+    public float _hello;
+
+    [WarningMessage("This is a warning message")]
+    public float _helloWarning;
+
+    [Message("This is an error message", MessageAttribute.MessageType.Error)]
+    public float _helloError;
+}
+```
+
+![message_attribute](./Documentation~/Editor/message_attribute.PNG)
