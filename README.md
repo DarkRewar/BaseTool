@@ -75,6 +75,7 @@ How to install:
     - [IfNotAttribute](#ifnotattribute)
     - [ReadOnlyAttribute](#readonlyattribute)
     - [MessageAttribute](#messageattribute)
+    - [ButtonAttribute](#buttonattribute)
 
 ## Core
 
@@ -1040,3 +1041,24 @@ public class MyClass : MonoBehaviour
 ```
 
 ![message_attribute](./Documentation~/Editor/message_attribute.PNG)
+
+### `ButtonAttribute`
+
+You can add a `[Button]` attribute before a method to display a button in the inspector.
+When clicked, it will execute the method linked to the button attribute.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class ButtonTest : MonoBehaviour
+{
+    [Button]
+    public void DoSomething()
+    {
+        Debug.Log("Method called from inspector");
+    }
+}
+```
+
+![button_attribute](./Documentation~/Editor/button_attribute.png)
