@@ -975,6 +975,11 @@ public class MyClass : MonoBehaviour
 
     [If(nameof(UseProjectile))]
     public GameObject ProjectilePrefab;
+
+    public float ProjectileSpeed = 1f;
+    
+    [If("ProjectileSpeed > 1")]
+    public GameObject ProjectileFX;
 }
 ```
 
@@ -992,6 +997,11 @@ public class MyClass : MonoBehaviour
 
     [IfNot(nameof(UseRaycast))]
     public GameObject ProjectilePrefab;
+
+    public float ProjectileSpeed = 1f;
+    
+    [If("ProjectileSpeed > 1")]
+    public GameObject ProjectileFX;
 }
 ```
 

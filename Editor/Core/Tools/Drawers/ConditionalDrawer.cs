@@ -1,4 +1,7 @@
-using System.Reflection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DynamicExpresso;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,41 +11,27 @@ namespace BaseTool.Tools.Drawers
     {
         protected bool _display = false;
 
-        protected void CheckObject(SerializedObject serializedObject, out string selector)
+        protected bool GetValueFromObject(SerializedObject serializedObject)
         {
             _display = false;
+
             ConditionalAttribute condAttribute = attribute as ConditionalAttribute;
-            selector = condAttribute.Selector;
+            var selector = condAttribute.Selector;
 
-            SerializedProperty targetProperty = serializedObject.FindProperty(selector);
-            if (targetProperty == null)
+            try
             {
-                if (serializedObject.targetObject == null) return;
-                PropertyInfo propertyInfo = serializedObject.targetObject.GetType().GetProperty(selector);
-                UnityEngine.Assertions.Assert.IsTrue(propertyInfo != null, $"Property of field {selector} not found.");
-                UnityEngine.Assertions.Assert.IsTrue(propertyInfo.PropertyType == typeof(bool), $"Property of field {selector} is not a boolean.");
-            }
-            else
-            {
-                //UnityEngine.Assertions.Assert.IsTrue(targetProperty != null, $"Property {selector} not found.");
-                UnityEngine.Assertions.Assert.IsTrue(
-                    targetProperty.propertyType == SerializedPropertyType.Boolean,
-                    $"Property {selector} must be a boolean.");
-            }
-        }
+                var interpreter = new Interpreter();
+                interpreter.Reference(GetEveryEnums(serializedObject));
+                interpreter.SetVariable("this", serializedObject.targetObject, serializedObject.targetObject.GetType());
 
-        protected bool GetValueFromObject(SerializedObject serializedObject, string selector)
-        {
-            SerializedProperty targetProperty = serializedObject.FindProperty(selector);
-            if (targetProperty == null)
-            {
-                PropertyInfo propertyInfo = serializedObject.targetObject.GetType().GetProperty(selector);
-                return (bool)propertyInfo.GetValue(serializedObject.targetObject);
+                return interpreter.Eval<bool>(selector);
             }
-            else
+            catch (InvalidOperationException ioe)
             {
-                return targetProperty.boolValue;
+                Debug.LogError($"Error when trying to parse expression \"{selector}\": {ioe.Message}", serializedObject.targetObject);
             }
+
+            return false;
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -50,6 +39,13 @@ namespace BaseTool.Tools.Drawers
             if (_display)
                 return base.GetPropertyHeight(property, label);
             return 0;
+        }
+
+        protected List<ReferenceType> GetEveryEnums(SerializedObject serializedObject)
+        {
+            var assembly = serializedObject.targetObject.GetType().Assembly;
+            var everyTypes = assembly.GetTypes();
+            return everyTypes.Select(t => new ReferenceType(t.Name, t)).ToList();
         }
     }
 }

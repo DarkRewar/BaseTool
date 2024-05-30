@@ -8,6 +8,7 @@ namespace BaseTool
 
         public ConditionalAttribute(string selector)
         {
+            order = -1;
             Selector = selector;
         }
     }
