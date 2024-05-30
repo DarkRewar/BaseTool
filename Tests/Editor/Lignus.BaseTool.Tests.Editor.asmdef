@@ -1,0 +1,29 @@
+{
+    "name": "Lignus.BaseTool.Tests.Editor",
+    "rootNamespace": "BaseTool.Tests.Editor",
+    "references": [
+        "Lignus.BaseTool.Editor",
+        "Lignus.BaseTool.Runtime",
+        "Lignus.BaseTool.Runtime.Movement",
+        "Lignus.BaseTool.Runtime.RPG",
+        "Lignus.BaseTool.Runtime.Shooter",
+        "Lignus.BaseTool.Runtime.UI",
+        "UnityEngine.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "DynamicExpresso.Core.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

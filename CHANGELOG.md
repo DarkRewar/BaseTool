@@ -6,6 +6,7 @@
 
 - Add a `MessageAttribute` to display message in the inspector [[#91](https://github.com/DarkRewar/BaseTool/issues/91)]
 - Add a `ButtonAttribute` to display a button for methods in the inspector [[#18](https://github.com/DarkRewar/BaseTool/issues/18)]
+- Add DynamicExpresso library to use code evaluation for conditional attributes [[#74](https://github.com/DarkRewar/BaseTool/issues/74)]
 
 ## 0.4.1
 

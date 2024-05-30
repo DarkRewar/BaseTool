@@ -8,8 +8,7 @@ namespace BaseTool.Tools.Drawers
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            CheckObject(property.serializedObject, out string selector);
-            if (!GetValueFromObject(property.serializedObject, selector))
+            if (!GetValueFromObject(property.serializedObject))
             {
                 _display = true;
                 EditorGUI.PropertyField(position, property, label);
