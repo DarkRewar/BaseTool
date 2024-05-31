@@ -73,6 +73,8 @@ How to install:
     - [MinMaxAttribute](#minmaxattribute)
     - [IfAttribute](#ifattribute)
     - [IfNotAttribute](#ifnotattribute)
+    - [EnableIfAttribute](#enableifattribute)
+    - [DisableIfAttribute](#disableifattribute)
     - [ReadOnlyAttribute](#readonlyattribute)
     - [MessageAttribute](#messageattribute)
     - [ButtonAttribute](#buttonattribute)
@@ -1002,6 +1004,48 @@ public class MyClass : MonoBehaviour
     
     [If("ProjectileSpeed > 1")]
     public GameObject ProjectileFX;
+}
+```
+
+### `EnableIfAttribute`
+
+This attribute can mark its field as readonly in the inspector if 
+the condition is false.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    public bool IsStrong = true;
+
+    [EnableIf(nameof(IsStrong))]
+    public float Strength = 10f;
+
+    [EnableIf("!IsStrong")]
+    public float NonStrength = 10f;
+}
+```
+
+### `DisableIfAttribute`
+
+This attribute can mark its field as readonly in the inspector if 
+the condition is true.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    public bool IsStrong = true;
+
+    [DisableIf("!IsStrong")]
+    public float Strength = 10f;
+
+    [DisableIf(nameof(IsStrong))]
+    public float NonStrength = 10f;
 }
 ```
 
