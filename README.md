@@ -76,6 +76,8 @@ How to install:
     - [EnableIfAttribute](#enableifattribute)
     - [DisableIfAttribute](#disableifattribute)
     - [ReadOnlyAttribute](#readonlyattribute)
+    - [SuffixAttribute](#suffixattribute)
+    - [PrefixAttribute](#prefixattribute)
     - [MessageAttribute](#messageattribute)
     - [ButtonAttribute](#buttonattribute)
 
@@ -1061,6 +1063,40 @@ public class MyClass : MonoBehaviour
 {
     [ReadOnly]
     public int Lifepoints = 10;
+}
+```
+
+### `SuffixAttribute`
+
+This attribute can place a text as suffix in the input field in inspector.
+
+![suffix_attribute](./Documentation~/Editor/suffix_attribute.PNG)
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    [Suffix("m/s")]
+    public float Velocity = 10f;
+}
+```
+
+### `PrefixAttribute`
+
+This attribute can place a text as prefix before the input field in inspector.
+
+![prefix_attribute](./Documentation~/Editor/prefix_attribute.PNG)
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+    [Prefix("m/s")]
+    public float Velocity = 10f;
 }
 ```
 
