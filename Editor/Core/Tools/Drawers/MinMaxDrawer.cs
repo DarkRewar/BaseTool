@@ -4,9 +4,9 @@ using UnityEngine;
 namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(MinMaxAttribute))]
-    public class MinMaxDrawer : PropertyDrawer
+    public class MinMaxDrawer : BaseToolPropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnDrawGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             //Asserts that we're using the MinMax attribute on a Vector2
             UnityEngine.Assertions.Assert.IsTrue(property.propertyType == SerializedPropertyType.Vector2, "You must use a Vector2 for MinMax");

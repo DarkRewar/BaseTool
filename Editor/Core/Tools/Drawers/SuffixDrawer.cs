@@ -4,7 +4,7 @@ using UnityEngine;
 namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(SuffixAttribute))]
-    public class SuffixDrawer : PropertyDrawer
+    public class SuffixDrawer : BaseToolPropertyDrawer
     {
         private static GUIStyle _suffixStyle = null;
         internal static GUIStyle SuffixStyle
@@ -22,7 +22,7 @@ namespace BaseTool.Editor.Tools.Drawers
             }
         }
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnDrawGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if (CanUseDrawer(property.propertyType))
             {

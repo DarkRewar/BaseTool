@@ -1,12 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace BaseTool
+namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(ValueListener<>))]
-    public class ValueListenerDrawer : PropertyDrawer
+    public class ValueListenerDrawer : BaseToolPropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnDrawGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var field = property.FindPropertyRelative("_value");
             if (field == null) return;

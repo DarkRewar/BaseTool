@@ -1,19 +1,44 @@
+using System;
 using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using BaseTool.Editor.Tools.Drawers;
+using Unity.Properties;
 using UnityEditor;
 using UnityEngine;
 
 namespace BaseTool.Tools.Drawers
 {
-    [CustomPropertyDrawer(typeof(IfAttribute))]
-    public class IfDrawer : ConditionalDrawer
+    //[CustomPropertyDrawer(typeof(IfAttribute))]
+    public class IfDrawer : BaseToolPropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnDrawGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            if (GetValueFromObject(property.serializedObject))
+            //var editor = UnityEditor.Editor.CreateEditor(property., typeof(Cooldown));
+            // if (property.propertyType == SerializedPropertyType.Generic)
+            // {
+            //     PropertyDrawer legitDrawer = AppDomain.CurrentDomain.GetAssemblies()
+            //         .SelectMany(a => a.GetTypes())
+            //         .Where(t => t == typeof(PropertyDrawer))
+            //         .Where(t => IsDrawerFor(t, property.type))
+            //         .Select(t => );
+
+            //     if (legitDrawer != null)
+            //     {
+            //         legitDrawer.OnGUI(position, property, label);
+            //         return;
+            //     }
+            // }
+
+            using (new EditorGUI.DisabledScope(disabled: false))
             {
-                _display = true;
-                EditorGUI.PropertyField(position, property, label);
+                EditorGUILayout.PropertyField(property, label, false);
             }
+        }
+
+        private bool IsDrawerFor(Type t, string typeName)
+        {
+            return false;
         }
     }
 }

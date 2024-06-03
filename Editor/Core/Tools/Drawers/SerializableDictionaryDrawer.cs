@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 
-namespace BaseTool.Editor
+namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(SerializableDictionary<,>), true)]
-    public class SerializableDictionaryDrawer : PropertyDrawer
+    public class SerializableDictionaryDrawer : BaseToolPropertyDrawer
     {
-        public override void OnGUI(Rect rect, SerializedProperty prop, GUIContent label)
+        public override void OnDrawGUI(Rect rect, SerializedProperty prop, GUIContent label)
         {
             var indentedRect = EditorGUI.IndentedRect(rect);
 

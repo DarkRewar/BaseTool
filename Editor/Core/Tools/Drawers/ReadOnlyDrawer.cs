@@ -1,14 +1,14 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace BaseTool.Tools.Drawers
+namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
-    internal class ReadOnlyDrawer : PropertyDrawer
+    internal class ReadOnlyDrawer : BaseToolPropertyDrawer
     {
         private bool _displayed;
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnDrawGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             _displayed = position.height > 1f;
             if (!_displayed) return;

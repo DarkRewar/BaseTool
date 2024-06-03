@@ -4,7 +4,7 @@ using UnityEngine;
 namespace BaseTool.Editor.Tools.Drawers
 {
     [CustomPropertyDrawer(typeof(PrefixAttribute))]
-    public class PrefixDrawer : PropertyDrawer
+    public class PrefixDrawer : BaseToolPropertyDrawer
     {
         private static GUIStyle _prefixStyle = null;
         internal static GUIStyle PrefixStyle
@@ -22,7 +22,7 @@ namespace BaseTool.Editor.Tools.Drawers
             }
         }
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnDrawGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if (CanUseDrawer(property.propertyType))
             {

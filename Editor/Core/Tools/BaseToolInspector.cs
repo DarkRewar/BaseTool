@@ -14,18 +14,27 @@ namespace BaseTool.Tools
 
         private void OnEnable()
         {
+
             _methodsWithButton = target.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(m => m.GetCustomAttributes<ButtonAttribute>(true).Any());
         }
 
         public override void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
+            //base.OnInspectorGUI();
 
             foreach (var method in _methodsWithButton)
             {
                 if (GUILayout.Button(method.Name))
                 {
                     method.Invoke(target, null);
+                }
+            }
+
+            using (var iterator = serializedObject.GetIterator())
+            {
+                while (iterator.NextVisible(true))
+                {
+                    EditorGUILayout.PropertyField(iterator, new GUIContent(iterator.displayName), true);
                 }
             }
         }
