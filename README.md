@@ -320,6 +320,33 @@ It also tells you when two keys already exists in the dictionary.
 
 ![serializable_dictionary_drawer](./Documentation~/Editor/serializable_dictionary_drawer.png)
 
+You can cast `Dictionary` to `SerializableDictionary` using
+`.ToSerializableDictionary()` method and you also can cast `SerializableDictionary` to `Dictionary` using using implicit cast.
+
+```csharp
+using BaseTool;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Test : MonoBehaviour
+{
+    public SerializableDictionary<int, string> SerializedDictionary;
+
+    public Dictionary<int, string> Dictionary;
+    
+    void Start()
+    {
+        // Dictionary -> SerializableDictionary
+        SerializedDictionary = Dictionary.ToSerializableDictionary();
+        //or
+        SerializedDictionary = new(Dictionary);
+
+        // SerializableDictionary -> Dictionary
+        Dictionary = SerializedDictionary;
+    }
+}
+```
+
 ### PonderateRandom
 
 Many games uses randomizer tweaked to let some elements happens more times than others.
