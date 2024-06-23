@@ -2,8 +2,8 @@
  * Based on the plugin [Serializable-Dictionary-Unity](https://github.com/EduardMalkhasyan/Serializable-Dictionary-Unity)
  * Created by [EduardMalkhasyan](https://github.com/EduardMalkhasyan)
  */
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BaseTool
@@ -13,7 +13,12 @@ namespace BaseTool
     {
         [SerializeField] private List<SerializedDictionaryKVPProps<TKey, TValue>> dictionaryList = new();
 
-        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        public SerializableDictionary(Dictionary<TKey, TValue> reference) : base(reference)
+        {
+            BeforeSerialize();
+        }
+
+        private void BeforeSerialize()
         {
             foreach (var kVP in this)
             {
@@ -35,6 +40,8 @@ namespace BaseTool
                 dictionaryList[i].index = i;
             }
         }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize() => BeforeSerialize();
 
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
@@ -97,5 +104,4 @@ namespace BaseTool
                 => new KeyValuePair<TypeKey, TypeValue>(kvp.Key, kvp.Value);
         }
     }
-
 }

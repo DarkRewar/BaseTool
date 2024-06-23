@@ -4,6 +4,7 @@ Table of contents:
 - [Array Extensions](#array-extensions)
 - [Camera Extensions](#camera-extensions)
 - [Color Extensions](#color-extensions)
+- [Dictionary Extensions](#dictionary-extensions)
 - [List Extensions](#list-extensions)
 - [Number Extensions](#number-extensions)
 - [Random Extensions](#random-extensions)
@@ -121,6 +122,27 @@ Color.blue.ToHexAlpha(); // #0000FFFF
 
 Color green = new Color(0, 1, 0, 0.5f);
 green.ToHexAlpha(); // #00FF007F
+```
+
+## Dictionary Extensions
+
+### `ToSerializableDictionary()`
+
+Returns a `SerializableDictionary` from a `Dictionary`. This is mostly used to
+converts a `Dictionary` into a class that can be displayed, read and serialized
+in the inspector. 
+
+See [SerializableDictionary](../README.md#serializabledictionary)
+for more informations.
+
+```csharp
+using BaseTool;
+using System.Collections.Generic;
+
+public SerializableDictionary<int, string> SerializedDictionary;
+public Dictionary<int, string> Dictionary;
+
+SerializedDictionary = Dictionary.ToSerializableDictionary();
 ```
 
 ## List Extensions
