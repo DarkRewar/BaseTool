@@ -10,6 +10,7 @@
 - Add `EnableIf` and `DisableIf` attributes to mark field as readonly is condition is valid or not [[#95](https://github.com/DarkRewar/BaseTool/issues/95)]
 - Add `Suffix` and `Prefix` attributes to add labels before or after a field in inspector [[#98](https://github.com/DarkRewar/BaseTool/issues/98)]
 - Add `ToSerializableDictionary` extension to `Dictionary` class [[#100](https://github.com/DarkRewar/BaseTool/issues/100)]
+- Add `Stop()`, `Pause()` and `Resume()` methods to `Cooldown` class [[#103](https://github.com/DarkRewar/BaseTool/issues/103)]
 
 ## 0.4.1
 

@@ -30,6 +30,12 @@ namespace BaseTool
         public bool IsReady => TimeLeft <= 0;
 
         /// <summary>
+        /// Determines if the cooldown must <see cref="Update"/> or not.<br/>
+        /// If true, the <see cref="Update"/> will be ignored.
+        /// </summary>
+        public bool IsPaused { get; private set; } = false;
+
+        /// <summary>
         /// If true, let the <see cref="Cooldown"/> be managed and updated by
         /// the <see cref="CooldownManager"/>.<br/>
         /// If you want to update the cooldown on your own, set this to false.<br/>
@@ -55,7 +61,7 @@ namespace BaseTool
         /// <param name="time">Elapsed time, in seconds</param>
         public void Update(float time)
         {
-            if (IsReady) return;
+            if (IsReady || IsPaused) return;
             TimeLeft -= time;
 
             if (IsReady)
@@ -88,6 +94,32 @@ namespace BaseTool
 
             Reset();
             return true;
+        }
+
+        /// <summary>
+        /// Pauses the cooldown. <see cref="Update"/> will totally be ignored
+        /// until the <see cref="Resume"/> is called or the <see cref="IsPaused"/>
+        /// is set to false.
+        /// </summary>
+        public void Pause() => IsPaused = !IsPaused && !IsReady;
+
+        /// <summary>
+        /// Unpauses the cooldown by setting <see cref="IsPaused"/> to false.
+        /// </summary>
+        public void Resume() => IsPaused = false;
+
+        /// <summary>
+        /// Totally stops the cooldown (also removes it from the <see cref="CooldownManager"/>)
+        /// and set the time left to 0. The cooldown becomes ready.
+        /// </summary>
+        public void Stop()
+        {
+            if (IsReady) return;
+
+            if (SubscribeToManager)
+                CooldownManager.Unsubscribe(this);
+            TimeLeft = 0;
+            IsPaused = false;
         }
 
         /// <summary>

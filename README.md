@@ -200,6 +200,10 @@ public class MyComponent : MonoBehaviour
 Every `Cooldown` is updated by an internal `CooldownManager`, you don't have to call the `Cooldown.Update()` method yourself.
 If you want to manage the cooldown, you can set the `Cooldown.SubscribeToManager` to false.
 
+You can pause and resume the cooldown by using `Cooldown.Pause()` and `Cooldown.Resume()` methods.
+If you want to totally stop the cooldown (and remove it from the `CooldownManager`)
+you can use the `Cooldown.Stop()` method.
+
 ```csharp
 using BaseTool;
 using UnityEngine;
@@ -231,6 +235,13 @@ public class MyComponent : MonoBehaviour
             _cooldown.Reset(); // ...and reset it
             // Do something when cooldown is ready
         }
+
+        if(Input.GetKeyDown(KeyCode.P))
+            _cooldown.Pause();
+        else if(Input.GetKeyDown(KeyCode.R))
+            _cooldown.Resume();
+        else if(Input.GetKeyDown(KeyCode.S))
+            _cooldown.Stop();
     }
 
     private void OnCooldownIsReady()
