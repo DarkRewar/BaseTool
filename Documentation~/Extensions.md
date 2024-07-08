@@ -374,9 +374,13 @@ foreach(int i in 0..5)
 
 ## Vector Extensions
 
+Many of vector extensions exist for both `Vector2` and `Vector3` classes.
+
 ### `ChangeX(float x)`, `ChangeY(float y)`, `ChangeZ(float z)`
 
-hanges the `Vector3.x`, `Vector3.y` or `Vector3.z` value from a `Vector3` and return the new object. Why do these extensions exist? Because you can't modify a struct. You always need to replace the reference.
+Changes the `Vector3.x`, `Vector3.y` or `Vector3.z` value from a `Vector3` and return the new object. Why do these extensions exist? Because you can't modify a struct. You always need to replace the reference.
+
+Also exist as `Vector2.ChangeX(float x)` and `Vector2.ChangeY(float y)`.
 
 ```csharp
 using BaseTool;
@@ -395,7 +399,7 @@ tempPos.x = 1;
 player.position = tempPos;
 ```
 
-### `Clamp(Vector3 min, Vector3 max)`
+### `Clamp(Vector3 min, Vector3 max)` and `Clamp(Vector2 min, Vector2 max)`
 
 Works like the [`Mathf.Clamp()`](https://docs.unity3d.com/ScriptReference/Mathf.Clamp.html) for `float`, but using two vectors as min and max.
 
@@ -408,7 +412,7 @@ pos = pos.Clamp(new(2, -1, -2), new (4, 1, 0));
 Debug.Log(pos); // (2.00, 1.00, 0.00)
 ```
 
-### `Lerp(Vector3 begin, Vector3 end)`
+### `Lerp(Vector3 begin, Vector3 end)` and `Lerp(Vector2 begin, Vector2 end)`
 
 Works like the [`Vector3.Lerp()`](https://docs.unity3d.com/ScriptReference/Vector3.Lerp.html) but using a vector as the ratio.
 
@@ -424,7 +428,7 @@ Vector3 newPos = ratio.Lerp(
 Debug.Log(newPos); // (-5.00, 3.00, 29.00)
 ```
 
-### `InverseLerp(Vector3 begin, Vector3 end)`
+### `InverseLerp(Vector3 begin, Vector3 end)` and `InverseLerp(Vector2 begin, Vector2 end)`
 
 Works like the [`Vector3.InverseLerp()`](https://docs.unity3d.com/ScriptReference/Vector3.InverseLerp.html) but using a vector as the position to ratio.
 
@@ -440,11 +444,11 @@ Vector3 ratio = pos.InverseLerp(
 Debug.Log(newPos); // (0.00, 0.50, 1.00)
 ```
 
-### `GetClosestPointOnVector(Vector3 begin, Vector3 end)`
+### `GetClosestPointOnVector(Vector3 begin, Vector3 end)` and  `GetClosestPointOnVector(Vector2 begin, Vector2 end)`
 
 [WIP]
 
-### `RatioOnVector3(Vector3 begin, Vector3 end)`
+### `RatioOnVector3(Vector3 begin, Vector3 end)` and `RatioOnVector2(Vector2 begin, Vector2 end)`
 
 [WIP]
 
