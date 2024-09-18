@@ -490,6 +490,29 @@ MathUtils.Approximately(1.1f, 1.2f, 0.2f); // true
 MathUtils.Approximately(1.1f, 1.2f, 0.05f); // false
 ```
 
+#### `IsPointInsidePolygon(Vector2 point, Vector2[] polygon)`
+
+Check if a point is inside a polygon (determined by a list of `Vector2`). 
+Also exists for `Vector2Int` by using 
+`IsPointInsidePolygon(Vector2Int point, Vector2Int[] polygon)`.
+
+```csharp
+using BaseTool;
+
+List<Vector2> square = new()
+{
+   new(0, 0),
+   new(0, 1),
+   new(1, 1),
+   new(1, 0)
+};
+
+MathUtils.IsPointInsidePolygon(new Vector2(0.5f, 0.5f), points)); // true
+MathUtils.IsPointInsidePolygon(new Vector2(-1, -1), points)); // false
+```
+
+*Note: currently, there are no `Vector3` equivalent.*
+
 ### TickManager
 
 The `TickManager` component allows you to create a system that sends a tick every *x* seconds.
