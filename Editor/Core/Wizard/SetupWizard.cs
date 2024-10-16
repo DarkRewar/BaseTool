@@ -33,12 +33,8 @@ namespace BaseTool.Editor.Core.Wizard
             BindButton("MovementButton", GlobalDefineInitializer.MovementDefine);
             BindButton("ShooterButton", GlobalDefineInitializer.ShooterDefine);
             BindButton("RPGButton", GlobalDefineInitializer.RPGDefine);
-            // TODO: Re-enable when Roguelite features are implemented
-            //BindButton("RogueliteButton", GlobalDefineInitializer.RogueliteDefine);
+            BindButton("RNGButton", GlobalDefineInitializer.RNGDefine);
             BindButton("UIButton", GlobalDefineInitializer.UIDefine);
-
-            var rogueButton = _view.Q<Button>("RogueliteButton");
-            rogueButton.SetEnabled(false);
 
             var applyButton = _view.Q<Button>("ApplyButton");
             applyButton.RegisterCallback<ClickEvent>(OnApplyClicked);
@@ -79,10 +75,10 @@ namespace BaseTool.Editor.Core.Wizard
             else
                 GlobalDefineInitializer.RemoveGlobalDefine(GlobalDefineInitializer.RPGDefine);
 
-            if (_view.Q<Button>("RogueliteButton").Q<Toggle>().value)
-                GlobalDefineInitializer.AddGlobalDefine(GlobalDefineInitializer.RogueliteDefine);
+            if (_view.Q<Button>("RNGButton").Q<Toggle>().value)
+                GlobalDefineInitializer.AddGlobalDefine(GlobalDefineInitializer.RNGDefine);
             else
-                GlobalDefineInitializer.RemoveGlobalDefine(GlobalDefineInitializer.RogueliteDefine);
+                GlobalDefineInitializer.RemoveGlobalDefine(GlobalDefineInitializer.RNGDefine);
 
             if (_view.Q<Button>("UIButton").Q<Toggle>().value)
                 GlobalDefineInitializer.AddGlobalDefine(GlobalDefineInitializer.UIDefine);

@@ -15,7 +15,7 @@ namespace BaseTool.Editor.Core.Wizard
         public const string MovementDefine = "BASETOOL_MOVEMENT";
         public const string ShooterDefine = "BASETOOL_SHOOTER";
         public const string RPGDefine = "BASETOOL_RPG";
-        public const string RogueliteDefine = "BASETOOL_ROGUELITE";
+        public const string RNGDefine = "BASETOOL_RNG";
         public const string UIDefine = "BASETOOL_UI";
 
         static GlobalDefineInitializer()
