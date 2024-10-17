@@ -26,6 +26,7 @@ namespace BaseTool.Editor.Core.Wizard
             AddGlobalDefine(MovementDefine);
             AddGlobalDefine(ShooterDefine);
             AddGlobalDefine(RPGDefine);
+            AddGlobalDefine(RNGDefine);
             AddGlobalDefine(UIDefine);
         }
 

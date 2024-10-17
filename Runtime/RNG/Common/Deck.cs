@@ -1,29 +1,69 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
+using Random = System.Random;
 
 namespace BaseTool.RNG
 {
     [Serializable]
-    public class Deck<T> : IEnumerable<T>, ICollection<T>
+    public class Deck<T> : PonderateRandom<T>
     {
-        [HideInInspector]
-        public PonderateRandom<T> Elements;
+        private readonly List<T> _cards = new();
 
-        public List<T> Cards;
+        [CanBeNull] private readonly Random _random;
 
-        public T this[int index]
-        {
-            get => Cards[index];
-            set => Cards[index] = value;
-        } 
+        public T this[int index] => _cards[index];
         
-        public IEnumerator<T> GetEnumerator() => Cards.GetEnumerator();
+        public Deck() {}
+        
+        public Deck(int seed) : this(new Random(seed)) {}
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public Deck(Random random)
         {
-            return GetEnumerator();
+            _random = random;
+        }
+
+        public new void Add(T card)
+        {
+            base.Add(card);
+            _cards.Add(card);
+        }
+
+        /// <summary>
+        /// Fill the deck based on the card quantity.
+        /// </summary>
+        public void Fill()
+        {
+            _cards.Clear();
+            foreach (var entry in _entries)
+            {
+                for (int i = 0; i < entry.Weight; i++)
+                {
+                    _cards.Add(entry.Value);
+                }
+            }
+            Shuffle();
+        }
+
+        public void Shuffle()
+        {
+            if(_random == null) _cards.Shuffle();
+            else _cards.Shuffle(_random);
+        } 
+
+        public T Peek() => _cards.Count > 0 ? _cards[0] : default;
+        
+        public List<T> Peek(int number) => _cards.Count > 0 ? _cards.Take(Mathf.Min(number, _cards.Count)).ToList() : default;
+
+        public T Draw()
+        {
+            if(_cards.Count == 0) return default;
+            var peek = Peek();
+            _cards.RemoveAt(0);
+            return peek;
         }
     }
 }

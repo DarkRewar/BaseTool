@@ -6,9 +6,13 @@ using UnityEngine;
 
 namespace BaseTool
 {
+    [Serializable]
     public struct PonderateEntry<T>
     {
+        [SerializeField]
         public T Value;
+        
+        [SerializeField]
         public float Weight;
 
         internal Vector2 Range;
@@ -18,7 +22,8 @@ namespace BaseTool
     [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#ponderaterandom")]
     public class PonderateRandom<T> : IEnumerable<PonderateEntry<T>>
     {
-        private List<PonderateEntry<T>> _entries;
+        [SerializeField]
+        protected List<PonderateEntry<T>> _entries;
 
         public float TotalWeight { get; private set; } = 0;
 
@@ -31,16 +36,32 @@ namespace BaseTool
 
         IEnumerator IEnumerable.GetEnumerator() => _entries.GetEnumerator();
 
+        internal bool TryGetEntry(T value, out PonderateEntry<T> entry)
+        {
+            int index = _entries.FindIndex(e => e.Value.Equals(value));
+            entry = default;
+            if (index == -1) return false;
+            entry = _entries[index];
+            return true;
+        }
+
         public void Add(T value) => Add(value, 1);
 
         public void Add(T value, float weight)
         {
-            _entries.Add(new PonderateEntry<T>
+            if(TryGetEntry(value, out var entry))
             {
-                Value = value,
-                Weight = weight,
-                Range = new(TotalWeight, (TotalWeight + weight))
-            });
+                entry.Weight += weight;
+            }
+            else
+            {
+                _entries.Add(new PonderateEntry<T>
+                {
+                    Value = value,
+                    Weight = weight,
+                    Range = new(TotalWeight, (TotalWeight + weight))
+                });
+            }
             TotalWeight += weight;
         }
 
