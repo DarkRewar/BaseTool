@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using UnityEngine;
 using Random = System.Random;
 
@@ -13,7 +11,7 @@ namespace BaseTool.RNG
     {
         private readonly List<T> _cards = new();
 
-        [CanBeNull] private readonly Random _random;
+        private readonly Random _random;
 
         public T this[int index] => _cards[index];
         

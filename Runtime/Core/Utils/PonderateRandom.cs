@@ -20,11 +20,12 @@ namespace BaseTool
 
     [Serializable]
     [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#ponderaterandom")]
-    public class PonderateRandom<T> : IEnumerable<PonderateEntry<T>>
+    public class PonderateRandom<T> : IEnumerable<PonderateEntry<T>>, ISerializationCallbackReceiver
     {
         [SerializeField]
         protected List<PonderateEntry<T>> _entries;
-
+        
+        [field: SerializeField]
         public float TotalWeight { get; private set; } = 0;
 
         public PonderateRandom()
@@ -109,5 +110,14 @@ namespace BaseTool
         public Dictionary<T, float> ToDictionary() => _entries.ToDictionary(
             entry => entry.Value,
             entry => entry.Weight);
+
+        public void OnBeforeSerialize()
+        {
+        }
+
+        public void OnAfterDeserialize()
+        {
+            RecalculateRanges();
+        }
     }
 }
