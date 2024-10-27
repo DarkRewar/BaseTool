@@ -1,10 +1,9 @@
 {
-    "name": "Lignus.BaseTool.Editor.RNG",
-    "rootNamespace": "BaseTool.Editor.RNG",
+    "name": "Lignus.BaseTool.Editor.UI",
+    "rootNamespace": "BaseTool.Editor.UI",
     "references": [
-        "Lignus.BaseTool.Runtime",
-        "DynamicExpresso",
-        "BaseTool.RNG"
+        "GUID:c38311b79c9d2b047b494e941287c39d",
+        "GUID:29a9e942ee4e69f498559e2506d04f11"
     ],
     "includePlatforms": [
         "Editor"
@@ -15,7 +14,7 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "BASETOOL_RNG"
+        "BASETOOL_UI"
     ],
     "versionDefines": [],
     "noEngineReferences": false
