@@ -25,12 +25,17 @@
     },
     {
       "displayName": "Shooter Sample",
-      "description": "Contains sample project with the basic shooter features",
+      "description": "Contains sample project with the basic shooter features.",
       "path": "Samples~/Shooter"
     },
     {
+      "displayName": "Poker Sample",
+      "description": "Contains sample project to try the RNG Deck system with a Poker game.",
+      "path": "Samples~/RNG/Poker"
+    },
+    {
       "displayName": "UI Sample",
-      "description": "Contains sample project to try the UI workflow and understand how it works",
+      "description": "Contains sample project to try the UI workflow and understand how it works.",
       "path": "Samples~/UI"
     }
   ]
