@@ -1,8 +1,8 @@
-﻿using UnityEditor;
+﻿using BaseTool.RNG;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-namespace BaseTool.Editor
+namespace BaseTool.Editor.RNG
 {
     [CustomPropertyDrawer(typeof(PonderateRandom<>), true)]
     public class PonderateRandomDrawer : PropertyDrawer

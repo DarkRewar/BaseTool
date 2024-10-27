@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BaseTool
+namespace BaseTool.RNG
 {
     [Serializable]
     public struct PonderateEntry<T>
@@ -33,7 +33,7 @@ namespace BaseTool
             _entries = new List<PonderateEntry<T>>();
         }
 
-        public IEnumerator<BaseTool.PonderateEntry<T>> GetEnumerator() => _entries.GetEnumerator();
+        public IEnumerator<PonderateEntry<T>> GetEnumerator() => _entries.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => _entries.GetEnumerator();
 

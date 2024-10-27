@@ -1,0 +1,20 @@
+{
+    "name": "Lignus.BaseTool.Editor.RNG",
+    "rootNamespace": "BaseTool.Editor.RNG",
+    "references": [
+        "Lignus.BaseTool.Runtime",
+        "DynamicExpresso",
+        "BaseTool.RNG"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

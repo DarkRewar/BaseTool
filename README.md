@@ -9,8 +9,8 @@
 
 # Description
 
-BaseTool contains many features that improve your daily game development. 
-Every features are grouped by modules and you can enable features you want to use.
+BaseTool contains many features that improve your daily game development.
+Every feature is grouped by modules, and you can enable features you want to use.
 
 It could be used for any kind of project, at any time, by *pretty* anyone. It contains those key features:
 
@@ -62,7 +62,10 @@ How to install:
     - [Interfaces](#shooter-interfaces)
     - [Weapon](#weapon)
 4. [RPG](#rpg) [WIP]
-5. [Roguelite](#roguelite) [WIP]
+5. [RNG](#rng)
+    - [PonderateRandom](#ponderaterandom)
+    - [Deck](#deck)
+    - [Sample](#random-sample)
 6. [UI](#ui)
     - [Workflow](#ui-workflow)
     - [View](#view)
@@ -85,11 +88,13 @@ How to install:
 
 ### Setup Wizard
 
-By default, BaseTool include every modules in the project. Each module is an Assembly which can be enabled or disabled using the setup wizard.
+By default, BaseTool include every module in the project. Each module is an Assembly which can be enabled or disabled
+using the setup wizard.
 
 To open the setup wizard, go to the topbar and open `Window > BaseTool > Setup`.
 
-`Core` is the main module which is mandatory to let BaseTool work. Other modules are all optional. If you only want essential features, untick every modules.
+`Core` is the main module which is mandatory to let BaseTool work. Other modules are all optional. If you only want
+essential features, untick every module.
 
 ![setup_wizard](./Documentation~/Wizard/setup_wizard.png)
 
@@ -127,11 +132,11 @@ public class AddCustomCommand : MonoBehaviour
 }
 ```
 
-The command callback passes a `ConsoleArguments` as parameter. 
-This is an handler to parse arguments from the command.
+The command callback passes a `ConsoleArguments` as parameter.
+This is a handler to parse arguments from the command.
 
-For example, the command `mycommand test 99 -h -number 123` will 
-parse arguments like : 
+For example, the command `mycommand test 99 -h -number 123` will
+parse arguments like :
 
 ```csharp
 args[0]; // test
@@ -145,7 +150,7 @@ args.Exists("h"); // true
 
 Since 0.4.0, dev console requires a `ConsoleSettings` file to
 work. This asset contains definitions to change the toggle key
-code, the time scale when opened and its inclusion in build.
+code, the timescale when opened and its inclusion in build.
 
 Currently, this file **must** be in the `Resources` folder and
 be named `ConsoleSettings`.
@@ -160,7 +165,9 @@ By default, to toggle the dev console, press F4 key.
 
 You can "automatically" retrieve your components by using the `Injector.Process()` method.
 
-To get your `Awake()`, `OnEnable()`, `Start()` or anything else clean, you can add attributes upon fields and properties you want to retrieve. You can use one of those five attributes following their exact method:
+To get your `Awake()`, `OnEnable()`, `Start()` or anything else clean, you can add attributes upon fields and properties
+you want to retrieve. You can use one of those five attributes following their exact method:
+
 - `GetComponent`
 - `GetComponents`
 - `GetComponentInChildren`
@@ -195,9 +202,11 @@ public class MyComponent : MonoBehaviour
 
 ### Cooldown
 
-`Cooldown` is a class that can be used to delay a call, action or whatever you want to do. You can directly check the `Cooldown.IsReady` boolean or subscribe to the `Cooldown.OnReady` event.
+`Cooldown` is a class that can be used to delay a call, action or whatever you want to do. You can directly check the
+`Cooldown.IsReady` boolean or subscribe to the `Cooldown.OnReady` event.
 
-Every `Cooldown` is updated by an internal `CooldownManager`, you don't have to call the `Cooldown.Update()` method yourself.
+Every `Cooldown` is updated by an internal `CooldownManager`, you don't have to call the `Cooldown.Update()` method
+yourself.
 If you want to manage the cooldown, you can set the `Cooldown.SubscribeToManager` to false.
 
 You can pause and resume the cooldown by using `Cooldown.Pause()` and `Cooldown.Resume()` methods.
@@ -279,9 +288,9 @@ to implement the entire change event handler, the `ValueListener<T>` lets
 you do that for you.
 
 You need to declare a `ValueListener<T>` of your type as a field or a property.
-I recommend to declare it as readonly to avoid loosing the `OnChanged` event references.
+I recommend to declare it as readonly to avoid losing the `OnChanged` event references.
 
-Value is implicitly casted to or from the value type you want. That means you can initialize
+Value is implicitly cast to or from the value type you want. That means you can initialize
 your object using the value directly (see following example).
 
 ```csharp
@@ -314,7 +323,7 @@ public class MyComponent : MonoBehaviour
 ### SerializableDictionary
 
 You can get dictionaries in inspector by using the `SerializableDictionary` class. It will serialize the dictionary
-but also draw it like a extended list.
+but also draw it like an extended list.
 
 ```csharp
 using BaseTool;
@@ -332,7 +341,7 @@ It also tells you when two keys already exists in the dictionary.
 ![serializable_dictionary_drawer](./Documentation~/Editor/serializable_dictionary_drawer.png)
 
 You can cast `Dictionary` to `SerializableDictionary` using
-`.ToSerializableDictionary()` method and you also can cast `SerializableDictionary` to `Dictionary` using using implicit cast.
+`.ToSerializableDictionary()` method and you also can cast `SerializableDictionary` to `Dictionary` using implicit cast.
 
 ```csharp
 using BaseTool;
@@ -358,39 +367,12 @@ public class Test : MonoBehaviour
 }
 ```
 
-### PonderateRandom
-
-Many games uses randomizer tweaked to let some elements happens more times than others.
-It is called "ponderate randomisation". You can create your own by using `PonderateRandom`
-class and add weight on each elements ; allowing some to happen more or less than others.
-
-```csharp
-using BaseTool;
-using UnityEngine;
-
-var cheatedDice = new PonderateRandom<string> {
-    { "One", 1 },
-    { "Two", 1 },
-    { "Three", 0.5f }, // the three happens twice less than others
-    { "Four", 1 },
-    { "Five", 1 },
-    { "Six", 2 }, // the six happens twice more than others
-};
-
-// use UnityEngine.Random
-Debug.Log(cheatedDice.Get());
-
-// use System.Random
-var random = new System.Random(1);
-Debug.Log(cheatedDice.Get(random)); // always be "Two"
-Debug.Log(cheatedDice.Get(random)); // always be "One"
-```
-
 ### Game Events
 
 This feature allows you to create custom events using ScriptableObjects.
 
 It is based upon three elements:
+
 - `GameEvent` which is the ScriptableObject that handle the event channel ;
 - `GameEventTrigger` which triggers the event on the channel ;
 - `GameEventReceiver` which processes actions when the event is triggered in the channel.
@@ -398,11 +380,15 @@ It is based upon three elements:
 What is the purpose of this architecture? Well, it allows you to trigger multiple actions from only one trigger.
 For example: the player enters a zone of battle, it will close the door, spawn enemies and play the battle music.
 
-Also, this is really useful for multi-scene game events. It is impossible to reference a gameobject from a scene to another.
-That's why subscribing to a SO GameEvent speed up development and let you interoperate events between runtime loaded scenes.
-For example: you have two loaded scenes in your level, the player passes a point that enables platforms in another scene.
+Also, this is really useful for multi-scene game events. It is impossible to reference a gameobject from a scene to
+another.
+That's why subscribing to a SO GameEvent speed up development and let you interoperate events between runtime loaded
+scenes.
+For example: you have two loaded scenes in your level, the player passes a point that enables platforms in another
+scene.
 
-You can totally inherit from those classes if you want to make custom game event, more specific or with alternate triggers.
+You can totally inherit from those classes if you want to make custom game event, more specific or with alternate
+triggers.
 
 #### `GameEvent`
 
@@ -412,29 +398,29 @@ and then follow `Create > BaseTool > Events > Game Event`.
 #### `GameEventTrigger`
 
 This is the component you should use to trigger game events.
-It is recommended to use a `Collider` with this component because 
+It is recommended to use a `Collider` with this component because
 it depends on `OnTriggerEnter()` and/or `OnCollisionEnter()` Unity calls to work properly.
 
-|Property|Type|Description|
-|---|---|---|
-|Trigger Once|`bool`|If checked, this component will trigger the event only once.|
-|Trigger Type|`GameEventTriggerType`|How the game event will be processed: Trigger, Collision or both.|
-|Trigger Tags|`List<string>`|List of authorized tags that will trigger the event.|
-|Game Event|`GameEvent`|The game event SO to trigger (optional).|
-|Generic Events|`UnityEvent`|Additional callbacks that you can use (optional).|
+| Property       | Type                   | Description                                                       |
+|----------------|------------------------|-------------------------------------------------------------------|
+| Trigger Once   | `bool`                 | If checked, this component will trigger the event only once.      |
+| Trigger Type   | `GameEventTriggerType` | How the game event will be processed: Trigger, Collision or both. |
+| Trigger Tags   | `List<string>`         | List of authorized tags that will trigger the event.              |
+| Game Event     | `GameEvent`            | The game event SO to trigger (optional).                          |
+| Generic Events | `UnityEvent`           | Additional callbacks that you can use (optional).                 |
 
 ![game_event_trigger.png](./Documentation~/Core/Events/game_event_trigger.png)
 
 #### `GameEventReceiver`
 
 This is the component you should use to process callbacks from a game event.
-You can add it on any elements you want, as long as the objects is active 
+You can add it on any elements you want, as long as the objects is active
 (to allow event subscription in the `OnEnable()` method).
 
-|Property|Type|Description|
-|---|---|---|
-|Game Event|`GameEvent`|The game event SO to listen to.|
-|OnTriggered|`UnityEvent`|Additional callbacks that you can use (optional).|
+| Property    | Type         | Description                                       |
+|-------------|--------------|---------------------------------------------------|
+| Game Event  | `GameEvent`  | The game event SO to listen to.                   |
+| OnTriggered | `UnityEvent` | Additional callbacks that you can use (optional). |
 
 ![game_event_receiver.png](./Documentation~/Core/Events/game_event_receiver.png)
 
@@ -461,7 +447,8 @@ Methods available from the `MathUtils` static class:
 
 #### `Modulo(int index, int count)`
 
-Because `%` is broken on C# when you want to get a negative modulo (e.g. you want the index -1 of an array), this method is a replacement of the symbol. 
+Because `%` is broken on C# when you want to get a negative modulo (e.g. you want the index -1 of an array), this method
+is a replacement of the symbol.
 
 ```csharp
 using BaseTool; 
@@ -477,7 +464,7 @@ MathUtils.Modulo(-3, 5); // = 2
 The [`UnityEngine.Mathf.Approximately`](https://docs.unity3d.com/ScriptReference/Mathf.Approximately.html)
 method is useful but not enough tolerant if you want to check values that are too different.
 
-For example: if you want to make a deadzone on your Vector3 magnitude when it goes lower than 0.01f, 
+For example: if you want to make a deadzone on your Vector3 magnitude when it goes lower than 0.01f,
 the `Mathf.Approximately(vector.magnitude, 0)` could return false if your magnitude is too high.
 
 ```csharp
@@ -492,8 +479,8 @@ MathUtils.Approximately(1.1f, 1.2f, 0.05f); // false
 
 #### `IsPointInsidePolygon(Vector2 point, Vector2[] polygon)`
 
-Check if a point is inside a polygon (determined by a list of `Vector2`). 
-Also exists for `Vector2Int` by using 
+Check if a point is inside a polygon (determined by a list of `Vector2`).
+Also exists for `Vector2Int` by using
 `IsPointInsidePolygon(Vector2Int point, Vector2Int[] polygon)`.
 
 ```csharp
@@ -517,7 +504,7 @@ MathUtils.IsPointInsidePolygon(new Vector2(-1, -1), points)); // false
 
 The `TickManager` component allows you to create a system that sends a tick every *x* seconds.
 You can define the delay between two ticks by modifying the `Tick Duration` field.
-You can also make the `TickManager` a singleton by checking `Make Singleton` 
+You can also make the `TickManager` a singleton by checking `Make Singleton`
 (it will convert it to a singleton at Awake, don't do that at runtime!).
 
 To add the component, you can go to `Add Component > BaseTool > Core > Tick Manager`.
@@ -581,7 +568,8 @@ public class TickerTest : MonoBehaviour
 
 ### Tree
 
-A generic tree system following a parent/child link. Here is a following example based on a GameObject hierarchy (but would work for a file, UI or node hierarchy too).
+A generic tree system following a parent/child link. Here is a following example based on a GameObject hierarchy (but
+would work for a file, UI or node hierarchy too).
 
 ```csharp
 using BaseTool;
@@ -626,7 +614,7 @@ public interface IDamageable
 
 ## Movement
 
-The `Movement` module contains most of components used for movement, jump, camera rotation.
+The `Movement` module contains most of the components used for movement, jump, camera rotation.
 You can enable it, if you want to create one of the following game archetype:
 
 - FPS
@@ -644,34 +632,38 @@ This module is located under the `BaseTool.Movement` namespace.
 #### `OldMovementInput`
 
 If you are not using the new input system, you can add this component on your player to quickly
-setup a player movement based on the old input system.
+set up a player movement based on the old input system.
 
-This component manages a `IMovable` and/or a `IJumpable` component ; if they are found, the inputs are processed and sent to the component.
+This component manages a `IMovable` and/or a `IJumpable` component ; if they are found, the inputs are processed and
+sent to the component.
 
 #### `FirstPersonController`
 
 This component manages a first-person view based on a GameObject/Camera hierarchy.
-In this kind a architecture, the component is placed at the root of the player object hierarchy.
+In this kind an architecture, the component is placed at the root of the player object hierarchy.
 Then, the `Camera` is under, as a child. The `FirstPersonController` references the camera,
 using `GetComponentInChildren` or referencing it from the inspector.
 
 ![first_person_structure](./Documentation~/Movement/first_person_structure.png)
 
-**Caution** : this component requires a `Rigidbody` to work properly and is **not** using the Unity `CharacterController`.
+**Caution** : this component requires a `Rigidbody` to work properly and is **not** using the Unity
+`CharacterController`.
 
 #### `SideViewController`
 
-A light side-view controller. It only manages the movement of the object. The architecture is quite simple, you need to add this component on the element that can move, on its root (recommended).
+A light side-view controller. It only manages the movement of the object. The architecture is quite simple, you need to
+add this component on the element that can move, on its root (recommended).
 
 #### `TopDownController`
 
-This component is used to get a 2.5D-like movement (action-rpgs like Diablo, Torchlight, Minecraft Dungeons...). You must add the component on the player's root from 
+This component is used to get a 2.5D-like movement (action-rpgs like Diablo, Torchlight, Minecraft Dungeons...). You
+must add the component on the player's root from
 `Add Component > BaseTool > Movement > Top Down Controller`.
 
 ![top_down_controller](./Documentation~/Movement/top_down_controller.PNG)
 
 The camera **must** not be a child of the player ; you can use the `SimpleCameraController`
-or [Cinemachine](https://docs.unity3d.com/Manual/com.unity.cinemachine.html) 
+or [Cinemachine](https://docs.unity3d.com/Manual/com.unity.cinemachine.html)
 to follow the player.
 
 #### `JumpController`
@@ -680,22 +672,23 @@ This component allows any object to jump, with a quick setup.
 
 ![jump_controller](./Documentation~/Movement/jump_controller.png)
 
-|Property|Description|
-|---|---|
-|Rigidbody|The `Rigidbody` of the jumpable element.|
-|Jump Force|The velocity to apply when the element needs to jump.|
-|Fall Multiplier|The velocity multiplier when the element is falling.|
-|Jump Count|The number of allowed jumps.|
-|Ground Mask|The `LayerMask` to check when the element touches the ground.|
-|Ground Check Offset|The `Vector3` offset if your collision check is not on the ground.|
-|Ground Check Size|The radius of the collision check.|
-|Coyote Effect Delay|The delay of the coyote effect ; the time allowed to the element to jump even if it is not on the ground anymore.|
+| Property            | Description                                                                                                       |
+|---------------------|-------------------------------------------------------------------------------------------------------------------|
+| Rigidbody           | The `Rigidbody` of the jumpable element.                                                                          |
+| Jump Force          | The velocity to apply when the element needs to jump.                                                             |
+| Fall Multiplier     | The velocity multiplier when the element is falling.                                                              |
+| Jump Count          | The number of allowed jumps.                                                                                      |
+| Ground Mask         | The `LayerMask` to check when the element touches the ground.                                                     |
+| Ground Check Offset | The `Vector3` offset if your collision check is not on the ground.                                                |
+| Ground Check Size   | The radius of the collision check.                                                                                |
+| Coyote Effect Delay | The delay of the coyote effect ; the time allowed to the element to jump even if it is not on the ground anymore. |
 
 ### <span id="movement-interfaces">Interfaces</span>
 
 #### `IMovable`
 
-This interface can be use to expose a component as a moving object. It is used to send movement inputs. See [`OldMovementInput`](#oldmovementinput) and [`FirstPersonController`](#firstpersoncontroller) for more information.
+This interface can be used to expose a component as a moving object. It is used to send movement inputs. See [
+`OldMovementInput`](#oldmovementinput) and [`FirstPersonController`](#firstpersoncontroller) for more information.
 
 ```csharp
 public interface IMovable
@@ -708,7 +701,8 @@ public interface IMovable
 
 #### `IJumpable`
 
-This interface can be use to expose a component as a jumping object. It is used to send jump inputs. See [`OldMovementInput`](#oldmovementinput) and [`FirstPersonController`](#firstpersoncontroller) for more information.
+This interface can be used to expose a component as a jumping object. It is used to send jump inputs. See [
+`OldMovementInput`](#oldmovementinput) and [`FirstPersonController`](#firstpersoncontroller) for more information.
 
 ```csharp
 public interface IJumpable
@@ -721,7 +715,7 @@ public interface IJumpable
 
 ## Shooter
 
-The `Shooter` module contains most of components used for weapons related games.
+The `Shooter` module contains most of the components used for weapons related games.
 You can enable it, if you want to create one of the following game archetype:
 
 - FPS
@@ -735,7 +729,7 @@ This module is located under the `BaseTool.Shooter` namespace.
 
 ### <span id="shooter-sample">Sample</span>
 
-The package include a shooter sample project using most of the primary components to begin creating a FPS game.
+The package include a shooter sample project using most of the primary components to begin creating an FPS game.
 
 ### <span id="shooter-components">Components</span>
 
@@ -746,9 +740,10 @@ methods. It could be used with the [`ShootController`](#shootcontroller) compone
 
 #### `ShootController`
 
-This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Shoot Controller`. It implements `IShootable` and `IShootController` interfaces. 
+This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Shoot Controller`. It
+implements `IShootable` and `IShootController` interfaces.
 
-It authorizes a GameObject to use a shoot logic and send shoot and reload informations to other components.
+It authorizes a GameObject to use a shoot logic and send shoot and reload information to other components.
 
 #### `WeaponController`
 
@@ -764,13 +759,14 @@ This component can be added from the **AddComponent** menu by following `BaseToo
 
 This component can be added from the **AddComponent** menu by following `BaseTool > Shooter > Weapon Projectile`.
 
-It is used to add the projectile behaviour on a GameObject. This is for weapon purpose ; if a weapon must shoot projectiles instead of a raycast, the GameObject must have this component.
+It is used to add the projectile behaviour on a GameObject. This is for weapon purpose ; if a weapon must shoot
+projectiles instead of a raycast, the GameObject must have this component.
 
 ### <span id="shooter-interfaces">Interfaces</span>
 
 #### `IShootable`
 
-This interface must be used on a component that can shoot. E.g. the player or enemies. 
+This interface must be used on a component that can shoot. E.g. the player or enemies.
 It forces the implementation of shooting and reloading method.
 
 ```csharp
@@ -802,28 +798,81 @@ public interface IShootController
 
 #### `Weapon`
 
-This is the main object used for every weapons. You can create any type of weapon using this base.
+This is the main object used for every weapon. You can create any type of weapon using this base.
 To create a new one, right click in your project window, then `Create > BaseTool > Shooter > Weapon`.
 
 #### `WeaponCategory`
 
-This object refers to a category that could be assigned to a weapon. It is used to sort weapons or identify ammos. To create a new one, right click in your project window, then `Create > BaseTool > Shooter > Weapon Category`.
+This object refers to a category that could be assigned to a weapon. It is used to sort weapons or identify ammos. To
+create a new one, right click in your project window, then `Create > BaseTool > Shooter > Weapon Category`.
 
 ## RPG
 
 [still in development]
 
-## Roguelite
+## RNG
 
-[still in development]
+### PonderateRandom
+
+Many games uses randomizer tweaked to let some elements happens more times than others.
+It is called "ponderate randomisation". You can create your own by using `PonderateRandom`
+class and add weight on each element ; allowing some to happen more or less than others.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+var cheatedDice = new PonderateRandom<string> {
+    { "One", 1 },
+    { "Two", 1 },
+    { "Three", 0.5f }, // the three happens twice less than others
+    { "Four", 1 },
+    { "Five", 1 },
+    { "Six", 2 }, // the six happens twice more than others
+};
+
+// use UnityEngine.Random
+Debug.Log(cheatedDice.Get());
+
+// use System.Random
+var random = new System.Random(1);
+Debug.Log(cheatedDice.Get(random)); // always be "Two"
+Debug.Log(cheatedDice.Get(random)); // always be "One"
+```
+
+### Deck
+
+If you want to make a card game, you need to store those cards
+into a deck. That's the purpose of `Deck<T>`. It inherits from
+the `PonderateRandom<T>` class.
+
+You can define your deck directly from the inspector, with
+card quantity. Thus, you can `Fill()` the deck at start and 
+`Draw()` cards whenever you want.
+
+```csharp
+[SerializeField]
+private Deck<GameObject> _deck;
+
+_deck.Fill();
+GameObject element = _deck.Draw();
+```
+
+### Sample[](#rng-sample)
+
+![poker_sample](./Documentation~/RNG/poker_sample.png)
+
+If you want to understand how the RNG module and `Deck<T>` work,
+you can use the Poker Sample from the BaseTool package manager
+page's.
 
 ## UI
 
-The `UI` module contains most of components used to manage user interfaces.
+The `UI` module contains most of the components used to manage user interfaces.
 You can enable it, if you want to use a simple UI navigation workflow based on
-parenthood views architecture. 
+parenthood views architecture.
 
-This module uses the `UnityEngine.UI` system and does not support 
+This module uses the `UnityEngine.UI` system and does not support
 `UnityEngine.UIElements` (UI Toolkit) yet.
 
 By default, the `UI` module is enabled but can be disabled in the [Setup Wizard](#setup-wizard).
@@ -831,8 +880,9 @@ This module is located under the `BaseTool.UI` namespace.
 
 ### <span id="ui-workflow">Workflow</span>
 
-The `UI` module follows [the official Unity UI recommendations](https://unity.com/fr/how-to/unity-ui-optimization-tips) about optimization and organization.
-Meaning that you must setup a specific UI workflow to use the module:
+The `UI` module follows [the official Unity UI recommendations](https://unity.com/fr/how-to/unity-ui-optimization-tips)
+about optimization and organization.
+Meaning that you must set up a specific UI workflow to use the module:
 
 1. Any view must inherit from the [`View`](#view) class ;
 2. Each view must have a `Canvas` component ;
@@ -850,7 +900,7 @@ must inherit from the `View` class that automatically registers the component
 to the `Navigation`.
 
 Caution: using UI GameObject that could be a view without inheriting from `View`
-could broke the navigation workflow. 
+could brake the navigation workflow.
 
 You can create a view from the template by right click in your assets project :
 `Create > BaseTool > UI > View Class`.
@@ -874,16 +924,16 @@ public class MyView : View
 }
 ```
 
-|Methods and properties|Description|
-|---|---|
-|**Properties**|
-|Tree|Get the full tree of the view, knowing its parent and its children.|
-|Parent|Get the parent view (if it exists).|
-|IsVisible|Returns true if the view is displayed (child or not).|
-|**Methods**|
-|`Display(boolean)`|Display (or hide) the view and its parent.|
-|`OnNavigateFrom(View, NavigationArgs)`|Method called by the `Navigation` when the view is displayed (navigated from another view passed by parameter).|
-|`OnNavigateTo(View, NavigationArgs)`|Method called by the `Navigation` when the view is closed (when navigation wants to open another view passed by parameter).|
+| Methods and properties                 | Description                                                                                                                 |
+|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| **Properties**                         |
+| Tree                                   | Get the full tree of the view, knowing its parent and its children.                                                         |
+| Parent                                 | Get the parent view (if it exists).                                                                                         |
+| IsVisible                              | Returns true if the view is displayed (child or not).                                                                       |
+| **Methods**                            |
+| `Display(boolean)`                     | Display (or hide) the view and its parent.                                                                                  |
+| `OnNavigateFrom(View, NavigationArgs)` | Method called by the `Navigation` when the view is displayed (navigated from another view passed by parameter).             |
+| `OnNavigateTo(View, NavigationArgs)`   | Method called by the `Navigation` when the view is closed (when navigation wants to open another view passed by parameter). |
 
 ### `Navigation`
 
@@ -891,14 +941,14 @@ The `Navigation` class **must be** the only way to display or hide views. This i
 because it uses a navigation history to go backward. You can add the `BackBehaviour`
 component anywhere in your scene to add this behaviour (or handle the back yourself).
 
-|Methods|Description|
-|---|---|
-|`Open<View>()`|Open the view following the type in parameter.|
-|`Close<View>()`|Close the view following the type in parameter.|
-|`Back()`|Close the current view and open the previous one.|
-|`Clear()`|Hide every views and clear the navigation history.|
+| Methods         | Description                                        |
+|-----------------|----------------------------------------------------|
+| `Open<View>()`  | Open the view following the type in parameter.     |
+| `Close<View>()` | Close the view following the type in parameter.    |
+| `Back()`        | Close the current view and open the previous one.  |
+| `Clear()`       | Hide every views and clear the navigation history. |
 
-The basic workflow, if you properly setup your views, is :
+The basic workflow, if you properly set up your views, is :
 
 ```csharp
 using BaseTool.UI;
@@ -963,7 +1013,7 @@ public class UserView : View
 The package include a UI sample project that contains scripts to understand the
 navigation workflow.
 
-You can download it from the package manager, in the BaseTool sample tab. 
+You can download it from the package manager, in the BaseTool sample tab.
 
 ## Editor
 
@@ -973,9 +1023,11 @@ The package contains useful buttons/links directly accesible from the `Window` m
 Here are their functions:
 
 - `Window > BaseTool > Documentation` will open the documentation ;
-- `Window > BaseTool > Report a bug...` will redirect you to the [issue](https://github.com/DarkRewar/BaseTool/issues) page ;
+- `Window > BaseTool > Report a bug...` will redirect you to the [issue](https://github.com/DarkRewar/BaseTool/issues)
+  page ;
 - `Window > BaseTool > Open Data Folder` will open the `Application.dataPath` in the Explorer/Finder ;
-- `Window > BaseTool > Open Persistent Data Folder` will open the `Application.persistentDataPath` in the Explorer/Finder.
+- `Window > BaseTool > Open Persistent Data Folder` will open the `Application.persistentDataPath` in the
+  Explorer/Finder.
 
 ### Todo List
 
@@ -984,15 +1036,15 @@ It will list you every TODO and FIXME entries found in your project.
 
 ![todo_list.png](./Documentation~/Editor/todo_list.png)
 
-Entries are grouped by assemblies and can be filtered by tags. You can also by developpers to entries.
+Entries are grouped by assemblies and can be filtered by tags. You can also bind developers to entries.
 How does it work? In your C# script, inside your project, you can add todo and fixme comments. The tool
 will detect them and add them to the list. To add some, you must follow those rules:
 
 - start by a comment and a todo, fix or fixme : `//Todo`, `//Fix` or `//Fixme` ;
-- (optionnal) you can add meta data between parenthesis:
+- (optionnal) you can add metadata between parenthesis:
     - if it begins by `@`, it will be detected as a dev name ;
     - if it begins by `#`, it will be detected as a tag to filter entries ;
-- (optionnal) you can add `:` to seperate the begin of comment and content ;
+- (optionnal) you can add `:` to split the beginning of comment and content ;
 - end with the message of the todo/fix you want to display.
 
 You can see some following examples:
@@ -1008,7 +1060,8 @@ You can see some following examples:
 
 ### `MinMaxAttribute`
 
-This attribute allows you to put a slider range for a value in the inspector. It is used to create a range using `Vector2`.
+This attribute allows you to put a slider range for a value in the inspector. It is used to create a range using
+`Vector2`.
 
 ![min_max_attribute](./Documentation~/Editor/min_max_attribute.png)
 
@@ -1072,7 +1125,7 @@ public class MyClass : MonoBehaviour
 
 ### `EnableIfAttribute`
 
-This attribute can mark its field as readonly in the inspector if 
+This attribute can mark its field as readonly in the inspector if
 the condition is false.
 
 ```csharp
@@ -1093,7 +1146,7 @@ public class MyClass : MonoBehaviour
 
 ### `DisableIfAttribute`
 
-This attribute can mark its field as readonly in the inspector if 
+This attribute can mark its field as readonly in the inspector if
 the condition is true.
 
 ```csharp
@@ -1171,7 +1224,7 @@ you want (None, Info, Warning or Error).
 [MessageAttribute(string message, MessageAttribute.MessageType type = MessageAttribute.MessageType.Info)]
 ```
 
-There also is three shortcut to write those messages: 
+There also is three shortcut to write those messages:
 `InfoMessage`, `WarningMessage` and `ErrorMessage`.
 
 ```csharp
