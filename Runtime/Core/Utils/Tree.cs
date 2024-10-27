@@ -37,6 +37,13 @@ namespace BaseTool
             Children.Add(child);
         }
 
+        public void RemoveChild(T child)
+        {
+            Children.RemoveAll(tree => tree.Current.Equals(child));
+        }
+
+        public void RemoveChildren() => Children.Clear();
+
         public IEnumerator<Tree<T>> GetEnumerator() => Children.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => Children.GetEnumerator();
