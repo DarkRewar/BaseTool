@@ -1,5 +1,11 @@
 # Changelog 
 
+## 0.5.1
+
+## Improvements
+
+## Fixes
+
 ## 0.5.0
 
 ### Improvements
@@ -12,6 +18,13 @@
 - Add `ToSerializableDictionary` extension to `Dictionary` class [[#100](https://github.com/DarkRewar/BaseTool/issues/100)]
 - Add `Stop()`, `Pause()` and `Resume()` methods to `Cooldown` class [[#103](https://github.com/DarkRewar/BaseTool/issues/103)]
 - Add `Vector2` extensions based on `Vector3` extensions [[#105](https://github.com/DarkRewar/BaseTool/issues/105)]
+- Add `MathUtils.IsPointInsidePolygon()` method [[#108](https://github.com/DarkRewar/BaseTool/pull/108)]
+- Add `Deck` class with Poker Sample [[#110](https://github.com/DarkRewar/BaseTool/pull/110)]
+- Add `Tree.RemoveChild()` and `Tree.RemoveChildren()` methods [[#112](https://github.com/DarkRewar/BaseTool/pull/112)]
+
+### Fixes
+
+- Fix UI script templates that were in runtime folder instead of editor [[#111](https://github.com/DarkRewar/BaseTool/pull/111)]
 
 ## 0.4.1
 
