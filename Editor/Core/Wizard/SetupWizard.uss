@@ -38,27 +38,27 @@
 }
 
 #CoreButton .module-button-icon {
-    background-image: url('./gear_icon.png');
+    background-image: url("project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/gear_icon.png?fileID=21300000&guid=e179554e12a03b14eadf807d56f6a3db&type=3#gear_icon");
 }
 
 #MovementButton .module-button-icon {
-    background-image: url('./shoe_icon.png');
+    background-image: url("project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/shoe_icon.png?fileID=21300000&guid=6969c90ab72c1489fa1ae6b03e8c54b6&type=3#shoe_icon");
 }
 
 #ShooterButton .module-button-icon {
-    background-image: url('./pistol_icon.png');
+    background-image: url("project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/pistol_icon.png?fileID=21300000&guid=894024e2202937c42916371b11a3974b&type=3#pistol_icon");
 }
 
 #RPGButton .module-button-icon {
-    background-image: url('./crossed_swords_icon.png');
+    background-image: url("project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/crossed_swords_icon.png?fileID=21300000&guid=5242506f5be2e31428a7192dc5372fb6&type=3#crossed_swords_icon");
 }
 
-#RogueliteButton .module-button-icon {
-    background-image: url('./dice_icon.png');
+#RNGButton .module-button-icon {
+    background-image: url("project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/dice_icon.png?fileID=21300000&guid=a84948209409a3c43b707c8df40acdbd&type=3#dice_icon");
 }
 
 #UIButton .module-button-icon {
-    background-image: url('./pager_icon.png');
+    background-image: url("project://database/Assets/com.lignus.basetool/Editor/Core/Wizard/pager_icon.png?fileID=21300000&guid=d7d5d5df0be790148aacd0baf90dcbb9&type=3#pager_icon");
 }
 
 .module-button .unity-toggle__label {
@@ -76,5 +76,5 @@
 }
 
 .apply-button {
-    width: 150px
+    width: 150px;
 }

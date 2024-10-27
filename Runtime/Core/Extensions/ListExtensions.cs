@@ -73,5 +73,36 @@ namespace BaseTool
         {
             foreach (int i in 0..list.Count) callback?.Invoke(list[i], i);
         }
+        
+        /// <summary>
+        /// Shuffle list elements using the <see cref="UnityEngine.Random"/> class.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Shuffle<T>(this IList<T> list)  
+        {  
+            int n = list.Count;  
+            while (n > 1) {  
+                n--;  
+                int k = UnityEngine.Random.Range(0, n + 1);  
+                (list[k], list[n]) = (list[n], list[k]);
+            }  
+        }
+        
+        /// <summary>
+        /// Shuffle list elements using the <see cref="System.Random"/> class.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="random"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Shuffle<T>(this IList<T> list, System.Random random)  
+        {  
+            int n = list.Count;  
+            while (n > 1) {  
+                n--;  
+                int k = random.Next(n + 1);  
+                (list[k], list[n]) = (list[n], list[k]);
+            }  
+        }
     }
 }

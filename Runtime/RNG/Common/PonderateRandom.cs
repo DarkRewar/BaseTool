@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace BaseTool
+namespace BaseTool.RNG
 {
+    [Serializable]
     public struct PonderateEntry<T>
     {
+        [SerializeField]
         public T Value;
+        
+        [SerializeField]
         public float Weight;
 
         internal Vector2 Range;
@@ -16,10 +20,12 @@ namespace BaseTool
 
     [Serializable]
     [HelpURL("https://github.com/DarkRewar/BaseTool?tab=readme-ov-file#ponderaterandom")]
-    public class PonderateRandom<T> : IEnumerable<PonderateEntry<T>>
+    public class PonderateRandom<T> : IEnumerable<PonderateEntry<T>>, ISerializationCallbackReceiver
     {
-        private List<PonderateEntry<T>> _entries;
-
+        [SerializeField]
+        protected List<PonderateEntry<T>> _entries;
+        
+        [field: SerializeField]
         public float TotalWeight { get; private set; } = 0;
 
         public PonderateRandom()
@@ -27,20 +33,36 @@ namespace BaseTool
             _entries = new List<PonderateEntry<T>>();
         }
 
-        public IEnumerator<BaseTool.PonderateEntry<T>> GetEnumerator() => _entries.GetEnumerator();
+        public IEnumerator<PonderateEntry<T>> GetEnumerator() => _entries.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => _entries.GetEnumerator();
+
+        internal bool TryGetEntry(T value, out PonderateEntry<T> entry)
+        {
+            int index = _entries.FindIndex(e => e.Value.Equals(value));
+            entry = default;
+            if (index == -1) return false;
+            entry = _entries[index];
+            return true;
+        }
 
         public void Add(T value) => Add(value, 1);
 
         public void Add(T value, float weight)
         {
-            _entries.Add(new PonderateEntry<T>
+            if(TryGetEntry(value, out var entry))
             {
-                Value = value,
-                Weight = weight,
-                Range = new(TotalWeight, (TotalWeight + weight))
-            });
+                entry.Weight += weight;
+            }
+            else
+            {
+                _entries.Add(new PonderateEntry<T>
+                {
+                    Value = value,
+                    Weight = weight,
+                    Range = new(TotalWeight, (TotalWeight + weight))
+                });
+            }
             TotalWeight += weight;
         }
 
@@ -88,5 +110,14 @@ namespace BaseTool
         public Dictionary<T, float> ToDictionary() => _entries.ToDictionary(
             entry => entry.Value,
             entry => entry.Weight);
+
+        public void OnBeforeSerialize()
+        {
+        }
+
+        public void OnAfterDeserialize()
+        {
+            RecalculateRanges();
+        }
     }
 }
