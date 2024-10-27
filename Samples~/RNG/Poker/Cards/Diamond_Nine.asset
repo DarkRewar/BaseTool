@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Suit: 1
   Value: 9
+  Sprite: {fileID: 1039574103, guid: 9d899934379816c40af100047cde5ac6, type: 3}
