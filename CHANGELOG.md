@@ -6,6 +6,8 @@
 
 ## Fixes
 
+- Fix `ReadOnlyAttribute` drawer which now displays the property [[#117](https://github.com/DarkRewar/BaseTool/issues/117)]
+
 ## 0.5.0
 
 ### Improvements
