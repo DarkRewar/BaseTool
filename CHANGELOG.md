@@ -4,6 +4,9 @@
 
 ## Improvements
 
+- Add an option to set `PanelSettings` on `ConsoleSettings` [[#121](https://github.com/DarkRewar/BaseTool/issues/121)]
+- Allows numpad enter as return keycode for `Console` [[#120](https://github.com/DarkRewar/BaseTool/issues/120)]
+
 ## Fixes
 
 ## 0.5.0
