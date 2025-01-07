@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace BaseTool
 {
     public class ConsoleSettings : ScriptableObject
     {
         public const string DefaultSettingsFile = "ConsoleSettings";
+
+        [Header("UI Toolkit settings")] 
+        public PanelSettings PanelSettings;
 
         [Header("Opened settings")]
         public float OpenedTimeScale = 0;

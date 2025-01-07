@@ -18,13 +18,16 @@ namespace BaseTool
         internal bool IsKeyPressed =>
             !Console.Settings.UseCustomInput
             && Input.GetKeyDown(Console.Settings.ToggleKeyCode)
-            && (!Console.Settings.ToggleKeyCodeCtrl || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+            && (!Console.Settings.ToggleKeyCodeCtrl || Input.GetKey(KeyCode.LeftControl) ||
+                Input.GetKey(KeyCode.RightControl))
             && (!Console.Settings.ToggleKeyCodeAlt || Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt));
 
         private void Awake()
         {
             _uiDocument = GetComponent<UIDocument>();
-            _uiDocument.panelSettings = Resources.Load<PanelSettings>("ConsolePanelSettings");
+            _uiDocument.panelSettings = Console.Settings.PanelSettings
+                ? Console.Settings.PanelSettings
+                : Resources.Load<PanelSettings>("ConsolePanelSettings");
             _uiDocument.visualTreeAsset = Resources.Load<VisualTreeAsset>("ConsoleView");
             _uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         }
@@ -92,7 +95,7 @@ namespace BaseTool
                 _textField.selectIndex = completion.Length;
             }
 
-            if (evt.keyCode != KeyCode.Return) return;
+            if (evt.keyCode != KeyCode.Return && evt.keyCode != KeyCode.KeypadEnter) return;
 
             Console.EnqueueCommand(_textField.text);
             _textField.SetValueWithoutNotify(null);
@@ -105,7 +108,7 @@ namespace BaseTool
                 _textField.SetValueWithoutNotify(completion);
             }
 
-            if (evt.keyCode != KeyCode.Return) return;
+            if (evt.keyCode != KeyCode.Return && evt.keyCode != KeyCode.KeypadEnter) return;
 
             Console.EnqueueCommand(_textField.text);
             _textField.SetValueWithoutNotify(null);
