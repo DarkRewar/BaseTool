@@ -47,6 +47,7 @@ How to install:
     - [MonoSingleton](#monosingleton)
     - [ValueListener](#valuelistener)
     - [SerializableDictionary](#serializabledictionary)
+    - [GenericObjectPool](#genericobjectpool)
     - [GameEvent](#game-events)
     - [Class Extensions](#class-extensions)
     - [Math Utils](#math-utils)
@@ -318,6 +319,71 @@ public class MyComponent : MonoBehaviour
         Debug.Log(name);
     }
 } 
+```
+
+### GenericObjectPool
+
+Unity integrates
+an [ObjectPool<T>](https://docs.unity3d.com/2021.3/Documentation/ScriptReference/Pool.ObjectPool_1.html)
+system. But this implementation is really laborious to do each time.
+
+That's why you can use `GameObjectPool` which uses `ObjectPool<T>` if
+you want to quickly gets one. You need to add the `GameObjectPool` component
+in your hierarchy and reference it.
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyComponent : MonoBehaviour
+{
+    public GameObjectPool MyPool;
+    
+    public void Start()
+    {
+        GameObject go = MyPool.Get();
+        // do what you want of your GameObject
+    }
+    
+    public void Later()
+    {
+        // retrieve the GameObject you want
+        MyPool.Realease(go);
+    }
+}
+```
+
+You also can create your own pool based on the type of prefab you want by doing:
+
+```csharp
+using BaseTool;
+
+// used by your prefab
+public class MyComponent : MonoBehaviour { } 
+
+// pool based on your prefab
+public class MyComponentObjectPool : GenericObjectPool<MyComponent>
+{
+    protected override MyComponent CreatePooledObject()
+    {
+        base.CreatePooledObject();
+    }
+    
+    protected override void GetPooledObject(MyComponent obj)
+    {
+        base.GetPooledObject();
+    }
+    
+    protected override void ReleasePooledObject(MyComponent obj)
+    {
+        base.ReleasePooledObject();
+    }
+    
+    protected override void DestroyPooledObject(MyComponent obj)
+    {
+        base.DestroyPooledObject();
+    }
+}
 ```
 
 ### SerializableDictionary
@@ -847,7 +913,7 @@ into a deck. That's the purpose of `Deck<T>`. It inherits from
 the `PonderateRandom<T>` class.
 
 You can define your deck directly from the inspector, with
-card quantity. Thus, you can `Fill()` the deck at start and 
+card quantity. Thus, you can `Fill()` the deck at start and
 `Draw()` cards whenever you want.
 
 ```csharp
