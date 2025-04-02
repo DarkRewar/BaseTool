@@ -17,6 +17,9 @@
     "url": "https://rewar.fr"
   },
   "hideInEditor": false,
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  },
   "samples": [
     {
       "displayName": "Movement Samples",
