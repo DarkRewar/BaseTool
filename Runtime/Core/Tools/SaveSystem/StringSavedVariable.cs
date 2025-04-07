@@ -4,18 +4,22 @@ using UnityEngine;
 namespace BaseTool
 {
     [Serializable]
-    public class StringSavedVariable : SavedVariable
+    public class StringSavedVariable : SavedVariable<string>
     {
-        public string Value;
-        
         public static implicit operator string(StringSavedVariable variable) => variable.Value;
         
-        internal override object GetSavedValue() => Value;
-        
-        internal override void SetSavedValue(object value)
+        internal override void DeserializeFromFile(SaveFileSerializationContext context)
         {
-            if(value is string stringValue) Value = stringValue;
-            else Debug.LogError($"{_id} can't be converted to string");
+            if(!context.Values.TryGetValue(Id, out object value))
+                Debug.LogError($"No saved value found for {Id}.");
+            else if(value is not string stringValue)
+                Debug.LogError($"Variable {Id} is not a string.");
+            else Value = stringValue;
+        }
+
+        internal override void SerializeToFile(SaveFileSerializationContext context)
+        {
+            context.Values[Id] = Value;
         }
     }
 }

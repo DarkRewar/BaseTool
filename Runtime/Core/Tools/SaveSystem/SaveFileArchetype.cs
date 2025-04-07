@@ -17,7 +17,7 @@ namespace BaseTool
         Binary = 3
     }
     
-    [CreateAssetMenu(menuName = "BaseTool/Create SaveFile Architecture")]
+    [CreateAssetMenu(menuName = "BaseTool/SaveFile Architecture")]
     public class SaveFileArchitecture : ScriptableObject
     {
         [Header("Save File Settings")]
@@ -44,12 +44,10 @@ namespace BaseTool
             // load sync
             string saveFile = File.ReadAllText(_saveFileName);
             Dictionary<string, object> container = JsonConvert.DeserializeObject<Dictionary<string, object>>(saveFile);
+            SaveFileSerializationContext context = new SaveFileSerializationContext(container);
             foreach (var savedVariable in _variables)
             {
-                if (container.TryGetValue(savedVariable.Id, out object value))
-                {
-                    savedVariable.SetSavedValue(value);
-                }
+                savedVariable.DeserializeFromFile(context);
             }
         }
 
@@ -62,13 +60,16 @@ namespace BaseTool
         public void Save()
         {
             // enqueue to save buffer
-            Dictionary<string, object> container = new();
+            SaveFileSerializationContext context = new SaveFileSerializationContext();
             foreach (var savedVariable in _variables)
             {
-                container.Add(savedVariable.Id, savedVariable.GetSavedValue());
+                savedVariable.SerializeToFile(context);
             }
-            string json = JsonConvert.SerializeObject(container, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(context.Values, Formatting.Indented);
             File.WriteAllText(_saveFileName, json);
+            #if UNITY_EDITOR
+            AssetDatabase.Refresh();
+            #endif
         }
 
         [ContextMenu("Add String Variable")]

@@ -11,14 +11,31 @@ namespace BaseTool
         public string Id => _id;
 
         [SerializeField] [TextArea(3, 10)] protected string _description;
+
+        internal abstract void DeserializeFromFile(SaveFileSerializationContext context);
         
-        internal abstract object GetSavedValue();
-        
-        internal abstract void SetSavedValue(object value);
+        internal abstract void SerializeToFile(SaveFileSerializationContext context);
 
         private void OnValidate()
         {
             name = _id;
+        }
+    }
+
+    public abstract class SavedVariable<T> : SavedVariable
+    {
+        public T Value;
+        
+        public event Action<T> OnValueLoaded;
+
+        internal override void DeserializeFromFile(SaveFileSerializationContext context) => throw new NotImplementedException();
+
+        internal override void SerializeToFile(SaveFileSerializationContext context) => throw new NotImplementedException();
+
+        internal void LoadValue(object value)
+        {
+            Value = (T)value;
+            OnValueLoaded?.Invoke(Value);
         }
     }
 }
