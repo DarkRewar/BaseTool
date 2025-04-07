@@ -32,9 +32,9 @@ namespace BaseTool
 
         internal override void SerializeToFile(SaveFileSerializationContext context) => throw new NotImplementedException();
 
-        internal void LoadValue(object value)
+        protected void LoadValue(T value)
         {
-            Value = (T)value;
+            Value = value;
             OnValueLoaded?.Invoke(Value);
         }
     }

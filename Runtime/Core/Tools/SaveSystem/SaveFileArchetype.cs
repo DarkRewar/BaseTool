@@ -1,8 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
-using System.Runtime.Serialization.Json;
+using System.Text;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -22,11 +21,30 @@ namespace BaseTool
     {
         [Header("Save File Settings")]
         [SerializeField] private string _saveFileName = "Game.sav";
-        [SerializeField] private string _saveFolder = "Not used yet";
+        [SerializeField] private string _saveFolder = "{Application.dataPath}";
         [SerializeField] private SaveFormat _saveFormat = SaveFormat.Json;
         
         [Header("Save File Values")]
         [SerializeField] private List<SavedVariable> _variables;
+
+        public string SavePath
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                return sb.ToString();
+            }
+        }
+
+        public bool IsValidFolderPath() => true;
+
+        public string GetPath(string key) => key switch
+        {
+            "Application.dataPath" or "APPDATA" => Application.dataPath,
+            _ => throw new InvalidExpressionException($"Path key {key} is not valid.")
+        };
+
+        public string SaveFilePath => $"{SavePath}/{_saveFileName}";
 
         // private void OnValidate()
         // {
@@ -97,8 +115,9 @@ namespace BaseTool
         [ContextMenu("Clear Variables")]
         private void ClearVariable()
         {
-            foreach (StringSavedVariable variable in _variables)
+            foreach (SavedVariable variable in _variables)
             {
+                if (!variable) continue;
                 AssetDatabase.RemoveObjectFromAsset(variable);
                 DestroyImmediate(variable);
                 AssetDatabase.SaveAssets();

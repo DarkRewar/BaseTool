@@ -12,7 +12,10 @@ namespace BaseTool
                 Debug.LogError($"No saved value found for {Id}.");
             else if(value is not long longValue)
                 Debug.LogError($"Variable {Id} is not an number.");
-            else Value = (int)longValue;
+            else
+            {
+                LoadValue((int) longValue);
+            }
         }
 
         internal override void SerializeToFile(SaveFileSerializationContext context)

@@ -14,7 +14,7 @@ namespace BaseTool
                 Debug.LogError($"No saved value found for {Id}.");
             else if(value is not string stringValue)
                 Debug.LogError($"Variable {Id} is not a string.");
-            else Value = stringValue;
+            else LoadValue(stringValue);
         }
 
         internal override void SerializeToFile(SaveFileSerializationContext context)

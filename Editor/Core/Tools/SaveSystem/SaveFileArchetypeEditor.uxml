@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:ScrollView horizontal-scroller-visibility="Hidden" style="flex-grow: 1;">
+        <ui:Label tabindex="-1" text="File Informations" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px;" />
+        <ui:TextField picking-mode="Ignore" label="File Name" value="filler text" binding-path="_saveFileName" />
+        <ui:TextField picking-mode="Ignore" label="Save Folder" value="filler text" binding-path="_saveFolder" />
+        <ui:EnumField label="Save Format" type="BaseTool.SaveFormat, Lignus.BaseTool.Runtime" binding-path="_saveFormat" />
+        <ui:Label tabindex="-1" text="Save Architecture" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 16px;" />
+        <ui:ListView show-foldout-header="true" show-add-remove-footer="false" reorderable="true" show-alternating-row-backgrounds="ContentOnly" show-border="true" virtualization-method="DynamicHeight" header-title="Saved Variables" reorder-mode="Animated" name="SavedVariables" binding-path="_variables" />
+        <uie:ToolbarMenu tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" text="+ Add new variable" name="AddVariable" style="align-items: auto; justify-content: flex-end;" />
+    </ui:ScrollView>
+    <ui:VisualElement style="flex-grow: 0; flex-direction: row; position: relative;">
+        <ui:Button text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" binding-path="Save" name="SaveButton" style="flex-grow: 1;" />
+        <ui:Button text="Load" parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" binding-path="Load" name="LoadButton" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>
