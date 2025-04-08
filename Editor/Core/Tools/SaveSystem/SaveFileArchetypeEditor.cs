@@ -82,11 +82,11 @@ namespace BaseTool.Editor
             {
                 VisualElement line = new VisualElement();
                 line.style.flexDirection = FlexDirection.Row;
-                PropertyField propertyField = new PropertyField();
-                propertyField.style.flexGrow = 1;
-                propertyField.name = "Element";
-                propertyField.bindingPath = _variablesList.propertyPath;
-                line.Add(propertyField);
+
+                InspectorElement inspectorElement = new();
+                inspectorElement.style.flexGrow = 1;
+                inspectorElement.name = "Element";
+                line.Add(inspectorElement);
 
                 Button button = new Button();
                 button.text = "-";
@@ -132,13 +132,23 @@ namespace BaseTool.Editor
             button.UnregisterCallback<ClickEvent, int>(OnRemoveClicked);
             button.RegisterCallback<ClickEvent, int>(OnRemoveClicked, index);
 
-            PropertyField propertyField = listEntry.Q<PropertyField>("Element");
-            propertyField.BindProperty(_variablesList.GetArrayElementAtIndex(index));
+            SerializedObject elementObject = new SerializedObject(_variablesList.GetArrayElementAtIndex(index).objectReferenceValue);
+            InspectorElement inspectorElement = listEntry.Q<InspectorElement>("Element");
+            inspectorElement.Bind(elementObject);
+            // propertyField.Bind(_variablesList.GetArrayElementAtIndex(index).serializedObject);
+            // propertyField.BindProperty(_variablesList.GetArrayElementAtIndex(index));
         }
 
         private void OnRemoveClicked(ClickEvent evt, int index)
         {
-            SavedVariable variable = _variablesList.GetArrayElementAtIndex(index).objectReferenceValue as SavedVariable;
+            SavedVariable variable = (SavedVariable)_variablesList.GetArrayElementAtIndex(index).objectReferenceValue;
+            bool answerWasYes = EditorUtility.DisplayDialog (
+                "Deleting SavedVariable", 
+                $"Do you really want to delete {variable.Id} ({variable.GetType().Name})?", 
+                "Yes", 
+                "No");
+            if (!answerWasYes) return;
+            
             AssetDatabase.RemoveObjectFromAsset(variable);
             DestroyImmediate(variable);
             _variablesList.DeleteArrayElementAtIndex(index);

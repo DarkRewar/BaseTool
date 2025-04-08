@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace BaseTool
 {
+    [Serializable]
     public abstract class SavedVariable : ScriptableObject
     {
         [Header("Saved Variable Description")] [SerializeField]
