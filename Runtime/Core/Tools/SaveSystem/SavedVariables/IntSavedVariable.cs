@@ -17,10 +17,5 @@ namespace BaseTool
                 LoadValue((int) longValue);
             }
         }
-
-        internal override void SerializeToFile(SaveFileSerializationContext context)
-        {
-            context.Values[Id] = Value;
-        }
     }
 }

@@ -103,6 +103,9 @@ namespace BaseTool.Editor
             {
                 menu.menu.AppendAction(type.Name, CreateVariableCallback);
             }
+            
+            root.Q<Button>("SaveButton").clicked += _saveFile.Save;
+            root.Q<Button>("LoadButton").clicked += _saveFile.Load;
 
             return root;
         }

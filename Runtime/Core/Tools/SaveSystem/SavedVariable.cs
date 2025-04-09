@@ -31,7 +31,10 @@ namespace BaseTool
 
         internal override void DeserializeFromFile(SaveFileSerializationContext context) => throw new NotImplementedException();
 
-        internal override void SerializeToFile(SaveFileSerializationContext context) => throw new NotImplementedException();
+        internal override void SerializeToFile(SaveFileSerializationContext context)
+        {
+            context.Values[Id] = Value;
+        }
 
         protected void LoadValue(T value)
         {

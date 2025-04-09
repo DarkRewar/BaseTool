@@ -16,10 +16,5 @@ namespace BaseTool
                 Debug.LogError($"Variable {Id} is not a string.");
             else LoadValue(stringValue);
         }
-
-        internal override void SerializeToFile(SaveFileSerializationContext context)
-        {
-            context.Values[Id] = Value;
-        }
     }
 }

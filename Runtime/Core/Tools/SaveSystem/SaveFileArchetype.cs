@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace BaseTool
     [CreateAssetMenu(menuName = "BaseTool/SaveFile Architecture")]
     public class SaveFileArchitecture : ScriptableObject
     {
+        private static JsonConverter _jsonConverter;
+        
         [Header("Save File Settings")]
         [SerializeField] private string _saveFileName = "Game.sav";
         [SerializeField] private string _saveFolder = "{Application.dataPath}";
@@ -84,10 +87,18 @@ namespace BaseTool
                 savedVariable.SerializeToFile(context);
             }
             string json = JsonConvert.SerializeObject(context.Values, Formatting.Indented);
-            File.WriteAllText(_saveFileName, json);
-            #if UNITY_EDITOR
-            AssetDatabase.Refresh();
-            #endif
+
+            if (Application.isPlaying)
+            {
+                SaveBuffer.SaveToFile(_saveFileName, json);
+            }
+            else
+            {
+                File.WriteAllText(_saveFileName, json);
+#if UNITY_EDITOR
+                AssetDatabase.Refresh();
+#endif
+            }
         }
 
         [ContextMenu("Add String Variable")]
