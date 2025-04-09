@@ -1312,6 +1312,34 @@ public class MyClass : MonoBehaviour
 
 ![message_attribute](./Documentation~/Editor/message_attribute.PNG)
 
+### `RequiredAttribute`
+
+You can add a `[Required]` attribute before a field that must be filled
+(if you want a mandatory object reference e.g.). It will display an error
+in the Unity console and above its field.
+
+```csharp
+[RequiredAttribute(string name = null)]
+```
+
+```csharp
+using BaseTool;
+using UnityEngine;
+
+public class MyOtherComponent : MonoBehaviour {}
+
+public class MyClass : MonoBehaviour
+{
+    [Required]
+    public Transform Container;
+
+    [Required("Must be used for something")]
+    public MyOtherComponent OtherComponent;
+}
+```
+
+![required_attribute](./Documentation~/Editor/required_attribute.png)
+
 ### `ButtonAttribute`
 
 You can add a `[Button]` attribute before a method to display a button in the inspector.
