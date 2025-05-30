@@ -20,11 +20,23 @@ namespace BaseTool
             get => _value;
             set
             {
+                if (CheckValue && _value is not null && value is not null && _value.Equals(value)) return;
                 var oldValue = _value;
                 _value = value;
                 OnChanged?.Invoke(oldValue, _value);
             }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether value changes should
+        /// be validated before triggering the <see cref="OnChanged"/> event.
+        /// When set to <c>true</c>, the <see cref="Value"/> will not trigger
+        /// the <see cref="OnChanged"/> event for assignments where the new value
+        /// is equal to the current value, based on <see cref="object.Equals"/>.
+        /// Set to <c>false</c> to disable this behavior and always trigger the event
+        /// regardless of value similarity.
+        /// </summary>
+        public bool CheckValue { get; set; } = true;
 
         public event ValueChangedEventHandler OnChanged;
         public delegate void ValueChangedEventHandler(T oldValue, T newValue);
