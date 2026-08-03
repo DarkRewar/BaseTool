@@ -11,6 +11,13 @@ namespace BaseTool.Editor.Todo
         Fixme
     }
 
+#if UNITY_6000_0_OR_NEWER
+    
+    [UxmlElement(nameof(TodoEntry), libraryPath = "BaseTool.Editor.Components")]
+    public partial class TodoEntry : VisualElement
+    {
+        
+#else
     public class TodoEntry : VisualElement
     {
         #region FACTORY & TRAITS
@@ -68,7 +75,8 @@ namespace BaseTool.Editor.Todo
         }
 
         #endregion
-
+#endif
+    
         public const string UssClassname = "todo-entry";
         public const string TodoContainerUssClassname = "todo-container";
         public const string BottomContainerUssClassname = "todo-entry__bottom-container";
